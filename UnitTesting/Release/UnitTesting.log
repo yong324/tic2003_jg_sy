@@ -1,0 +1,10 @@
+﻿  stdafx.cpp
+  TestDatabase.cpp
+  TestTokenizer.cpp
+LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/LTCG' specification
+     Creating library C:\Users\yong3\Documents\Yong\techy\tic2003\WIN_StartupSPASolution\A0227504L\Code_A0227504L\Release\UnitTesting.lib and object C:\Users\yong3\Documents\Yong\techy\tic2003\WIN_StartupSPASolution\A0227504L\Code_A0227504L\Release\UnitTesting.exp
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 2442 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  UnitTesting.vcxproj -> C:\Users\yong3\Documents\Yong\techy\tic2003\WIN_StartupSPASolution\A0227504L\Code_A0227504L\Release\UnitTesting.dll

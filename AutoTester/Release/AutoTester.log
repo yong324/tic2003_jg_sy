@@ -1,0 +1,7 @@
+﻿  TestWrapper.cpp
+C:\Users\yong3\Documents\Yong\techy\tic2003\WIN_StartupSPASolution\A0227504L\Code_A0227504L\AutoTester\source\TestWrapper.cpp(13,39): warning C4356: 'AbstractWrapper::GlobalStop': static data member cannot be initialized via derived class
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 2532 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  AutoTester.vcxproj -> C:\Users\yong3\Documents\Yong\techy\tic2003\WIN_StartupSPASolution\A0227504L\Code_A0227504L\Release\AutoTester.exe
