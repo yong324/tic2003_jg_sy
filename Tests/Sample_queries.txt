@@ -32,4 +32,4 @@ Select rd
 stmt s;
 Select s
 1, 2, 3, 4
-5000
+1000
