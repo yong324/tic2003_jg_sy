@@ -1,5 +1,9 @@
 #include "SourceProcessor.h"
 
+#include <iostream>
+#include <stack>
+#include <string>
+
 // method for processing the source program
 // This method currently only inserts the procedure name into the database
 // using some highly simplified logic.
@@ -19,4 +23,25 @@ void SourceProcessor::process(string program) {
 
 	// insert the procedure into the database
 	Database::insertProcedure(procedureName);
+
+	// todo: insert procedure counter (iter 3)
+	int parent = 0;
+	int bracesCounter = 1;
+	int line = 1;
+
+	stack<pair<string, int>> conditions;
+	bool newProcedure = false;
+
+
+	for (int currToken = 3; currToken < tokens.size(); currToken++) {
+		if (tokens.at(currToken) == "procedure") //procedure p;
+		{
+			currToken++; //get p with tokens.at(currToken) after increment;
+		}
+		if (tokens.at(currToken) == "select") //Select p;
+		{
+			currToken++; //get p with tokens.at(currToken) after increment;
+			//output select statement of "select * from procedure"
+		}
+	}
 }
