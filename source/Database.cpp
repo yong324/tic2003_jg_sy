@@ -13,8 +13,44 @@ void Database::initialize() {
 	string dropProcedureTableSQL = "DROP TABLE IF EXISTS procedures";
 	sqlite3_exec(dbConnection, dropProcedureTableSQL.c_str(), NULL, 0, &errorMessage);
 
+	dropProcedureTableSQL = "DROP TABLE IF EXISTS variable";
+	sqlite3_exec(dbConnection, dropProcedureTableSQL.c_str(), NULL, 0, &errorMessage);
+
+	dropProcedureTableSQL = "DROP TABLE IF EXISTS constant";
+	sqlite3_exec(dbConnection, dropProcedureTableSQL.c_str(), NULL, 0, &errorMessage);
+
+	dropProcedureTableSQL = "DROP TABLE IF EXISTS assignment";
+	sqlite3_exec(dbConnection, dropProcedureTableSQL.c_str(), NULL, 0, &errorMessage);
+
+	dropProcedureTableSQL = "DROP TABLE IF EXISTS print";
+	sqlite3_exec(dbConnection, dropProcedureTableSQL.c_str(), NULL, 0, &errorMessage);
+
+	dropProcedureTableSQL = "DROP TABLE IF EXISTS read";
+	sqlite3_exec(dbConnection, dropProcedureTableSQL.c_str(), NULL, 0, &errorMessage);
+
+	dropProcedureTableSQL = "DROP TABLE IF EXISTS statement";
+	sqlite3_exec(dbConnection, dropProcedureTableSQL.c_str(), NULL, 0, &errorMessage);
+
 	// create a procedure table
 	string createProcedureTableSQL = "CREATE TABLE procedures ( procedureName VARCHAR(255) PRIMARY KEY);";
+	sqlite3_exec(dbConnection, createProcedureTableSQL.c_str(), NULL, 0, &errorMessage);
+
+	createProcedureTableSQL = "CREATE TABLE variables ( variableName VARCHAR(255) PRIMARY KEY);";
+	sqlite3_exec(dbConnection, createProcedureTableSQL.c_str(), NULL, 0, &errorMessage);
+
+	createProcedureTableSQL = "CREATE TABLE constants ( constantName VARCHAR(255) PRIMARY KEY);";
+	sqlite3_exec(dbConnection, createProcedureTableSQL.c_str(), NULL, 0, &errorMessage);
+
+	createProcedureTableSQL = "CREATE TABLE assignments ( assignmentIndex INTEGER PRIMARY KEY);";
+	sqlite3_exec(dbConnection, createProcedureTableSQL.c_str(), NULL, 0, &errorMessage);
+
+	createProcedureTableSQL = "CREATE TABLE prints ( printIndex INTEGER PRIMARY KEY);";
+	sqlite3_exec(dbConnection, createProcedureTableSQL.c_str(), NULL, 0, &errorMessage);
+
+	createProcedureTableSQL = "CREATE TABLE reads ( readIndex INTEGER PRIMARY KEY);";
+	sqlite3_exec(dbConnection, createProcedureTableSQL.c_str(), NULL, 0, &errorMessage);
+
+	createProcedureTableSQL = "CREATE TABLE statements ( statementIndex INTEGER PRIMARY KEY);";
 	sqlite3_exec(dbConnection, createProcedureTableSQL.c_str(), NULL, 0, &errorMessage);
 
 	// initialize the result vector
@@ -31,6 +67,13 @@ void Database::insertProcedure(string procedureName) {
 	string insertProcedureSQL = "INSERT INTO procedures ('procedureName') VALUES ('" + procedureName + "');";
 	sqlite3_exec(dbConnection, insertProcedureSQL.c_str(), NULL, 0, &errorMessage);
 }
+
+// method to insert a procedure into the database
+void Database::insertVariable(string variableName) {
+	string insertProcedureSQL = "INSERT INTO variables ('variableName') VALUES ('" + variableName + "');";
+	sqlite3_exec(dbConnection, insertProcedureSQL.c_str(), NULL, 0, &errorMessage);
+}
+
 
 // method to get all the procedures from the database
 void Database::getProcedures(vector<string>& results){

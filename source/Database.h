@@ -19,6 +19,9 @@ public:
 	// method to insert a procedure into the database
 	static void insertProcedure(string procedureName);
 
+	// method to insert a variable into the database
+	static void insertVariable(string variableName);
+
 	// method to get all the procedures from the database
 	static void getProcedures(vector<string>& results);
 
