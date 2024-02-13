@@ -21,7 +21,7 @@ void SourceProcessor::process(string program) {
 
 	// tokenize the program
 	SourceTokenizer sourceTokenizer;
-	
+
 	vector<string> lines = sourceTokenizer.splitLines(program);
 	vector<vector<string>> tokens = sourceTokenizer.tokenizeLines(lines);
 
@@ -40,16 +40,6 @@ void SourceProcessor::process(string program) {
 
 	// insert the procedure into the database
 	// Database::insertProcedure(procedureName);
-
-	// todo: insert procedure counter (iter 3)
-	int parent = 0;
-	int bracesCounter = 1;
-	int line = 1;
-
-	// todo: insert procedure counter (iter 3)
-	int parent = 0;
-	int bracesCounter = 1;
-	int line = 1;
 
 	stack<pair<string, int>> conditions;
 	bool newProcedure = false;
