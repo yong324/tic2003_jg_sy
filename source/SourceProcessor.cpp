@@ -34,27 +34,19 @@ void SourceProcessor::process(string program) {
 	VariableExtractor variableExtractor;
 	vector<string> variables = variableExtractor.fetchVariableNames(tokens);
 
-	// This logic is highly simplified based on iteration 1 requirements and 
-	// the assumption that the programs are valid.
-	// string procedureName = tokens.at(1);
+	PrintExtractor printExtractor;
+	vector<int> printIdx = printExtractor.fetchPrintLines(tokens);
 
-	// insert the procedure into the database
+	// ConstantExtractor constantExtractor;
+	// vector<int> constants = constantsExtractor.fetchConstantNames(tokens);
+	
+	StatementExtractor statementExtractor;
+	vector<int> statementsIdx = statementExtractor.fetchStatementLines(tokens);
+
+	ReadExtractor readExtractor;
+	vector<int> readsIdx = readExtractor.fetchReadLines(tokens);
+	std::cout << readsIdx[0];
+
 	// Database::insertProcedure(procedureName);
 
-	stack<pair<string, int>> conditions;
-	bool newProcedure = false;
-
-
-	/*for (int currToken = 3; currToken < tokens.size(); currToken++) {
-		if (tokens.at(currToken) == "procedure") //procedure p;
-		{
-			currToken++; //get p with tokens.at(currToken) after increment;
-		}
-		if (tokens.at(currToken) == "select") //Select p;
-		{
-			currToken++; //get p with tokens.at(currToken) after increment;
-			//output select statement of "select * from procedure"
-		}
-	}
-	*/
 }

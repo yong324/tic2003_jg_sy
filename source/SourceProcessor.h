@@ -7,6 +7,9 @@
 #include "ProcedureExtractor.h"
 #include "AssignmentExtractor.h"
 #include "VariableExtractor.h"
+#include "PrintExtractor.h"
+#include "StatementExtractor.h"
+#include "ReadExtractor.h"
 
 using namespace std;
 
