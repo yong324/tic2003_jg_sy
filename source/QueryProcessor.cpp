@@ -1,5 +1,6 @@
 #include "QueryProcessor.h"
 #include "Tokenizer.h"
+#include <map>
 #include <iostream>
 
 // constructor
@@ -22,6 +23,18 @@ void QueryProcessor::evaluate(string query, vector<string>& output) {
 	tk.tokenize(query, tokens);
 
 	// check what type of synonym is being declared
+
+	map<string, string> synonymMap; //will store (p, procedure)
+
+	for (size_t i = 0; i < tokens.size(); ++i) {
+		const string& token = tokens[i];
+		if (token == ";") {
+			string varName = tokens[i - 2];
+			string syn = tokens[i - 1];
+			synonymMap[syn] = varName;
+		}
+	}
+
 	string synonymType = tokens.at(0);
 
 	// create a vector for storing the results from database
