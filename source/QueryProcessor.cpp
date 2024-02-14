@@ -23,17 +23,17 @@ void QueryProcessor::evaluate(string query, vector<string>& output) {
 	tk.tokenize(query, tokens);
 
 	// check what type of synonym is being declared
-
 	map<string, string> synonymMap; //will store (p, procedure)
 	string varName;
 	string synonymType;
+	size_t tIndex = 0;
 
-	for (size_t i = 0; i < tokens.size(); ++i) {
-		const string& token = tokens[i];
+	for (; tIndex < tokens.size(); ++tIndex) {
+		const string& token = tokens[tIndex];
 		if (token == ";") {
-			varName = tokens[i - 1];
-			synonymType = tokens[i - 2];
-			synonymMap[synonymType] = varName;
+			varName = tokens[tIndex - 1];
+			synonymType = tokens[tIndex - 2];
+			synonymMap[varName] = synonymType;
 			break;
 		}
 	}
@@ -44,27 +44,31 @@ void QueryProcessor::evaluate(string query, vector<string>& output) {
 	// call the method in database to retrieve the results
 	// This logic is highly simplified based on iteration 1 requirements and 
 	// the assumption that the queries are valid.
-	
-	map<std::string, std::string> tableNameMap = {
-	{"procedure", "procedures"},
-	{"variable", "variables"},
-	{"constant", "constants"},
-	{"assign", "assignments"},
-	{"print", "prints"},
-	{"read", "reads"},
-	{"stmt", "statements"}
-	};
+	if (tokens[tIndex + 1] == "Select") 	// check for select statement
+	{
+		synonymType = synonymMap[tokens[tIndex + 2]];
+		map<std::string, std::string> tableNameMap = {
+		{"procedure", "procedures"},
+		{"variable", "variables"},
+		{"constant", "constants"},
+		{"assign", "assignments"},
+		{"print", "prints"},
+		{"read", "reads"},
+		{"stmt", "statements"}
+		};
 
 
-	if (!synonymType.empty()) {
-		auto tableName = tableNameMap.find(synonymType);
-		if (tableName != tableNameMap.end()) {
-			Database::getData(tableName->second, databaseResults);
-		}
-		else {
-			throw std::invalid_argument("Unknown Synonym Type: "+ synonymType);
+		if (!synonymType.empty()) {
+			auto tableName = tableNameMap.find(synonymType);
+			if (tableName != tableNameMap.end()) {
+				Database::getData(tableName->second, databaseResults);
+			}
+			else {
+				throw std::invalid_argument("Unknown Synonym Type: " + synonymType);
+			}
 		}
 	}
+
 
 	// post process the results to fill in the output vector
 	for (string databaseResult : databaseResults) {
