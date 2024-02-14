@@ -45,31 +45,25 @@ void QueryProcessor::evaluate(string query, vector<string>& output) {
 	// This logic is highly simplified based on iteration 1 requirements and 
 	// the assumption that the queries are valid.
 	
-	if (!synonymType.empty()) {
-		string tableName = "";
+	map<std::string, std::string> tableNameMap = {
+	{"procedure", "procedures"},
+	{"variable", "variables"},
+	{"constant", "constants"},
+	{"assign", "assignments"},
+	{"print", "prints"},
+	{"read", "reads"},
+	{"stmt", "statements"}
+	};
 
-		if (synonymType == "procedure"){
-			tableName = "procedures";
+
+	if (!synonymType.empty()) {
+		auto tableName = tableNameMap.find(synonymType);
+		if (tableName != tableNameMap.end()) {
+			Database::getData(tableName->second, databaseResults);
 		}
-		if (synonymType == "variable") {
-			tableName = "variables";
+		else {
+			throw std::invalid_argument("Unknown Synonym Type: "+ tableName->second);
 		}
-		if (synonymType == "constant") {
-			tableName = "constants";
-		}
-		if (synonymType == "assign") {
-			tableName = "assignments";
-		}
-		if (synonymType == "print") {
-			tableName = "prints";
-		}
-		if (synonymType == "read") {
-			tableName = "reads";
-		}
-		if (synonymType == "stmt") {
-			tableName = "statements";
-		}
-		Database::getData(tableName,databaseResults);
 	}
 
 	// post process the results to fill in the output vector
