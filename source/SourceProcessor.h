@@ -8,6 +8,7 @@
 #include "AssignmentExtractor.h"
 #include "VariableExtractor.h"
 #include "PrintExtractor.h"
+#include "ConstantExtractor.h"
 #include "StatementExtractor.h"
 #include "ReadExtractor.h"
 

@@ -9,5 +9,8 @@ public:
 	ConstantExtractor();
 	~ConstantExtractor();
 
-	vector<int> fetchConstantNames(vector<vector<string>>& tokens);
+	vector<string> fetchConstantNames(vector<vector<string>>& tokens);
+
+private:
+	bool checkFactorIsConstant(string input);
 };

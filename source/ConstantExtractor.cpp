@@ -7,12 +7,25 @@ using namespace std;
 ConstantExtractor::ConstantExtractor() {};
 ConstantExtractor::~ConstantExtractor() {};
 
-vector<int> ConstantExtractor::fetchConstantNames(vector<vector<string>>& tokens) {
+vector<string> ConstantExtractor::fetchConstantNames(vector<vector<string>>& tokens) {
 
-	vector<int> constantNames;
+	vector<string> constantNames;
+	string varName("");
 	for (vector<string>& line : tokens) {
-		if (line[0] == "read") constantNames.push_back(0);
-		if (line.size() > 1 && line[1] == "=") constantNames.push_back(0);
+		varName = "";
+		if (line.size() > 2 && line[1] == "=") {
+			varName = line[2];
+			if (varName.back() == ';') varName.pop_back();
+			if (checkFactorIsConstant(varName)) constantNames.push_back(varName);
+		}
 	}
 	return constantNames;
+}
+
+bool ConstantExtractor::checkFactorIsConstant(string input) {
+	if (input.size() == 0) return false;
+	for (char& c : input) {
+		if (c < '0' || c > '9') return false;
+	}
+	return true;
 }

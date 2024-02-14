@@ -16,11 +16,14 @@ public:
 	// method to close the database connection
 	static void close();
 
-	// method to insert a procedure into the database
-	static void insertProcedure(string procedureName);
-
-	// method to insert a variable into the database
+	static void insertProcedure(vector<string> procedures);
 	static void insertVariable(string variableName);
+	static void insertAssignment(vector<int> assignmentLineIdx);
+	static void insertVariable(vector<string> variables);
+	static void insertPrint(vector<int> printIdx);
+	static void insertConstant(vector<string> constants);
+	static void insertStatement(vector<int> statementsIdx);
+	static void insertRead(vector<int> readsIdx);
 
 	// method to get all the procedures from the database
 	static void getProcedures(vector<string>& results);

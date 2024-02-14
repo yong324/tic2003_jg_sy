@@ -37,16 +37,21 @@ void SourceProcessor::process(string program) {
 	PrintExtractor printExtractor;
 	vector<int> printIdx = printExtractor.fetchPrintLines(tokens);
 
-	// ConstantExtractor constantExtractor;
-	// vector<int> constants = constantsExtractor.fetchConstantNames(tokens);
+	ConstantExtractor constantExtractor;
+	vector<string> constants = constantExtractor.fetchConstantNames(tokens);
 	
 	StatementExtractor statementExtractor;
 	vector<int> statementsIdx = statementExtractor.fetchStatementLines(tokens);
 
 	ReadExtractor readExtractor;
 	vector<int> readsIdx = readExtractor.fetchReadLines(tokens);
-	std::cout << readsIdx[0];
 
-	// Database::insertProcedure(procedureName);
+	Database::insertProcedure(procedures);
+	Database::insertAssignment(assignmentLineIdx);
+	Database::insertVariable(variables);
+	Database::insertPrint(printIdx);
+	Database::insertConstant(constants);
+	Database::insertStatement(statementsIdx);
+	Database::insertRead(readsIdx);
 
 }
