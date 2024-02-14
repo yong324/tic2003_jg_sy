@@ -62,7 +62,7 @@ void QueryProcessor::evaluate(string query, vector<string>& output) {
 			Database::getData(tableName->second, databaseResults);
 		}
 		else {
-			throw std::invalid_argument("Unknown Synonym Type: "+ tableName->second);
+			throw std::invalid_argument("Unknown Synonym Type: "+ synonymType);
 		}
 	}
 
