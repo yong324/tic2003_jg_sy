@@ -114,6 +114,26 @@ void Database::insertRead(vector<int> readsIdx) {
 	}
 }
 
+void Database::getData(const string& tableName, vector<string>& results) {
+	// Clear existing results
+	dbResults.clear();
+
+	// Construct the SQL query dynamically
+	string sql = "SELECT * FROM " + tableName + ";";
+
+	// Execute the query
+	sqlite3_exec(dbConnection, sql.c_str(), callback, 0, &errorMessage);
+
+	// Postprocess the results from the database so that the output is just a vector of procedure names
+	for (vector<string> dbRow : dbResults) {
+		string result;
+		result = dbRow.at(0);
+		results.push_back(result);
+	}
+}
+
+
+
 // method to get all the procedures from the database
 void Database::getProcedures(vector<string>& results){
 	// clear the existing results
