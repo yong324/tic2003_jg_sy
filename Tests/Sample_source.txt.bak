@@ -1,6 +1,8 @@
-procedure echo { 
-    read num1;
-    index = num1;
-    print num1;
-    print index;
+procedure main {
+	age = 21;
+	name = john;
+	read school;
+	print school;
+	print age;
+	print name;
 }
