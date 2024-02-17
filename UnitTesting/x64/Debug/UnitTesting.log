@@ -1,0 +1,10 @@
+﻿  stdafx.cpp
+  TestDatabase.cpp
+C:\Users\User\Desktop\NUS\TIC2003\A0211346R\Code_A0211346R\UnitTesting\TestDatabase.cpp(18,1): error C2664: 'void Database::insertProcedure(std::vector<std::string,std::allocator<std::string>>)': cannot convert argument 1 from 'const char [6]' to 'std::vector<std::string,std::allocator<std::string>>'
+C:\Users\User\Desktop\NUS\TIC2003\A0211346R\Code_A0211346R\UnitTesting\TestDatabase.cpp(18,1): message : No constructor could take the source type, or constructor overload resolution was ambiguous
+C:\Users\User\Desktop\NUS\TIC2003\A0211346R\Code_A0211346R\source\Database.h(19,14): message : see declaration of 'Database::insertProcedure'
+C:\Users\User\Desktop\NUS\TIC2003\A0211346R\Code_A0211346R\UnitTesting\TestDatabase.cpp(19,1): error C2664: 'void Database::insertProcedure(std::vector<std::string,std::allocator<std::string>>)': cannot convert argument 1 from 'const char [6]' to 'std::vector<std::string,std::allocator<std::string>>'
+C:\Users\User\Desktop\NUS\TIC2003\A0211346R\Code_A0211346R\UnitTesting\TestDatabase.cpp(19,1): message : No constructor could take the source type, or constructor overload resolution was ambiguous
+C:\Users\User\Desktop\NUS\TIC2003\A0211346R\Code_A0211346R\source\Database.h(19,14): message : see declaration of 'Database::insertProcedure'
+  TestTokenizer.cpp
+  Generating Code...
