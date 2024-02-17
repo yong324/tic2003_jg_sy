@@ -8,12 +8,19 @@ using namespace std;
 
 class QueryProcessor {
 public:
-	// default constructor
-	QueryProcessor();
+    // Default constructor
+    QueryProcessor();
 
-	// destructor
-	~QueryProcessor();
+    // Destructor
+    ~QueryProcessor();
 
-	// method for evaluating a query
-	void evaluate(string query, vector<string>& results);
+    // Method for evaluating a query
+    void evaluate(const string& query, vector<string>& results);
+
+private:
+    // Helper method for parsing the query
+    void parseQuery(const string& query, string& varName, string& synonymType);
+
+    // Helper method for evaluating the parsed query
+    void evaluateQuery(const string& varName, const string& synonymType, vector<string>& output);
 };

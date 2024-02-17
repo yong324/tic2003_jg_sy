@@ -3,75 +3,67 @@
 #include <map>
 #include <iostream>
 
-// constructor
-QueryProcessor::QueryProcessor() {}
+// Query Parser
+void QueryProcessor::parseQuery(const string& query, string& varName, string& synonymType) {
+    // Tokenize the query
+    Tokenizer tk;
+    vector<string> tokens;
+    tk.tokenize(query, tokens);
 
-// destructor
-QueryProcessor::~QueryProcessor() {}
+    // Find the synonym declaration
+    size_t tIndex = 0;
+    for (; tIndex < tokens.size(); ++tIndex) {
+        const string& token = tokens[tIndex];
+        if (token == ";") {
+            varName = tokens[tIndex - 1];
+            synonymType = tokens[tIndex - 2];
+            break;
+        }
+    }
+}
 
-// method to evaluate a query
-// This method currently only handles queries for getting all the procedure names,
-// using some highly simplified logic.
-// You should modify this method to complete the logic for handling all required queries.
-void QueryProcessor::evaluate(string query, vector<string>& output) {
-	// clear the output vector
-	output.clear();
+// Query Evaluator
+void QueryProcessor::evaluateQuery(const string& varName, const string& synonymType, vector<string>& output) {
+    // Clear the output vector
+    output.clear();
 
-	// tokenize the query
-	Tokenizer tk;
-	vector<string> tokens;
-	tk.tokenize(query, tokens);
+    // Map synonym type to database table
+    map<string, string> tableNameMap = {
+        {"procedure", "procedures"},
+        {"variable", "variables"},
+        {"constant", "constants"},
+        {"assign", "assignments"},
+        {"print", "prints"},
+        {"read", "reads"},
+        {"stmt", "statements"}
+    };
 
-	// check what type of synonym is being declared
-	map<string, string> synonymMap; //will store (p, procedure)
-	string varName;
-	string synonymType;
-	size_t tIndex = 0;
+    // Get the corresponding table name
+    string tableName;
+    auto tableNameIter = tableNameMap.find(synonymType);
+    if (tableNameIter != tableNameMap.end()) {
+        tableName = tableNameIter->second;
+    }
+    else {
+        throw std::invalid_argument("Unknown Synonym Type: " + synonymType);
+    }
 
-	for (; tIndex < tokens.size(); ++tIndex) {
-		const string& token = tokens[tIndex];
-		if (token == ";") {
-			varName = tokens[tIndex - 1];
-			synonymType = tokens[tIndex - 2];
-			synonymMap[varName] = synonymType;
-			break;
-		}
-	}
+    // Retrieve data from the database
+    vector<string> databaseResults;
+    Database::getData(tableName, databaseResults);
 
-	// create a vector for storing the results from database
-	vector<string> databaseResults;
+    // Post-process results
+    for (const string& databaseResult : databaseResults) {
+        output.push_back(databaseResult);
+    }
+}
 
-	// call the method in database to retrieve the results
-	// This logic is highly simplified based on iteration 1 requirements and 
-	// the assumption that the queries are valid.
-	if (tokens[tIndex + 1] == "Select") 	// check for select statement
-	{
-		synonymType = synonymMap[tokens[tIndex + 2]];
-		map<std::string, std::string> tableNameMap = {
-		{"procedure", "procedures"},
-		{"variable", "variables"},
-		{"constant", "constants"},
-		{"assign", "assignments"},
-		{"print", "prints"},
-		{"read", "reads"},
-		{"stmt", "statements"}
-		};
+// Evaluate method combining Query Parser and Query Evaluator
+void QueryProcessor::evaluate(const string& query, vector<string>& output) {
+    // Parse the query
+    string varName, synonymType;
+    parseQuery(query, varName, synonymType);
 
-
-		if (!synonymType.empty()) {
-			auto tableName = tableNameMap.find(synonymType);
-			if (tableName != tableNameMap.end()) {
-				Database::getData(tableName->second, databaseResults);
-			}
-			else {
-				throw std::invalid_argument("Unknown Synonym Type: " + synonymType);
-			}
-		}
-	}
-
-
-	// post process the results to fill in the output vector
-	for (string databaseResult : databaseResults) {
-		output.push_back(databaseResult);
-	}
+    // Evaluate the parsed query
+    evaluateQuery(varName, synonymType, output);
 }
