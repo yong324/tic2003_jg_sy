@@ -3,6 +3,9 @@
 #include <map>
 #include <iostream>
 
+QueryProcessor::QueryProcessor() {};
+QueryProcessor::~QueryProcessor() {};
+
 // Query Parser
 void QueryProcessor::parseQuery(const string& query, string& varName, string& synonymType) {
     // Tokenize the query
