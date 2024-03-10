@@ -8,50 +8,35 @@ char* Database::errorMessage;
 void Database::initialize() {
 	// open a database connection and store the pointer into dbConnection
 	sqlite3_open("database.db", &dbConnection);
+	vector<string> dropTableSQL = {
+		"DROP TABLE IF EXISTS procedures",
+		"DROP TABLE IF EXISTS variables",
+		"DROP TABLE IF EXISTS constants",
+		"DROP TABLE IF EXISTS assignments",
+		"DROP TABLE IF EXISTS prints",
+		"DROP TABLE IF EXISTS reads",
+		"DROP TABLE IF EXISTS statements",
+		"DROP TABLE IF EXISTS parents",
+		"DROP TABLE IF EXISTS if",
+		"DROP TABLE IF EXISTS while"
+	};
 
-	// drop the existing procedure table (if any)
-	string dropProcedureTableSQL = "DROP TABLE IF EXISTS procedures";
-	sqlite3_exec(dbConnection, dropProcedureTableSQL.c_str(), NULL, 0, &errorMessage);
+	for (string& dropQuery : dropTableSQL)	sqlite3_exec(dbConnection, dropQuery.c_str(), NULL, 0, &errorMessage);
 
-	dropProcedureTableSQL = "DROP TABLE IF EXISTS variables";
-	sqlite3_exec(dbConnection, dropProcedureTableSQL.c_str(), NULL, 0, &errorMessage);
+	vector<string> createTableSQL = {
+		"CREATE TABLE procedures ( procedureName VARCHAR(255) PRIMARY KEY);",
+		"CREATE TABLE variables ( variableName VARCHAR(255) PRIMARY KEY);",
+		"CREATE TABLE constants ( constantNum INTEGER PRIMARY KEY);",
+		"CREATE TABLE assignments ( assignmentIndex INTEGER PRIMARY KEY, variableName VARCHAR(255), assignmentExpression VARCHAR(255));",
+		"CREATE TABLE prints ( printIndex INTEGER PRIMARY KEY, printVariable VARCHAR(255));",
+		"CREATE TABLE reads ( readIndex INTEGER PRIMARY KEY, readVariable VARCHAR(255));",
+		"CREATE TABLE statements ( statementIndex INTEGER PRIMARY KEY, parent INTEGER, statementType VARCHAR(255));",
+		"CREATE TABLE whiles (whileIndex  INTEGER PRIMARY KEY, relExpression VARCHAR(255));",
+		"CREATE TABLE ifs (ifIndex  INTEGER PRIMARY KEY, relExpression VARCHAR(255));",
+		"CREATE TABLE modifies (modifyIndex INTEGER PRIMARY KEY, variableModified VARCHAR(255), modifyType VARCHAR(30));"
+	};
 
-	dropProcedureTableSQL = "DROP TABLE IF EXISTS constants";
-	sqlite3_exec(dbConnection, dropProcedureTableSQL.c_str(), NULL, 0, &errorMessage);
-
-	dropProcedureTableSQL = "DROP TABLE IF EXISTS assignments";
-	sqlite3_exec(dbConnection, dropProcedureTableSQL.c_str(), NULL, 0, &errorMessage);
-
-	dropProcedureTableSQL = "DROP TABLE IF EXISTS prints";
-	sqlite3_exec(dbConnection, dropProcedureTableSQL.c_str(), NULL, 0, &errorMessage);
-
-	dropProcedureTableSQL = "DROP TABLE IF EXISTS reads";
-	sqlite3_exec(dbConnection, dropProcedureTableSQL.c_str(), NULL, 0, &errorMessage);
-
-	dropProcedureTableSQL = "DROP TABLE IF EXISTS statements";
-	sqlite3_exec(dbConnection, dropProcedureTableSQL.c_str(), NULL, 0, &errorMessage);
-
-	// create a procedure table
-	string createProcedureTableSQL = "CREATE TABLE procedures ( procedureName VARCHAR(255) PRIMARY KEY);";
-	sqlite3_exec(dbConnection, createProcedureTableSQL.c_str(), NULL, 0, &errorMessage);
-
-	createProcedureTableSQL = "CREATE TABLE variables ( variableName VARCHAR(255) PRIMARY KEY);";
-	sqlite3_exec(dbConnection, createProcedureTableSQL.c_str(), NULL, 0, &errorMessage);
-
-	createProcedureTableSQL = "CREATE TABLE constants ( constantNum INTEGER PRIMARY KEY);";
-	sqlite3_exec(dbConnection, createProcedureTableSQL.c_str(), NULL, 0, &errorMessage);
-
-	createProcedureTableSQL = "CREATE TABLE assignments ( assignmentIndex INTEGER PRIMARY KEY);";
-	sqlite3_exec(dbConnection, createProcedureTableSQL.c_str(), NULL, 0, &errorMessage);
-
-	createProcedureTableSQL = "CREATE TABLE prints ( printIndex INTEGER PRIMARY KEY);";
-	sqlite3_exec(dbConnection, createProcedureTableSQL.c_str(), NULL, 0, &errorMessage);
-
-	createProcedureTableSQL = "CREATE TABLE reads ( readIndex INTEGER PRIMARY KEY);";
-	sqlite3_exec(dbConnection, createProcedureTableSQL.c_str(), NULL, 0, &errorMessage);
-
-	createProcedureTableSQL = "CREATE TABLE statements ( statementIndex INTEGER PRIMARY KEY);";
-	sqlite3_exec(dbConnection, createProcedureTableSQL.c_str(), NULL, 0, &errorMessage);
+	for (string& createQuery : createTableSQL)	sqlite3_exec(dbConnection, createQuery.c_str(), NULL, 0, &errorMessage);
 
 	// initialize the result vector
 	dbResults = vector<vector<string>>();
@@ -63,55 +48,58 @@ void Database::close() {
 }
 
 // method to insert a procedure into the database
-void Database::insertProcedure(vector<string> procedures) {
-	for (string& procedureName : procedures) {
-		string insertProcedureSQL = "INSERT INTO procedures ('procedureName') VALUES ('" + procedureName + "');";
-		sqlite3_exec(dbConnection, insertProcedureSQL.c_str(), NULL, 0, &errorMessage);
-	}
-}
-
-// method to insert an assignment index into the database
-void Database::insertAssignment(vector<int> assignmentLineIdx) {
-	for (int& idx : assignmentLineIdx) {
-		string insertProcedureSQL = "INSERT INTO assignments ('assignmentIndex') VALUES (" + to_string(idx) + ");";
-		sqlite3_exec(dbConnection, insertProcedureSQL.c_str(), NULL, 0, &errorMessage);
-	}	
+void Database::insertProcedure(string procedureName) {
+	string insertSQL = "INSERT INTO procedures ('procedureName') VALUES ('" + procedureName + "');";
+	sqlite3_exec(dbConnection, insertSQL.c_str(), NULL, 0, &errorMessage);
 }
 
 // method to insert a procedure into the database
-void Database::insertVariable(vector<string> variables) {
-	for (string& variableName : variables) {
-		string insertProcedureSQL = "INSERT INTO variables ('variableName') VALUES ('" + variableName + "');";
-		sqlite3_exec(dbConnection, insertProcedureSQL.c_str(), NULL, 0, &errorMessage);
-	}
+void Database::insertVariable(string variableName) {
+	string insertSQL = "INSERT INTO variables ('variableName') VALUES ('" + variableName + "');";
+	sqlite3_exec(dbConnection, insertSQL.c_str(), NULL, 0, &errorMessage);
+
 }
 
-void Database::insertPrint(vector<int> printIdx) {
-	for (int& idx : printIdx) {
-		string insertProcedureSQL = "INSERT INTO prints ('printIndex') VALUES (" + to_string(idx) + ");";
-		sqlite3_exec(dbConnection, insertProcedureSQL.c_str(), NULL, 0, &errorMessage);
-	}
+void Database::insertConstant(string constant) {
+	string insertSQL = "INSERT INTO constants ('constantNum') VALUES (" + constant + ");";
+	sqlite3_exec(dbConnection, insertSQL.c_str(), NULL, 0, &errorMessage);
 }
 
-void Database::insertConstant(vector<string> constants) {
-	for (string& num : constants) {
-		string insertProcedureSQL = "INSERT INTO constants ('constantNum') VALUES (" + num + ");";
-		sqlite3_exec(dbConnection, insertProcedureSQL.c_str(), NULL, 0, &errorMessage);
-	}
+// method to insert an assignment index into the database
+void Database::insertAssignment(int assignmentLineIdx, string variable, string assignmentExpression) {
+	string insertSQL = "INSERT INTO assignments ('assignmentIndex','variableName','assignmentExpression') VALUES (" + to_string(assignmentLineIdx) + ",'" + variable + "','" + assignmentExpression + "');";
+	sqlite3_exec(dbConnection, insertSQL.c_str(), NULL, 0, &errorMessage);
 }
 
-void Database::insertStatement(vector<int> statementsIdx) {
-	for (int& idx : statementsIdx) {
-		string insertProcedureSQL = "INSERT INTO statements ('statementIndex') VALUES (" + to_string(idx) + ");";
-		sqlite3_exec(dbConnection, insertProcedureSQL.c_str(), NULL, 0, &errorMessage);
-	}
+
+void Database::insertPrint(int printIdx, string printVariable) {
+	string insertSQL = "INSERT INTO prints ('printIndex','printVariable') VALUES (" + to_string(printIdx) + ", '" + printVariable + "'); ";
+	sqlite3_exec(dbConnection, insertSQL.c_str(), NULL, 0, &errorMessage);
 }
 
-void Database::insertRead(vector<int> readsIdx) {
-	for (int& idx : readsIdx) {
-		string insertProcedureSQL = "INSERT INTO reads ('readIndex') VALUES (" + to_string(idx) + ");";
-		sqlite3_exec(dbConnection, insertProcedureSQL.c_str(), NULL, 0, &errorMessage);
-	}
+void Database::insertRead(int readsIdx, string readVariable) {
+	string insertSQL = "INSERT INTO reads ('readIndex','readVariable') VALUES (" + to_string(readsIdx) + ",'" + readVariable + "');";
+	sqlite3_exec(dbConnection, insertSQL.c_str(), NULL, 0, &errorMessage);
+}
+
+void Database::insertStatement(int statementsIdx, int parent, string statementType) {
+	string insertSQL = "INSERT INTO statements ('statementIndex','parent','statementType') VALUES (" + to_string(statementsIdx) + "," + to_string(parent) + ",'"+ statementType + "');";
+	sqlite3_exec(dbConnection, insertSQL.c_str(), NULL, 0, &errorMessage);
+}
+
+void Database::insertWhile(int whileIdx, string relExpression) {
+	string insertSQL = "INSERT INTO whiles ('whileIndex','relExpression') VALUES (" + to_string(whileIdx) + ",'" + relExpression + "');";
+	sqlite3_exec(dbConnection, insertSQL.c_str(), NULL, 0, &errorMessage);
+}
+
+void Database::insertIf(int ifIdx, string relExpression) {
+	string insertSQL = "INSERT INTO ifs ('ifIndex','relExpression') VALUES (" + to_string(ifIdx) + ",'" + relExpression +"');";
+	sqlite3_exec(dbConnection, insertSQL.c_str(), NULL, 0, &errorMessage);
+}
+
+void Database::insertModify(int modifyIdx, string variableModified, string modifyType) {
+	string insertSQL = "INSERT INTO modifies ('modifyIndex','variableModified','modifyType') VALUES (" + to_string(modifyIdx) +",'" + variableModified + "','" + modifyType + "');";
+	sqlite3_exec(dbConnection, insertSQL.c_str(), NULL, 0, &errorMessage);
 }
 
 void Database::getData(const string& tableName, vector<string>& results) {

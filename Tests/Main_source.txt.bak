@@ -4,9 +4,9 @@ procedure main {
     read max;
     while (age < max) {
         if (age/2 < 20) {
-            print 1
+            print x;
         } else {
-            print 2
+            print age;
         }
         age = age + 1;
         print age;

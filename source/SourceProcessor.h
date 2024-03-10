@@ -13,7 +13,6 @@
 #include "ReadExtractor.h"
 #include "Token.h"
 
-
 using namespace std;
 
 class SourceProcessor {
@@ -26,14 +25,14 @@ public:
 	void process(string& program);
 
 private:
-
-	void processProcStatementList(SourceTokenizer& sourceTokenizer, Token& tk);
-	void processWhileStatementList(SourceTokenizer& sourceTokenizer, Token& tk);
-	void processIfStatementList(SourceTokenizer& sourceTokenizer, Token& tk);
-	void processElseStatementList(SourceTokenizer& sourceTokenizer, Token& tk);
-	void processAssignStatement(SourceTokenizer& sourceTokenizer, Token& tk, string& lastReferencedVariable);
-	void processReadStatement(SourceTokenizer& sourceTokenizer, Token& tk);
-	void processPrintStatement(SourceTokenizer& sourceTokenizer, Token& tk);
+	void processStatementList(SourceTokenizer& sourceTokenizer, Token& tk, int parent);
+	void processProcStatementList(SourceTokenizer& sourceTokenizer, Token& tk, int parent);
+	void processWhileStatementList(SourceTokenizer& sourceTokenizer, Token& tk, int parent);
+	void processIfStatementList(SourceTokenizer& sourceTokenizer, Token& tk, int parent);
+	void processElseStatementList(SourceTokenizer& sourceTokenizer, Token& tk, int parent);
+	void processAssignStatement(SourceTokenizer& sourceTokenizer, Token& tk, string& lastReferencedVariable, int parent);
+	void processReadStatement(SourceTokenizer& sourceTokenizer, Token& tk, int parent);
+	void processPrintStatement(SourceTokenizer& sourceTokenizer, Token& tk, int parent);
 	void processVariables(SourceTokenizer& sourceTokenizer, string& lastReferencedVariable, string& variable);
 	void processConstants(SourceTokenizer& sourceTokenizer, string& constant);
 	vector<string> procedures;
@@ -43,5 +42,4 @@ private:
 	vector<int> constants;
 	vector<int> assignmentLineIdx;
 	vector<string> variables;
-
 };
