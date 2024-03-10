@@ -1,47 +1,74 @@
 #include "SourceTokenizer.h"
 #include <iostream>
 #include <sstream>
+#include <string>
 
 using namespace std;
 
 // constructor
-SourceTokenizer::SourceTokenizer() {}
+SourceTokenizer::SourceTokenizer(string& text) {
+	sourceCode = text;
+	position = 0;
+	std::istringstream tokenStream(sourceCode);
+	string token;
+
+	while (std::getline(tokenStream, token, ' ')) {
+		if (token.size() == 0) continue;
+		if (token.back() == '\n') {
+			token.pop_back();
+			if (token.back() == ';') {
+				token.pop_back();
+			}
+			tokens.push_back(token);
+			tokens.push_back("\n");
+			continue;
+		}
+
+		tokens.push_back(token);
+	}
+}
 
 // destructor
 SourceTokenizer::~SourceTokenizer() {}
 
-vector<string> SourceTokenizer::splitString(string& text, char delimiter) {
-	vector<string> split_tokens;
-	std::istringstream tokenStream(text);
-	string token;
-	while (std::getline(tokenStream, token, delimiter)) {
-		split_tokens.push_back(token);
-	}
-	return split_tokens;
+Token SourceTokenizer::getNextToken() {
+	if (sourceCode.size() == 0) return { ENDOFPROGRAM,"" };
+
+	regex lexemeRegex(R"((read|print|if|else|while|[+\-*/();=\}><]|\(([^)]*)\)|\d+|[a-zA-Z][a-zA-Z0-9]*))");
+	smatch match;
+	size_t pos = 0;
+	string lexeme = "";
+	
+	regex_search(sourceCode, match, lexemeRegex);
+	lexeme = match[0].str();
+	Token tk = SourceTokenizer::getTokenType(lexeme);
+
+	pos = match.position() + match.length();
+	sourceCode = match.suffix().str();
+
+	return tk;
 }
 
-vector<string> SourceTokenizer::splitLines(string& text) {
-	vector<string> lines;
-	char delim = '\n';
-	lines=splitString(text,delim);
-	return lines;
-}
 
-vector<vector<string>> SourceTokenizer::tokenizeLines(vector<string>& lines) {
-	string curr;
-	char delim = ' ';
-	vector<string> currTokenizedLine;
-	vector<string> currCleanedTokenizedLine;
-	vector<vector<string>> tokens;
-	for (int i = 0; i < lines.size(); i++) {
-		curr = lines[i];
-		currTokenizedLine = splitString(curr, delim);
-		currCleanedTokenizedLine.clear();
-		for (string& token : currTokenizedLine) {
-			if (token != "") currCleanedTokenizedLine.push_back(token);
-		}
-		if (currCleanedTokenizedLine.size() == 0) continue;
-		tokens.push_back(currCleanedTokenizedLine);
-	}
-	return tokens;
+Token SourceTokenizer::getTokenType(string& lexeme) {
+	if (lexeme == "read") return{ READ,"" };
+	if (lexeme == "procedure") return{ PROCEDURE,"" };
+	if (lexeme == "print") return{ PRINT,"" };
+	if (lexeme == "=") return{ ASSIGN,"=" };
+	if (lexeme == "}") return{ CLOSEBRACKET,"}" };
+	if (lexeme == "(") return{ LEFTPARANTHESIS,"(" };
+	if (lexeme == ")") return{ RIGHTPARANTHESIS,")" };
+	if (lexeme == "while") return{ WHILE,"" };
+	if (lexeme == "if") return{ IF,"" };
+	if (lexeme == "else") return{ ELSE,"" };
+	if (lexeme == ";") return{ ENDOFLINE,";" };
+	if (lexeme == "+") return{ PLUS,"+" };
+	if (lexeme == "-") return{ MINUS,"-" };
+	if (lexeme == "*") return{ MULTIPLY,"*" };
+	if (lexeme == "/") return{ DIVIDE,"/" };
+	if (lexeme == ">") return{ DIVIDE,">" };
+	if (lexeme == "<") return{ DIVIDE,"<" };
+	if (regex_match(lexeme, regex(R"(\(([^)]*)\))"))) return{ RELEXPR, lexeme };
+	if (regex_match(lexeme, regex(R"(\d+)"))) return{ CONSTANT,lexeme };
+	return {VARIABLE,lexeme};
 }

@@ -1,17 +1,23 @@
 #pragma once
 
 #include "Tokenizer.h"
+#include "Token.h"
 #include <string>
 #include <vector>
+#include <regex>
 
 class SourceTokenizer : public Tokenizer {
 
     public:
-        SourceTokenizer();
+        
+        SourceTokenizer(string& text);
         ~SourceTokenizer();
+        Token getNextToken();
 
-        vector<string> splitString(string& text, char delimiter);
-        vector<string> splitLines(string& text);
-        vector<vector<string>> tokenizeLines(vector<string>& tokens);
+    private:
+        vector<string> tokens;
+        size_t position;
+        string sourceCode;
+        Token getTokenType(string& lexeme);
 
 };

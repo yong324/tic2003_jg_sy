@@ -7,11 +7,8 @@ using namespace std;
 ProcedureExtractor::ProcedureExtractor() {};
 ProcedureExtractor::~ProcedureExtractor() {};
 
-vector<string> ProcedureExtractor::fetchProcedureNames(vector<vector<string>>& tokens) {
+vector<string> ProcedureExtractor::fetchProcedureNames(string procName) {
 
-	vector<string> procedureNames;
-	for (vector<string>& line : tokens) {
-		if (line[0] == "procedure") procedureNames.push_back(line[1]);
-	}
+	vector<string> procedureNames{procName};
 	return procedureNames;
 }

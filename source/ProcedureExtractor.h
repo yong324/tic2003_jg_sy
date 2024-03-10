@@ -9,5 +9,5 @@ class ProcedureExtractor : public GrammarExtractor {
 		ProcedureExtractor();
 		~ProcedureExtractor();
 
-		vector<string> fetchProcedureNames(vector<vector<string>>& tokens);
+		vector<string> fetchProcedureNames(string procName);
 };

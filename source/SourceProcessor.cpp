@@ -4,28 +4,35 @@
 #include <stack>
 #include <string>
 
-// method for processing the source program
-// This method currently only inserts the procedure name into the database
-// using some highly simplified logic.
-// You should modify this method to complete the logic for handling all the required syntax.
+SourceProcessor::SourceProcessor() { lineIdx = 1;}
 
-// constructor
-SourceProcessor::SourceProcessor() {}
-
-// destructor
 SourceProcessor::~SourceProcessor() {}
 
-void SourceProcessor::process(string program) {
+void SourceProcessor::process(string& program) {
 	// initialize the database
 	Database::initialize();
+	ProcedureExtractor procedureExtractor;
+
+	string lastReferredVariable="";
 
 	// tokenize the program
-	SourceTokenizer sourceTokenizer;
+	SourceTokenizer sourceTokenizer(program);
+	Token tk = sourceTokenizer.getNextToken();
+	
 
-	vector<string> lines = sourceTokenizer.splitLines(program);
-	vector<vector<string>> tokens = sourceTokenizer.tokenizeLines(lines);
-
-	ProcedureExtractor procedureExtractor;
+	while (tk.type != ENDOFPROGRAM) {
+		if (tk.type == PROCEDURE) {
+			tk = sourceTokenizer.getNextToken();
+			string procName = tk.value;
+			vector<string> procedures = procedureExtractor.fetchProcedureNames(procName);
+			processProcStatementList(sourceTokenizer, tk);
+		} 
+		tk = sourceTokenizer.getNextToken();
+	}
+	
+	return;
+	
+	/*
 	vector<string> procedures = procedureExtractor.fetchProcedureNames(tokens);
 
 	AssignmentExtractor assignmentExtractor;
@@ -53,5 +60,216 @@ void SourceProcessor::process(string program) {
 	Database::insertConstant(constants);
 	Database::insertStatement(statementsIdx);
 	Database::insertRead(readsIdx);
+	*/
 
+}
+
+
+void SourceProcessor::processProcStatementList(SourceTokenizer& sourceTokenizer, Token& tk) {
+	tk = sourceTokenizer.getNextToken();
+	string variableName = "";
+	string lastReferencedVariable = "";
+
+	while (tk.type != CLOSEBRACKET) {
+		if (tk.type == READ) {
+			processReadStatement(sourceTokenizer, tk);
+		}
+		else if (tk.type == PRINT) {
+			processPrintStatement(sourceTokenizer, tk);
+		}
+		else if (tk.type == ASSIGN) {
+			processAssignStatement(sourceTokenizer, tk, lastReferencedVariable);
+		}
+		else if (tk.type == VARIABLE) {
+			processVariables(sourceTokenizer, lastReferencedVariable, tk.value);
+		}
+		else if (tk.type == WHILE) {
+			processWhileStatementList(sourceTokenizer, tk);
+		}
+		else if (tk.type == IF) {
+			processIfStatementList(sourceTokenizer, tk);
+			while (tk.type != ELSE) tk = sourceTokenizer.getNextToken();
+			processElseStatementList(sourceTokenizer, tk);
+		}
+		else if (tk.type == CONSTANT) {
+			processConstants(sourceTokenizer, tk.value);
+		}
+		
+		if (tk.type == ENDOFLINE) {
+			lineIdx++;
+		}
+		tk = sourceTokenizer.getNextToken();
+	}
+
+	return;
+}
+
+void SourceProcessor::processWhileStatementList(SourceTokenizer& sourceTokenizer, Token& tk) {
+	tk = sourceTokenizer.getNextToken();
+	tk = sourceTokenizer.getNextToken(); // once more to skip the opening left paranthesis
+	string relExpr = "";
+	
+	while (tk.type != RIGHTPARANTHESIS) { relExpr.append(tk.value); tk = sourceTokenizer.getNextToken();};
+	lineIdx++;
+
+	string variableName = "";
+	string lastReferencedVariable = "";
+	
+	while (tk.type != CLOSEBRACKET) {
+		if (tk.type == READ) {
+			processReadStatement(sourceTokenizer, tk);
+		}
+		else if (tk.type == PRINT) {
+			processPrintStatement(sourceTokenizer, tk);
+		}
+		else if (tk.type == ASSIGN) {
+			processAssignStatement(sourceTokenizer, tk, lastReferencedVariable);
+		}
+		else if (tk.type == VARIABLE) {
+			processVariables(sourceTokenizer, lastReferencedVariable, tk.value);
+		}
+		else if (tk.type == WHILE) {
+			processWhileStatementList(sourceTokenizer, tk);
+		}
+		else if (tk.type == IF) {
+			processIfStatementList(sourceTokenizer, tk);
+			while (tk.type != ELSE) tk = sourceTokenizer.getNextToken();
+			processElseStatementList(sourceTokenizer, tk);
+		}
+		else if (tk.type == CONSTANT) {
+			processConstants(sourceTokenizer, tk.value);
+		}
+
+		if (tk.type == ENDOFLINE) {
+			lineIdx++;
+		}
+		tk = sourceTokenizer.getNextToken();
+	}
+
+	return;
+}
+
+void SourceProcessor::processIfStatementList(SourceTokenizer& sourceTokenizer, Token& tk) {
+	tk = sourceTokenizer.getNextToken();
+	string relExpr = "";
+
+	while (tk.type != RIGHTPARANTHESIS) { relExpr.append(tk.value); tk = sourceTokenizer.getNextToken(); };
+	lineIdx++;
+
+	string variableName = "";
+	string lastReferencedVariable = "";
+
+	while (tk.type != CLOSEBRACKET) {
+		if (tk.type == READ) {
+			processReadStatement(sourceTokenizer, tk);
+		}
+		else if (tk.type == PRINT) {
+			processPrintStatement(sourceTokenizer, tk);
+		}
+		else if (tk.type == ASSIGN) {
+			processAssignStatement(sourceTokenizer, tk, lastReferencedVariable);
+		}
+		else if (tk.type == VARIABLE) {
+			processVariables(sourceTokenizer, lastReferencedVariable, tk.value);
+		}
+		else if (tk.type == WHILE) {
+			processWhileStatementList(sourceTokenizer, tk);
+		}
+		else if (tk.type == IF) {
+			processIfStatementList(sourceTokenizer, tk);
+			while (tk.type != ELSE) tk = sourceTokenizer.getNextToken();
+			processElseStatementList(sourceTokenizer, tk);
+		}
+		else if (tk.type == CONSTANT) {
+			processConstants(sourceTokenizer, tk.value);
+		}
+
+		if (tk.type == ENDOFLINE) {
+			lineIdx++;
+		}
+		tk = sourceTokenizer.getNextToken();
+	}
+
+	return;
+}
+
+void SourceProcessor::processElseStatementList(SourceTokenizer& sourceTokenizer, Token& tk) {
+	tk = sourceTokenizer.getNextToken();
+	lineIdx++;
+
+	string variableName = "";
+	string lastReferencedVariable = "";
+
+	while (tk.type != CLOSEBRACKET) {
+		if (tk.type == READ) {
+			processReadStatement(sourceTokenizer, tk);
+		}
+		else if (tk.type == PRINT) {
+			processPrintStatement(sourceTokenizer, tk);
+		}
+		else if (tk.type == ASSIGN) {
+			processAssignStatement(sourceTokenizer, tk, lastReferencedVariable);
+		}
+		else if (tk.type == VARIABLE) {
+			processVariables(sourceTokenizer, lastReferencedVariable, tk.value);
+		}
+		else if (tk.type == WHILE) {
+			processWhileStatementList(sourceTokenizer, tk);
+		}
+		else if (tk.type == IF) {
+			processIfStatementList(sourceTokenizer, tk);
+			while (tk.type != ELSE) tk = sourceTokenizer.getNextToken();
+			processElseStatementList(sourceTokenizer, tk);
+		}
+		else if (tk.type == CONSTANT) {
+			processConstants(sourceTokenizer, tk.value);
+		}
+
+		if (tk.type == ENDOFLINE) {
+			lineIdx++;
+		}
+		tk = sourceTokenizer.getNextToken();
+	}
+
+	return;
+}
+
+
+
+void SourceProcessor::processAssignStatement(SourceTokenizer& sourceTokenizer, Token& tk, string& lastReferencedVariable) {
+	string lhs_expression = lastReferencedVariable;
+	string rhs_expression = "";
+	tk = sourceTokenizer.getNextToken();
+
+	while (tk.type != ENDOFLINE) {
+		rhs_expression.append(tk.value);
+		tk = sourceTokenizer.getNextToken();
+	}
+
+	return;
+}
+
+void SourceProcessor::processVariables(SourceTokenizer& sourceTokenizer, string& lastReferencedVariable, string& variable) {
+	lastReferencedVariable = variable;
+	variables.push_back(variable);
+	return;
+}
+
+
+void SourceProcessor::processConstants(SourceTokenizer& sourceTokenizer, string& constant) {
+	constants.push_back(stoi(constant));
+	return;
+}
+
+void SourceProcessor::processReadStatement(SourceTokenizer& sourceTokenizer, Token& tk) {
+	tk = sourceTokenizer.getNextToken();
+	variables.push_back(tk.value);
+	return;
+}
+
+void SourceProcessor::processPrintStatement(SourceTokenizer& sourceTokenizer, Token& tk) {
+	printIdx.push_back(lineIdx);
+	tk = sourceTokenizer.getNextToken();
+	if (tk.type == CONSTANT) constants.push_back(stoi(tk.value));
+	return;
 }
