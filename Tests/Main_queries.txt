@@ -33,3 +33,33 @@ stmt s;
 Select s
 1, 2, 3, 4, 5, 6
 5000
+8 - line 2 modifies age [TRUE]
+procedure p;
+Select p such that Modifies(2,"age")
+main
+5000
+9 - line 1 modifies age [FALSE]
+procedure p;
+Select p such that Modifies(1,"age")
+
+5000
+10 - line 3 modifies max [TRUE]
+procedure p;
+Select p such that Modifies(4,"max")
+main
+5000
+11 - line 4 is parent of line 5 [TRUE]
+procedure p;
+Select p such that Parent(4,5)
+main
+5000
+12 - line 4 is parent of line 8 [TRUE]
+procedure p;
+Select p such that Parent(4,8)
+main
+5000
+13 - line 4 is parent of line 14 [FALSE]
+procedure p;
+Select p such that Parent(4,14)
+
+5000

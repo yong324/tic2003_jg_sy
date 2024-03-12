@@ -27,16 +27,14 @@ public:
 	static void insertIf(int ifIdx, string relExpression);
 	static void insertModify(int modifyIdx, string variableModified, string modifyType);
 
-	
-	
-	
-	
 
 	// method to get all the procedures from the database
 	static void getProcedures(vector<string>& results);
 
 	// Select * from tableName
 	static void getData(const string& tableName, vector<string>& results);
+
+	static void getModifies(std::string& paraLeft, std::string& paraRight, vector<string>& results);
 
 private:
 	// the connection pointer to the database

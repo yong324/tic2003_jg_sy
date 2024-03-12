@@ -22,5 +22,9 @@ private:
     void parseQuery(const string& query, string& varName, string& synonymType);
 
     // Helper method for evaluating the parsed query
-    void evaluateQuery(const string& varName, const string& synonymType, vector<string>& output);
+    void evaluateSelectQuery(const string& varName, const string& synonymType, vector<string>& output);
+
+    bool findSuchThat(const std::string& query, std::string& extractedQuery);
+    void parseSuchThatQuery(const std::string& str, std::string& functionName, std::string& paraLeft, std::string& paraRight);
+    bool evaluateSuchThatQuery(std::string& suchThatQuery);
 };
