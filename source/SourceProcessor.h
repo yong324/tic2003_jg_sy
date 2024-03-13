@@ -4,13 +4,6 @@
 #include <vector>
 #include "Database.h"
 #include "SourceTokenizer.h"
-#include "ProcedureExtractor.h"
-#include "AssignmentExtractor.h"
-#include "VariableExtractor.h"
-#include "PrintExtractor.h"
-#include "ConstantExtractor.h"
-#include "StatementExtractor.h"
-#include "ReadExtractor.h"
 #include "Token.h"
 
 using namespace std;

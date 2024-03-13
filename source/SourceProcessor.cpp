@@ -10,7 +10,6 @@ SourceProcessor::~SourceProcessor() {}
 
 void SourceProcessor::process(string& program) {
 	Database::initialize();
-	ProcedureExtractor procedureExtractor;
 
 	string lastReferredVariable="";
 
@@ -57,7 +56,6 @@ void SourceProcessor::processStatementList(SourceTokenizer& sourceTokenizer, Tok
 			Database::insertStatement(lineIdx, parent, "IF");
 			processIfStatementList(sourceTokenizer, tk, forIdx);
 			while (tk.type != ELSE) tk = sourceTokenizer.getNextToken();
-			Database::insertStatement(lineIdx, forIdx, "ELSE");
 			processElseStatementList(sourceTokenizer, tk, forIdx);
 		}
 		else if (tk.type == CONSTANT) {
@@ -122,7 +120,6 @@ void SourceProcessor::processIfStatementList(SourceTokenizer& sourceTokenizer, T
 
 void SourceProcessor::processElseStatementList(SourceTokenizer& sourceTokenizer, Token& tk, int parent) {
 	tk = sourceTokenizer.getNextToken();
-	lineIdx++;
 	processStatementList(sourceTokenizer, tk, parent);
 
 	return;
