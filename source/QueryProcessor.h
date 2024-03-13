@@ -27,4 +27,5 @@ private:
     bool findSuchThat(const std::string& query, std::string& extractedQuery);
     void parseSuchThatQuery(const std::string& str, std::string& functionName, std::string& paraLeft, std::string& paraRight);
     bool evaluateSuchThatQuery(std::string& suchThatQuery);
+    bool checkParentRelationship(int parentLine, int childLine);
 };

@@ -119,12 +119,34 @@ bool QueryProcessor::evaluateSuchThatQuery(std::string& suchThatQuery)
 
     if (functionName == "Modifies") {
         Database::getModifies(paraLeft, paraRight, databaseResults);
+        // Return true if vector is not empty, false otherwise
+        return !databaseResults.empty();
     }
+
+    if (functionName == "Parent") {
+        int parentLine = stoi(paraLeft);
+        int childLine = stoi(paraRight);
+
+        return checkParentRelationship(parentLine, childLine);
+    }    
     
-    // Return true if vector is not empty, false otherwise
-    return !databaseResults.empty();
+    return false;
 }
 
+bool QueryProcessor::checkParentRelationship(int parentLine, int childLine) {
+    
+    int currParentLine = Database::getParentLine(childLine);
+    
+    while (currParentLine != 0)
+    {
+        if (currParentLine == parentLine)
+        {
+            return true;
+        }
+        currParentLine = Database::getParentLine(currParentLine);
+    }
+    return false;
+}
 
 // Evaluate method combining Query Parser and Query Evaluator
 void QueryProcessor::evaluate(const string& query, vector<string>& output) {

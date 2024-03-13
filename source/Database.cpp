@@ -139,6 +139,34 @@ void Database::getModifies(std::string& paraLeft, std::string& paraRight, vector
 	}
 }
 
+int Database::getParentLine(int childLine) {
+	// Clear existing results
+	dbResults.clear();
+
+	// Construct the SQL query to find the parent of the given child line
+	string sql = "SELECT parent FROM statements WHERE statementIndex = " + std::to_string(childLine) + ";";
+
+	// Execute the query
+	sqlite3_stmt* stmt;
+	if (sqlite3_prepare_v2(Database::dbConnection, sql.c_str(), -1, &stmt, NULL) != SQLITE_OK) {
+		return -1; // Return -1 to indicate an error
+	}
+
+
+	int parentLine = -1; // Initialize parentLine with a default value
+	// Execute the query
+	sqlite3_exec(dbConnection, sql.c_str(), callback, 0, &errorMessage);
+
+	// Postprocess the results from the database so that the output is just a vector of procedure names
+	for (vector<string> dbRow : dbResults) {
+		string result;
+		parentLine = stoi(dbRow.at(0)); 
+		//results.push_back(result);
+	}
+
+	return parentLine;
+}
+
 
 
 // method to get all the procedures from the database

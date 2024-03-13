@@ -36,6 +36,8 @@ public:
 
 	static void getModifies(std::string& paraLeft, std::string& paraRight, vector<string>& results);
 
+	static int getParentLine(int childLine);
+
 private:
 	// the connection pointer to the database
 	static sqlite3* dbConnection; 
