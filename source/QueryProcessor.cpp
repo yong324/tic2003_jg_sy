@@ -127,7 +127,9 @@ bool QueryProcessor::evaluateSuchThatQuery(std::string& suchThatQuery)
         int parentLine = stoi(paraLeft);
         int childLine = stoi(paraRight);
 
-        return checkParentRelationship(parentLine, childLine);
+        Database::getChildren(parentLine, databaseResults);
+
+        return !databaseResults.empty();
     }    
     
     return false;

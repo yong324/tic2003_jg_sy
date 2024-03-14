@@ -139,6 +139,24 @@ void Database::getModifies(std::string& paraLeft, std::string& paraRight, vector
 	}
 }
 
+void Database::getChildren(int parentIndex, vector<string>& results) {
+	// Clear existing results
+	dbResults.clear();
+
+	string sql = "SELECT statementIndex FROM statements WHERE parent = ?" + std::to_string(parentIndex) + ";";
+
+	int parentLine = -1; // Initialize parentLine with a default value
+	// Execute the query
+	sqlite3_exec(dbConnection, sql.c_str(), callback, 0, &errorMessage);
+
+	// Postprocess the results from the database so that the output is just a vector of procedure names
+	for (vector<string> dbRow : dbResults) {
+		string result;
+		parentLine = stoi(dbRow.at(0));
+		results.push_back(result);
+	}
+}
+
 int Database::getParentLine(int childLine) {
 	// Clear existing results
 	dbResults.clear();
