@@ -32,7 +32,7 @@ public:
 	static void getProcedures(vector<string>& results);
 
 	// Select * from tableName
-	static void getData(const string& tableName, vector<string>& results);
+	static void getData(const string& tableName, vector<vector<string>>& results);
 
 	static void getModifies(std::string& paraLeft, std::string& paraRight, vector<string>& results);
 

@@ -102,7 +102,8 @@ void Database::insertModify(int modifyIdx, string variableModified, string modif
 	sqlite3_exec(dbConnection, insertSQL.c_str(), NULL, 0, &errorMessage);
 }
 
-void Database::getData(const string& tableName, vector<string>& results) {
+void Database::getData(const string& tableName, vector<vector<string>>& results)
+{
 	// Clear existing results
 	dbResults.clear();
 
@@ -110,14 +111,9 @@ void Database::getData(const string& tableName, vector<string>& results) {
 	string sql = "SELECT * FROM " + tableName + ";";
 
 	// Execute the query
-	sqlite3_exec(dbConnection, sql.c_str(), callback, 0, &errorMessage);
+	sqlite3_exec(dbConnection, sql.c_str(), callback, nullptr, &errorMessage);
 
-	// Postprocess the results from the database so that the output is just a vector of procedure names
-	for (vector<string> dbRow : dbResults) {
-		string result;
-		result = dbRow.at(0);
-		results.push_back(result);
-	}
+	results = dbResults;
 }
 
 void Database::getModifies(std::string& paraLeft, std::string& paraRight, vector<string>& results)

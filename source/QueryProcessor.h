@@ -3,10 +3,13 @@
 #include <string>
 #include <vector>
 #include "Database.h"
+#include "Query.h"
+#include "SelectionStructure.h"
 
 using namespace std;
 
-class QueryProcessor {
+class QueryProcessor
+{
 public:
     // Default constructor
     QueryProcessor();
@@ -19,13 +22,8 @@ public:
 
 private:
     // Helper method for parsing the query
-    void parseQuery(const string& query, string& varName, string& synonymType);
+    Query* parseQuery(const string& query);
 
     // Helper method for evaluating the parsed query
-    void evaluateSelectQuery(const string& varName, const string& synonymType, vector<string>& output);
-
-    bool findSuchThat(const std::string& query, std::string& extractedQuery);
-    void parseSuchThatQuery(const std::string& str, std::string& functionName, std::string& paraLeft, std::string& paraRight);
-    bool evaluateSuchThatQuery(std::string& suchThatQuery);
-    bool checkParentRelationship(int parentLine, int childLine);
+    void evaluateQuery(const Query& query, vector<string>& output);
 };
