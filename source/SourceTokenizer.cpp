@@ -9,23 +9,6 @@ using namespace std;
 SourceTokenizer::SourceTokenizer(string& text) {
 	sourceCode = text;
 	position = 0;
-	std::istringstream tokenStream(sourceCode);
-	string token;
-
-	while (std::getline(tokenStream, token, ' ')) {
-		if (token.size() == 0) continue;
-		if (token.back() == '\n') {
-			token.pop_back();
-			if (token.back() == ';') {
-				token.pop_back();
-			}
-			tokens.push_back(token);
-			tokens.push_back("\n");
-			continue;
-		}
-
-		tokens.push_back(token);
-	}
 }
 
 // destructor
