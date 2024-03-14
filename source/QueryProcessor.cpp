@@ -137,7 +137,7 @@ bool QueryProcessor::checkParentRelationship(int parentLine, int childLine) {
     
     int currParentLine = Database::getParentLine(childLine);
     
-    while (currParentLine != 0)
+    while (currParentLine != 0 && currParentLine != -1)
     {
         if (currParentLine == parentLine)
         {
