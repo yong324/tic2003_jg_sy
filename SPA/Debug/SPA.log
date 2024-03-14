@@ -1,8 +1,2 @@
-﻿  QueryProcessor.cpp
-  SourceProcessor.cpp
-  Database.cpp
-  SourceTokenizer.cpp
-  Tokenizer.cpp
-  Generating Code...
-  sqlite3.c
+﻿  Database.cpp
   SPA.vcxproj -> C:\Users\User\Desktop\NUS\TIC2003\A0211346R\Code_A0211346R\Debug\SPA.lib

@@ -36,6 +36,8 @@ public:
 
 	static void getModifies(std::string& paraLeft, std::string& paraRight, vector<string>& results);
 
+	static void getChildren(int parentIndex, vector<string>& results);
+
 	static int getParentLine(int childLine);
 
 private:
