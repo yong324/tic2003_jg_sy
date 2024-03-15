@@ -8,10 +8,10 @@ assign a;
 Select a such that Parent (5,a)
 6,7
 5000
-3 - SELECT WHILE LOOPS THAT HAS PRINTS
+3 - SELECT PRINTS THAT HAS WHILE AS PARENTS
 print p; while w;
 Select p such that Parent (w,p)
-5
+11
 5000
 4 - SELECT ASSIGNMENTS IN WHILE LOOP
 assign a; while w;
@@ -25,7 +25,7 @@ Select i such that Parent* (i,a)
 5000
 6 - SELECT WHILE LOOPS THAT HAS PRINTS
 print p; while w;
-Select p such that Parent* (w,p)
+Select w such that Parent* (w,p)
 5
 5000
 7 - SELECT ALL READ VARIABLES
@@ -79,12 +79,12 @@ Select v such that Modifies (a,v) pattern a (_,_"x"_)
 x,y,z
 5000
 17 - SELECT ASSIGNMENTS THAT MODIFIES "x" AND HAS "z" IN RHS EXPRESSION
-variable v; assign a;
+assign a;
 Select a such that Modifies (a,"x") pattern (_,_"z"_)
 
 5000
-18 - SELECT 
-assign a; while w;
+18 - SELECT VARIABLES THAT ARE MODIFIED WHERE LHS = "y"
+assign a; variable v;
 Select v such that Modifies (a,v) pattern ("y", _)
 y
 5000
