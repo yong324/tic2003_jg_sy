@@ -1,97 +1,56 @@
 <?xml-stylesheet type="text/xsl" href="analysis.xsl"?>
 <test_results>
 <info>
-<name>AutoTester</name><parsing_time_taken>620.000000</parsing_time_taken>
+<name>AutoTester</name><parsing_time_taken>447.000000</parsing_time_taken>
 </info>
 <queries>
 <query>
-<id ReturnTuple="1" Parent="1" SuchThat="1" CondNum="3" RelNum="1" comment="SELECT ASSIGNMENTS THAT HAVE LINEIDX 5 AS PARENTS">1</id><querystr><![CDATA[assign a;  Select a such that Parent (6,a)]]></querystr>
-<stuans>7,8</stuans>
-<correct>7,8</correct>
-<time_taken>20.000000</time_taken>
+<id ReturnTuple="1" Parent="1" SuchThat="1" CondNum="3" RelNum="1" comment="SELECT ASSIGNMENTS IN WHILE LOOP">1</id><querystr><![CDATA[assign a; while w; Select a such that Parent (w,a)]]></querystr>
+<stuans>6,7</stuans>
+<correct>6,7</correct>
+<time_taken>5.000000</time_taken>
 <passed/>
 </query>
 <query>
-<id ReturnTuple="1" Parentstar="1" SuchThat="1" CondNum="3" RelNum="1" comment="SELECT ASSIGNMENTS IN WHILE LOOP">2</id><querystr><![CDATA[assign a; while w; Select a such that Parent* (w,a)]]></querystr>
-<exception/>
-</query>
-<query>
-<id ReturnTuple="1" Modifies="1" SuchThat="1" CondNum="3" RelNum="1" comment="SELECT ALL READ VARIABLES">3</id><querystr><![CDATA[read r; variable v; Select v such that Modifies (r,v)]]></querystr>
-<stuans></stuans>
-<correct>middle</correct>
-<time_taken>10.000000</time_taken>
-<failed>
-<missing>middle</missing>
-<additional></additional>
-<summary>
-<expected>1</expected>
-<matched>0</matched>
-<missing>1</missing>
-<additional>0</additional>
-</summary>
-</failed>
-</query>
-<query>
-<id ReturnTuple="1" Parentstar="1" SuchThat="1" CondNum="3" RelNum="1" comment="SELECT IF LOOPS THAT HAS ASSIGNMENTS">4</id><querystr><![CDATA[assign a; if i; Select i such that Parent* (i,a)]]></querystr>
-<exception/>
-</query>
-<query>
-<id ReturnTuple="1" Parent="1" SuchThat="1" CondNum="3" RelNum="1" comment="SELECT WHILE LOOPS THAT HAS PRINTS">5</id><querystr><![CDATA[print p; while w; Select p such that Parent (w,p)]]></querystr>
-<stuans></stuans>
-<correct></correct>
-<time_taken>10.000000</time_taken>
+<id ReturnTuple="1" Parent="1" SuchThat="1" CondNum="3" RelNum="1" comment="SELECT ASSIGNMENTS THAT HAVE LINEIDX 5 AS PARENTS">2</id><querystr><![CDATA[assign a;  Select a such that Parent (5,a)]]></querystr>
+<stuans>6,7</stuans>
+<correct>6,7</correct>
+<time_taken>4.000000</time_taken>
 <passed/>
 </query>
 <query>
-<id ReturnTuple="1" Parent="1" SuchThat="1" CondNum="3" RelNum="1" comment="SELECT ASSIGNMENTS IN WHILE LOOP">6</id><querystr><![CDATA[assign a; while w; Select a such that Parent (w,a)]]></querystr>
-<stuans>9,10,13,14,15</stuans>
-<correct>9,10,13,14,15</correct>
-<time_taken>12.000000</time_taken>
+<id ReturnTuple="1" Parent="1" SuchThat="1" CondNum="3" RelNum="1" comment="SELECT PRINTS THAT HAS WHILE AS PARENTS">3</id><querystr><![CDATA[print p; while w; Select p such that Parent (w,p)]]></querystr>
+<stuans>11</stuans>
+<correct>11</correct>
+<time_taken>4.000000</time_taken>
 <passed/>
 </query>
 <query>
-<id ReturnTuple="1" Parentstar="1" SuchThat="1" CondNum="3" RelNum="1" comment="SELECT WHILE LOOPS THAT HAS PRINTS">7</id><querystr><![CDATA[print p; while w; Select p such that Parent* (w,p)]]></querystr>
+<id ReturnTuple="1" Parentstar="1" SuchThat="1" CondNum="3" RelNum="1" comment="SELECT ASSIGNMENTS IN WHILE LOOP">4</id><querystr><![CDATA[assign a; while w; Select a such that Parent* (w,a)]]></querystr>
 <exception/>
 </query>
 <query>
-<id ReturnTuple="1" Modifies="1" SuchThat="1" CondNum="3" RelNum="1" comment="SELECT VARIABLES MODIFIED IN LINE 7">8</id><querystr><![CDATA[variable v; Select v such that Modifies (10,v)]]></querystr>
-<stuans></stuans>
-<correct>row</correct>
-<time_taken>10.000000</time_taken>
-<failed>
-<missing>row</missing>
-<additional></additional>
-<summary>
-<expected>1</expected>
-<matched>0</matched>
-<missing>1</missing>
-<additional>0</additional>
-</summary>
-</failed>
+<id ReturnTuple="1" Parentstar="1" SuchThat="1" CondNum="3" RelNum="1" comment="SELECT IF LOOPS THAT HAS ASSIGNMENTS">5</id><querystr><![CDATA[assign a; if i; Select i such that Parent* (i,a)]]></querystr>
+<exception/>
 </query>
 <query>
-<id ReturnTuple="1" UnnamedVar="2" Pattern="1" CondNum="4" RelNum="0" comment="SELECT ASSIGNMENTS WITH "row" IN RHS">9</id><querystr><![CDATA[assign a; Select a pattern a( _ , _"row"_)]]></querystr>
-<stuans>1,2,7,8,9,10,13,14,15,16</stuans>
-<correct>10,13,16</correct>
-<time_taken>12.000000</time_taken>
-<failed>
-<missing></missing>
-<additional>1,14,15,2,7,8,9</additional>
-<summary>
-<expected>3</expected>
-<matched>3</matched>
-<missing>0</missing>
-<additional>7</additional>
-</summary>
-</failed>
+<id ReturnTuple="1" Parentstar="1" SuchThat="1" CondNum="3" RelNum="1" comment="SELECT WHILE LOOPS THAT HAS PRINTS">6</id><querystr><![CDATA[print p; while w; Select w such that Parent* (w,p)]]></querystr>
+<exception/>
 </query>
 <query>
-<id ReturnTuple="1" Modifies="1" UnnamedVar="1" SuchThat="1" CondNum="4" RelNum="1" comment="SELECT ALL STATEMENTS THAT MODIFIES "col"">10</id><querystr><![CDATA[assign a; Select a such that Modifies (_,"col")]]></querystr>
+<id ReturnTuple="1" Modifies="1" SuchThat="1" CondNum="3" RelNum="1" comment="SELECT ALL READ VARIABLES">7</id><querystr><![CDATA[read r; variable v; Select v such that Modifies (r,v)]]></querystr>
+<stuans>x</stuans>
+<correct>x</correct>
+<time_taken>4.000000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" Modifies="1" UnnamedVar="1" SuchThat="1" CondNum="4" RelNum="1" comment="SELECT ALL STATEMENTS THAT MODIFIES "x"">8</id><querystr><![CDATA[assign a; Select a such that Modifies (_,"x")]]></querystr>
 <stuans></stuans>
-<correct>2,9,14</correct>
-<time_taken>13.000000</time_taken>
+<correct>1,4,7</correct>
+<time_taken>4.000000</time_taken>
 <failed>
-<missing>14,2,9</missing>
+<missing>1,4,7</missing>
 <additional></additional>
 <summary>
 <expected>3</expected>
@@ -102,12 +61,74 @@
 </failed>
 </query>
 <query>
-<id ReturnTuple="1" UnnamedVar="1" Pattern="1" CondNum="3" RelNum="0" comment="SELECT ASSIGNMENTS WHERE LHS = "eig"">11</id><querystr><![CDATA[assign a; Select a pattern a( "eig" , _ )]]></querystr>
-<stuans></stuans>
-<correct>16</correct>
-<time_taken>14.000000</time_taken>
+<id ReturnTuple="1" Modifies="1" SuchThat="1" CondNum="3" RelNum="1" comment="SELECT VARIABLES MODIFIED IN LINE 7">9</id><querystr><![CDATA[variable v; Select v such that Modifies (7,v)]]></querystr>
+<stuans>x</stuans>
+<correct>x</correct>
+<time_taken>5.000000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" UnnamedVar="2" Pattern="1" CondNum="4" RelNum="0" comment="SELECT ASSIGNMENTS WITH "x" IN RHS">10</id><querystr><![CDATA[assign a; Select a pattern a ( _ , _"x"_)]]></querystr>
+<stuans>2,3,4,6,7,9,10,13,14</stuans>
+<correct>4,7,10,13</correct>
+<time_taken>4.000000</time_taken>
 <failed>
-<missing>16</missing>
+<missing></missing>
+<additional>14,2,3,6,9</additional>
+<summary>
+<expected>4</expected>
+<matched>4</matched>
+<missing>0</missing>
+<additional>5</additional>
+</summary>
+</failed>
+</query>
+<query>
+<id ReturnTuple="1" UnnamedVar="1" Pattern="1" CondNum="3" RelNum="0" comment="SELECT ASSIGNMENTS WHERE LHS = "y"">11</id><querystr><![CDATA[assign a; Select a pattern a ( "y" , _ )]]></querystr>
+<stuans></stuans>
+<correct>2,6,13</correct>
+<time_taken>5.000000</time_taken>
+<failed>
+<missing>13,2,6</missing>
+<additional></additional>
+<summary>
+<expected>3</expected>
+<matched>0</matched>
+<missing>3</missing>
+<additional>0</additional>
+</summary>
+</failed>
+</query>
+<query>
+<id ReturnTuple="1" Pattern="1" CondNum="2" RelNum="0" comment="SELECT ASSIGNMENTS WHERE LHS = "y" and rhs = "x"">12</id><querystr><![CDATA[assign a; Select a pattern a ( "y" , "x" )]]></querystr>
+<stuans>2,3,4,6,7,9,10,13,14</stuans>
+<correct>13</correct>
+<time_taken>4.000000</time_taken>
+<failed>
+<missing></missing>
+<additional>10,14,2,3,4,6,7,9</additional>
+<summary>
+<expected>1</expected>
+<matched>1</matched>
+<missing>0</missing>
+<additional>8</additional>
+</summary>
+</failed>
+</query>
+<query>
+<id ReturnTuple="1" Parent="1" UnnamedVar="2" Pattern="1" SuchThat="1" CondNum="6" RelNum="1" comment="SELECT ALL WHILE LOOPS THAT HAS AN ASSIGNMENT WITH "x" IN RHS">13</id><querystr><![CDATA[assign a; while w; Select w such that Parent (w,a) pattern a ( _ , _"x"_)]]></querystr>
+<stuans>5,5</stuans>
+<correct>5</correct>
+<time_taken>6.000000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" Parent="1" UnnamedVar="1" Pattern="1" SuchThat="1" CondNum="5" RelNum="1" comment="SELECT ALL ASSIGNMENTS THAT HAS AN ASSIGNMENT WITH "y" IN LHS THAT ARE IN IF LOOPS">14</id><querystr><![CDATA[assign a; if i; Select a such that Parent (i,a) pattern a ("y", _)]]></querystr>
+<stuans></stuans>
+<correct>13</correct>
+<time_taken>6.000000</time_taken>
+<failed>
+<missing>13</missing>
 <additional></additional>
 <summary>
 <expected>1</expected>
@@ -118,40 +139,4 @@
 </failed>
 </query>
 <query>
-<id ReturnTuple="1" Parent="1" Pattern="1" SuchThat="1" CondNum="4" RelNum="1" comment="SELECT IF LOOPS THAT HAS ASSIGNMENT middle = middle + 5">12</id><querystr><![CDATA[assign a; if i; Select i such that Parent (i,a) pattern ("middle","middle+5")]]></querystr>
-<stuans>6,6,12,12,12</stuans>
-<correct>7</correct>
-<time_taken>16.000000</time_taken>
-<failed>
-<missing>7</missing>
-<additional>12,6</additional>
-<summary>
-<expected>1</expected>
-<matched>0</matched>
-<missing>1</missing>
-<additional>2</additional>
-</summary>
-</failed>
-</query>
-<query>
-<id ReturnTuple="1" Parent="1" UnnamedVar="2" Pattern="1" SuchThat="1" CondNum="6" RelNum="1" comment="SELECT ALL WHILE LOOPS THAT HAS AN ASSIGNMENT WITH "middle" IN RHS">13</id><querystr><![CDATA[assign a; while w; Select w such that Parent (w,a) pattern a ( _ , _"middle"_)]]></querystr>
-<stuans>4,5,12,12,12</stuans>
-<correct>5,12</correct>
-<time_taken>17.000000</time_taken>
-<failed>
-<missing></missing>
-<additional>4</additional>
-<summary>
-<expected>2</expected>
-<matched>2</matched>
-<missing>0</missing>
-<additional>1</additional>
-</summary>
-</failed>
-</query>
-<query>
-<id ReturnTuple="1" Parentstar="1" UnnamedVar="2" Pattern="1" SuchThat="1" CondNum="6" RelNum="1" comment="SELECT ASSIGNMENTS IN IF LOOPS THAT HAS "row" IN LHS AND "row" IN RHS">14</id><querystr><![CDATA[assign a; if i; Select i such that Parent* (i,a) pattern a ( _"row"_ , _"row"_)]]></querystr>
-<exception/>
-</query>
-<query>
-<id ReturnTuple="1" Parent="1" UnnamedVar="1" Pattern="1" SuchThat="1" CondNum="5" RelNum="1" comment="SELECT IF LOOPS THAT HAS AN ASSIGNMENT WITH LHS = "row" AND RHS HAS "col"">15</id><querystr><![CDATA[assign a; if i; select i such that Parent(i,a) pattern a ("row",_"col"_)]]></querystr>
+<id ReturnTuple="1" Parent="1" UnnamedVar="1" Pattern="1" SuchThat="1" CondNum="5" RelNum="1" comment="SELECT IF LOOPS THAT HAS AN ASSIGNMENT WITH LHS = "y" AND RHS HAS "X"">15</id><querystr><![CDATA[assign a; if i; select i such that Parent(i,a) pattern a ("y",_"x"_)]]></querystr>

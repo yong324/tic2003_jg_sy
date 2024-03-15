@@ -17,8 +17,8 @@ void Database::initialize() {
 		"DROP TABLE IF EXISTS reads",
 		"DROP TABLE IF EXISTS statements",
 		"DROP TABLE IF EXISTS parents",
-		"DROP TABLE IF EXISTS if",
-		"DROP TABLE IF EXISTS while"
+		"DROP TABLE IF EXISTS ifs",
+		"DROP TABLE IF EXISTS whiles"
 	};
 
 	for (string& dropQuery : dropTableSQL)	sqlite3_exec(dbConnection, dropQuery.c_str(), NULL, 0, &errorMessage);
