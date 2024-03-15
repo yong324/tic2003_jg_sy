@@ -10,12 +10,12 @@ class Query
 private:
     vector<Synonym> synonyms;
     string selectionVar;
-    SelectionStructure *structure;   
-    
+    vector<SelectionStructure*> structures;
+
 public:
     static map<string, string> tableNameMap;
-    
-    Query(const vector<Synonym>& synonyms, const string& selection_var, SelectionStructure* structure);
+
+    Query(const vector<Synonym>& synonyms, const string& selection_var, vector<SelectionStructure*> structures);
 
     ~Query();
 

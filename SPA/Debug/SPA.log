@@ -1,14 +1,6 @@
 ﻿  QueryProcessor.cpp
-  SourceProcessor.cpp
-  Database.cpp
-  SourceTokenizer.cpp
-  Tokenizer.cpp
-  PatternSelection.cpp
-  SelectionStructure.cpp
-  SuchThatSelection.cpp
-  Synonym.cpp
   Query.cpp
   Generating Code...
-C:\Users\User\Desktop\NUS\TIC2003\A0211346R\Code_A0211346R\source\QueryProcessor.cpp(124): warning C4715: 'QueryProcessor::parseQuery': not all control paths return a value
+C:\Users\User\Desktop\NUS\TIC2003\A0211346R\Code_A0211346R\source\QueryProcessor.cpp(137): warning C4715: 'QueryProcessor::parseQuery': not all control paths return a value
   sqlite3.c
   SPA.vcxproj -> C:\Users\User\Desktop\NUS\TIC2003\A0211346R\Code_A0211346R\Debug\SPA.lib

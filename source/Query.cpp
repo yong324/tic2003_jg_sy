@@ -11,26 +11,29 @@ map<string, string> Query::tableNameMap = {
     {"assign", "assignments"},
     {"print", "prints"},
     {"read", "reads"},
-    {"stmt", "statements"}
+    {"stmt", "statements"},
+    {"while", "whiles"},
+    {"if", "ifs"}
 };
 
-Query::Query(const vector<Synonym>& synonyms, const string& selection_var, SelectionStructure* structure):
+Query::Query(const vector<Synonym>& synonyms, const string& selection_var, vector<SelectionStructure*> structures) :
     synonyms(synonyms),
     selectionVar(selection_var),
-    structure(structure)
+    structures(structures)
 {
 }
 
 Query::~Query()
 {
-    delete structure;
+    for (const auto structure : structures)
+        delete structure;
 }
 
 void Query::evaluate(vector<string>& output) const
 {
     map<string, vector<vector<string>>> tables{};
-    const Synonym *selection_synonym = nullptr;
-    for (const auto &synonym : synonyms)
+    const Synonym* selection_synonym = nullptr;
+    for (const auto& synonym : synonyms)
     {
         tables.insert_or_assign(synonym.get_var_name(), vector<vector<string>>());
         Database::getData(tableNameMap.at(synonym.get_type()), tables.at(synonym.get_var_name()));
@@ -40,11 +43,16 @@ void Query::evaluate(vector<string>& output) const
         }
     }
 
-    const auto results = structure->select(tables, *selection_synonym);
-
-    // Post-process results
-    for (const string& result : results)
+    // TODO: Later implement multiple structures here
+    for (const auto& structure : structures)
     {
-        output.push_back(result);
+        structure->select(tables, *selection_synonym);
+    }
+
+    const auto& table = tables.at(selectionVar);
+    // Post-process results
+    for (const auto& record : table)
+    {
+        output.push_back(record[0]);
     }
 }

@@ -14,5 +14,5 @@ public:
     PatternSelection(string synonym, string ent_ref_type, string ent_ref, string spec_type,
         string expression_spec);
 
-    vector<string> select(map<string, vector<vector<string>>>& tables, const Synonym& selection_synonym) override;
+    void select(map<string, vector<vector<string>>>& tables, const Synonym& selection_synonym) override;
 };

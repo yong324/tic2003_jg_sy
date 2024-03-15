@@ -14,10 +14,11 @@ PatternSelection::PatternSelection(string synonym, string ent_ref_type, string e
 {
 }
 
-vector<string> PatternSelection::select(map<string, vector<vector<string>>>& tables, const Synonym& selection_synonym)
+void PatternSelection::select(map<string, vector<vector<string>>>& tables, const Synonym& selection_synonym)
 {
-    const auto table = tables.at(selection_synonym.get_var_name());
-    vector<string> results;
+    const auto& table = tables.at(selection_synonym.get_var_name());
+
+    vector<vector<string>> selected{};
 
     vector<vector<string>> assignmentsTable;
     Database::getData("assignments", assignmentsTable);
@@ -28,10 +29,11 @@ vector<string> PatternSelection::select(map<string, vector<vector<string>>>& tab
             if ((entRef == "_" || entRef == assignment[1]) && (expression_spec == "_" ||
                 assignment[2].find(expression_spec) != string::npos))
             {
-                results.push_back(record[0]);
+                selected.push_back(record);
                 break;
             }
         }
     }
-    return results;
+
+    tables.insert_or_assign(selection_synonym.get_var_name(), selected);
 }

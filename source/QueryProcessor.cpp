@@ -50,76 +50,89 @@ Query* QueryProcessor::parseQuery(const string& query)
 
         tIndex++;
 
-        SelectionStructure* selection_structure = nullptr;
+        vector<SelectionStructure*> selection_structures{};
 
         if (tIndex >= tokens.size())
         {
-            selection_structure = new SelectionStructure();
+            selection_structures.push_back(new SelectionStructure());
         }
-        else if (tokens[tIndex] == "such")
+        else
         {
-            tIndex += 2;
-            string synonym = tokens[tIndex];
-            tIndex += 2;
-            string ref1 = tokens[tIndex];
-            tIndex += 2;
-            string ref2_type = "stmtRef";
-            if (tokens[tIndex] == "\"")
-            {
-                ref2_type = "entRef";
-                tIndex++;
-            }
-            string ref2 = tokens[tIndex];
-
-            selection_structure = new SuchThatSelection(synonym, "stmtRef", ref1, ref2_type, ref2);
-        }
-        else if (tokens[tIndex] == "pattern")
-        {
-            string entRef;
-            string express_spec;
-
-            string synonymVar = tokens[tIndex + 1];
-            tIndex += 3;
-
-            string entRef_type;
-            if (tokens[tIndex] == "_")
-            {
-                entRef_type = "any";
-                entRef = "_";
-                tIndex += 2;
-            }
-            else
-            {
-                if (tokens[tIndex] == "\"")
+            while (tIndex < tokens.size()) {
+                if (tokens[tIndex] == "such")
                 {
-                    entRef = tokens[tIndex + 1];
+                    tIndex += 2;
+                    string synonym = tokens[tIndex];
+                    tIndex += 2;
+                    string ref1 = tokens[tIndex];
+                    tIndex += 2;
+                    string ref2_type = "stmtRef";
+                    if (tokens[tIndex] == "\"")
+                    {
+                        ref2_type = "entRef";
+                        tIndex++;
+                    }
+                    string ref2 = tokens[tIndex];
+
+                    while (tokens[tIndex++] != ")") {}
+
+                    selection_structures.push_back(new SuchThatSelection(synonym, "stmtRef", ref1, ref2_type, ref2));
+                }
+                else if (tokens[tIndex] == "pattern")
+                {
+                    string entRef;
+                    string express_spec;
+
+                    string synonymVar = tokens[tIndex + 1];
                     tIndex += 3;
-                    entRef_type = "IDENT";
+
+                    string entRef_type;
+                    if (tokens[tIndex] == "_")
+                    {
+                        entRef_type = "any";
+                        entRef = "_";
+                        tIndex += 2;
+                    }
+                    else
+                    {
+                        if (tokens[tIndex] == "\"")
+                        {
+                            entRef = tokens[tIndex + 1];
+                            tIndex += 3;
+                            entRef_type = "IDENT";
+                        }
+                        else
+                        {
+                            entRef = tokens[tIndex];
+                            tIndex += 2;
+                            entRef_type = "synonym";
+                        }
+                    }
+
+                    string spec_type;
+                    if (tokens[tIndex] == "_")
+                    {
+                        express_spec = "_";
+                        spec_type = "any";
+                        tIndex += 2;
+                    }
+                    else
+                    {
+                        express_spec = tokens[tIndex + 2];
+                        spec_type = "factor";
+                        tIndex += 4;
+                    }
+
+                    selection_structures.push_back(new PatternSelection(synonymVar, entRef_type, entRef, spec_type, express_spec));
                 }
                 else
                 {
-                    entRef = tokens[tIndex];
-                    tIndex += 2;
-                    entRef_type = "synonym";
+                    break;
                 }
             }
-
-            string spec_type;
-            if (tokens[tIndex] == "_")
-            {
-                express_spec = "_";
-                spec_type = "any";
-            }
-            else
-            {
-                express_spec = tokens[tIndex + 2];
-                spec_type = "factor";
-            }
-
-            selection_structure = new PatternSelection(synonymVar, entRef_type, entRef, spec_type, express_spec);
         }
 
-        return new Query{ synonyms, selectionVar, selection_structure };
+        return new Query{ synonyms, selectionVar, selection_structures };
     }
 }
 

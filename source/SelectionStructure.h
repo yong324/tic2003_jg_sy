@@ -11,5 +11,5 @@ class SelectionStructure
 {
 public:
     virtual ~SelectionStructure();
-    virtual vector<string> select(map<string, vector<vector<string>>>& tables, const Synonym& selection_synonym);
+    virtual void select(map<string, vector<vector<string>>>& tables, const Synonym& selection_synonym);
 };
