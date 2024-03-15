@@ -125,6 +125,7 @@ void Database::insertModify(int modifyIdx, string variableModified, string modif
     sqlite3_exec(dbConnection, insertSQL.c_str(), nullptr, nullptr, &errorMessage);
 }
 
+//Extract the whole data from the table
 void Database::getData(const string& tableName, vector<vector<string>>& results)
 {
     // Clear existing results

@@ -2,6 +2,7 @@
 
 #include "Database.h"
 
+// Constructor for SuchThatSelection initializes the object with the details of the "such that" clause.
 SuchThatSelection::SuchThatSelection(string synonyms, string ref1_type, string ref1, string ref2_type, string ref2) :
     synonyms(std::move(synonyms)),
     ref1_type(std::move(ref1_type)),
@@ -11,8 +12,11 @@ SuchThatSelection::SuchThatSelection(string synonyms, string ref1_type, string r
 {
 }
 
+// The select method applies the "such that" condition to filter data in the tables map.
+// This method specifically evaluates the "such that" relation and retains rows in the table that meet the condition.
 void SuchThatSelection::select(map<string, vector<vector<string>>>& tables, const Synonym& selection_synonym)
 {
+    // The implementation details will depend on the specific "such that" relationship (e.g., Modifies, Uses, Parent, etc.).
     string var1 = ref1;
     string var2 = ref2;
 
@@ -23,6 +27,7 @@ void SuchThatSelection::select(map<string, vector<vector<string>>>& tables, cons
     const vector<vector<string>>* tableX = nullptr;
     const vector<vector<string>>* tableY = nullptr;
 
+    // Determine the table and column mappings based on the provided reference types and values.
     if (!isdigit(ref1[0]) && ref1 != "_" && ref1_type == "stmtRef")
     {
         table1 = &tables.at(ref1);
@@ -55,6 +60,7 @@ void SuchThatSelection::select(map<string, vector<vector<string>>>& tables, cons
         vector<vector<string>> modifiesTable;
         Database::getData("modifies", modifiesTable);
 
+        // If both tables (X and Y) are identified, filter rows based on the cross-referencing logic.
         if (tableX != nullptr)
         {
             if (tableY != nullptr)
@@ -99,6 +105,7 @@ void SuchThatSelection::select(map<string, vector<vector<string>>>& tables, cons
         }
         else if (tableY != nullptr)
         {
+            // If only tableY is identified, iterate over the main table and filter using tableY and modifiesTable.
             for (auto& record : table)
             {
                 for (const auto& recordY : *tableY)
@@ -405,5 +412,6 @@ void SuchThatSelection::select(map<string, vector<vector<string>>>& tables, cons
             }
         }
     }
+    // After applying all filters, update the table for the selection synonym to only include the selected rows.
     tables.insert_or_assign(selection_synonym.get_var_name(), selected);
 }

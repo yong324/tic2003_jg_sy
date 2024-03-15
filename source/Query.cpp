@@ -4,6 +4,7 @@
 
 #include "Database.h"
 
+// Static map to associate string representations with table names in the database.
 map<string, string> Query::tableNameMap = {
     {"procedure", "procedures"},
     {"variable", "variables"},
@@ -16,6 +17,7 @@ map<string, string> Query::tableNameMap = {
     {"if", "ifs"}
 };
 
+// Constructor for the Query class that initializes the Query object with provided details.
 Query::Query(const vector<Synonym>& synonyms, const string& selection_var, vector<SelectionStructure*> structures) :
     synonyms(synonyms),
     selectionVar(selection_var),
@@ -23,16 +25,20 @@ Query::Query(const vector<Synonym>& synonyms, const string& selection_var, vecto
 {
 }
 
+// Destructor for the Query class that cleans up dynamically allocated SelectionStructures.
 Query::~Query()
 {
     for (const auto structure : structures)
         delete structure;
 }
 
+// The evaluate method processes the Query object to fetch and filter data as per the query's definition.
 void Query::evaluate(vector<string>& output) const
 {
     map<string, vector<vector<string>>> tables{};
     const Synonym* selection_synonym = nullptr;
+
+    // Populate tables with data from the database for each synonym.
     for (const auto& synonym : synonyms)
     {
         tables.insert_or_assign(synonym.get_var_name(), vector<vector<string>>());
@@ -44,6 +50,7 @@ void Query::evaluate(vector<string>& output) const
     }
 
     // TODO: Later implement multiple structures here
+    // Apply selection structures to filter the results.
     if (structures.size() == 2)
     {
         structures[1]->select(tables, *selection_synonym);
@@ -54,8 +61,8 @@ void Query::evaluate(vector<string>& output) const
         structures[0]->select(tables, *selection_synonym);
     }
 
+    // Collect the results post selection and filtering.
     const auto& table = tables.at(selectionVar);
-    // Post-process results
     for (const auto& record : table)
     {
         output.push_back(record[0]);

@@ -40,7 +40,7 @@ row
 5000
 9 - SELECT ASSIGNMENTS WITH "row" IN RHS
 assign a;
-Select a pattern a( _ , "row")
+Select a pattern a( _ , _"row"_)
 10,13,16
 5000
 10 - SELECT ALL STATEMENTS THAT MODIFIES "col"
@@ -60,22 +60,22 @@ Select i such that Parent (i,a) pattern a ("middle","middle+5")
 5000
 13 - SELECT ALL WHILE LOOPS THAT HAS AN ASSIGNMENT WITH "middle" IN RHS
 assign a; while w;
-Select w such that Parent (w,a) pattern a ( _ , "middle")
+Select w such that Parent (w,a) pattern a ( _ , _"middle"_)
 12
 5000
 14 - SELECT ASSIGNMENTS IN IF LOOPS THAT HAS "row" IN LHS AND "row" IN RHS
 assign a; if i;
-Select i such that Parent* (i,a) pattern a ( "row" , "row")
+Select i such that Parent* (i,a) pattern a ( "row" , _"row"_)
 
 5000
 15 - SELECT IF LOOPS THAT HAS AN ASSIGNMENT WITH LHS = "row" AND RHS HAS "col"
 assign a; if i;
-Select i such that Parent(i,a) pattern a ("row","col")
+Select i such that Parent(i,a) pattern a ("row",_"col"_)
 
 5000
 16 - SELECT VARIABLES THAT ARE MODIFIED THAT HAS "col" IN RHS EXPRESSION
 variable v; assign a;
-Select v such that Modifies (a,v) pattern a (,"col"_) 
+Select v such that Modifies (a,v) pattern a (_,_"col"_) 
 col, eig
 5000
 17 - SELECT VARIABLE COL
@@ -90,12 +90,12 @@ Select a pattern a( "middle", "row" )
 5000
 20 - SELECT ASSIGNMENTS THAT MODIFIES "row" AND HAS "row" IN RHS EXPRESSION
 variable v; assign a;
-Select a such that Modifies (a,"row") pattern a (,"row"_)
+Select a such that Modifies (a,"row") pattern a (_,_"row"_)
 10,13
 5000
 21 - SELECT ASSIGNMENTS IN WHILE LOOP THAT HAS "middle" IN RHS
 assign a; while w;
-Select a such that Parent* (w,a) pattern a ( _ , "middle")
+Select a such that Parent* (w,a) pattern a ( _ , _"middle"_)
 7,8,15
 5000
 22 -  SELECT ALL ASSIGNMENTS THAT HAS AN ASSIGNMENT WITH "middle" IN LHS THAT ARE IN IF LOOPS 

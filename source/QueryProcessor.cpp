@@ -2,10 +2,10 @@
 #include "Tokenizer.h"
 #include <map>
 #include <iostream>
-
 #include "PatternSelection.h"
 #include "SuchThatSelection.h"
 
+// QueryProcessor class is responsible for parsing and evaluating queries.
 QueryProcessor::QueryProcessor()
 {
 };
@@ -14,17 +14,19 @@ QueryProcessor::~QueryProcessor()
 {
 };
 
-// Query Parser
+// Parses the given query string and constructs a Query object.
+// It tokenizes the query, identifies synonyms, selection variables, and conditions.
 Query* QueryProcessor::parseQuery(const string& query)
 {
     // Tokenize the query
     Tokenizer tk;
     vector<string> tokens{};
-    tk.tokenize(query, tokens);
+    tk.tokenize(query, tokens); // Tokenizing the query string
 
     vector<Synonym> synonyms;
     // Find the synonym declaration
     size_t tIndex = 0;
+    // Parsing synonyms and their types
     for (; tIndex < tokens.size(); ++tIndex)
     {
         const string& token = tokens[tIndex];
@@ -41,14 +43,14 @@ Query* QueryProcessor::parseQuery(const string& query)
         }
     }
 
+    // Parsing the selection variable
     tIndex += 2;
-
     string selectionVar = tokens[tIndex];
-
     tIndex++;
 
     vector<SelectionStructure*> selection_structures{};
 
+    // Parsing additional structures like SuchThat and Pattern
     if (tIndex >= tokens.size())
     {
         selection_structures.push_back(new SelectionStructure());
@@ -152,7 +154,7 @@ Query* QueryProcessor::parseQuery(const string& query)
     return new Query{ synonyms, selectionVar, selection_structures };
 }
 
-// Query Evaluator
+// Evaluates the given Query object to produce the output results.
 void QueryProcessor::evaluateQuery(const Query& query, vector<string>& output)
 {
     // Clear the output vector
@@ -161,7 +163,7 @@ void QueryProcessor::evaluateQuery(const Query& query, vector<string>& output)
     query.evaluate(output);
 }
 
-// Evaluate method combining Query Parser and Query Evaluator
+// Combines parsing and evaluation of a query to produce the output results.
 void QueryProcessor::evaluate(const string& query, vector<string>& output)
 {
     // Parse the query
