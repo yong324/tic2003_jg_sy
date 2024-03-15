@@ -45,17 +45,17 @@ x
 5000
 10 - SELECT ASSIGNMENTS WITH "x" IN RHS
 assign a;
-Select a pattern a( _ , _"x"_)
+Select a pattern a ( _ , _"x"_)
 4,7,10,13
 5000
 11 - SELECT ASSIGNMENTS WHERE LHS = "y"
 assign a;
-Select a pattern a( "y" , _ )
+Select a pattern a ( "y" , _ )
 2,6,13
 5000
 12 - SELECT ASSIGNMENTS WHERE LHS = "y" and rhs = "x"
 assign a;
-Select a pattern a( "y" , "x" )
+Select a pattern a ( "y" , "x" )
 13
 5000
 13 - SELECT ALL WHILE LOOPS THAT HAS AN ASSIGNMENT WITH "x" IN RHS
@@ -80,17 +80,17 @@ x,y,z
 5000
 17 - SELECT ASSIGNMENTS THAT MODIFIES "x" AND HAS "z" IN RHS EXPRESSION
 assign a;
-Select a such that Modifies (a,"x") pattern (_,_"z"_)
+Select a such that Modifies (a,"x") pattern a (_,_"z"_)
 
 5000
 18 - SELECT VARIABLES THAT ARE MODIFIED WHERE LHS = "y"
 assign a; variable v;
-Select v such that Modifies (a,v) pattern ("y", _)
+Select v such that Modifies (a,v) pattern a ("y", _)
 y
 5000
 19 - SELECT PROCEDURES WITH THE ASSIGNMENT STATEMENT x = y+1
 procedure p; assign a;
-Select p such that Modifies (p,a) pattern ( "x","y+1")
+Select p such that Modifies (p,a) pattern a ( "x","y+1")
 
 5000
 20 - SELECT ASSIGNMENTS IN WHILE LOOP THAT HAS "z" IN RHS
@@ -105,6 +105,6 @@ Select i such that Parent* (i,a) pattern a ( _ , _"z"_)
 5000
 22 - SELECT IF LOOPS THAT HAS ASSIGNMENT z = y
 assign a; if i;
-Select i such that Parent (i,a) pattern ("z","y")
+Select i such that Parent (i,a) pattern a ("z","y")
 12
 5000
