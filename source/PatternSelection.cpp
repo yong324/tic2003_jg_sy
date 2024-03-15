@@ -16,24 +16,19 @@ PatternSelection::PatternSelection(string synonym, string ent_ref_type, string e
 
 void PatternSelection::select(map<string, vector<vector<string>>>& tables, const Synonym& selection_synonym)
 {
-    const auto& table = tables.at(selection_synonym.get_var_name());
+    const auto& synonym_table = tables.at(synonym);
 
     vector<vector<string>> selected{};
 
-    vector<vector<string>> assignmentsTable;
-    Database::getData("assignments", assignmentsTable);
-    for (const auto& record : table)
+    for (const auto& assign : synonym_table)
     {
-        for (const auto& assignment : assignmentsTable)
+        if ((entRef == "_" || entRef == assign[1]) && (expression_spec == "_" ||
+            spec_type == "exact" && expression_spec == assign[2] || spec_type == "factor" && assign[2].
+            find(expression_spec) != string::npos))
         {
-            if ((entRef == "_" || entRef == assignment[1]) && (expression_spec == "_" ||
-                assignment[2].find(expression_spec) != string::npos))
-            {
-                selected.push_back(record);
-                break;
-            }
+            selected.push_back(assign);
         }
     }
 
-    tables.insert_or_assign(selection_synonym.get_var_name(), selected);
+    tables.insert_or_assign(synonym, selected);
 }

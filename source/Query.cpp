@@ -44,9 +44,14 @@ void Query::evaluate(vector<string>& output) const
     }
 
     // TODO: Later implement multiple structures here
-    for (const auto& structure : structures)
+    if (structures.size() == 2)
     {
-        structure->select(tables, *selection_synonym);
+        structures[1]->select(tables, *selection_synonym);
+        structures[0]->select(tables, *selection_synonym);
+    }
+    else
+    {
+        structures[0]->select(tables, *selection_synonym);
     }
 
     const auto& table = tables.at(selectionVar);

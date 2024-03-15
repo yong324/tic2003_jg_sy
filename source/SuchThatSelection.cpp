@@ -13,10 +13,6 @@ SuchThatSelection::SuchThatSelection(string synonyms, string ref1_type, string r
 
 void SuchThatSelection::select(map<string, vector<vector<string>>>& tables, const Synonym& selection_synonym)
 {
-    /*
-    * stmtRef: synonym | ‘_’ | INTEGER
-    * entRef: synonym | ‘_’ | ‘"’ IDENT ‘"’
-     */
     string var1 = ref1;
     string var2 = ref2;
 
@@ -27,7 +23,7 @@ void SuchThatSelection::select(map<string, vector<vector<string>>>& tables, cons
     const vector<vector<string>>* tableX = nullptr;
     const vector<vector<string>>* tableY = nullptr;
 
-    if (!isdigit(ref1[0]) && ref2_type == "stmtRef")
+    if (!isdigit(ref1[0]) && ref1 != "_" && ref1_type == "stmtRef")
     {
         table1 = &tables.at(ref1);
         if (ref1 == selection_synonym.get_var_name())
@@ -40,7 +36,7 @@ void SuchThatSelection::select(map<string, vector<vector<string>>>& tables, cons
         }
     }
 
-    if (!isdigit(ref2[0]) && ref2_type == "stmtRef")
+    if (!isdigit(ref2[0]) && ref2 != "_" && ref2_type == "stmtRef")
     {
         table2 = &tables.at(ref2);
         if (ref2 == selection_synonym.get_var_name())
@@ -67,14 +63,20 @@ void SuchThatSelection::select(map<string, vector<vector<string>>>& tables, cons
                 {
                     for (const auto& recordY : *tableY)
                     {
+                        bool found = false;
                         for (const auto& modify : modifiesTable)
                         {
                             if (tableX == table1 && modify[1] == recordY[0] && modify[0] == recordX[0] ||
                                 tableY == table1 && modify[1] == recordX[0] && modify[0] == recordY[0])
                             {
                                 selected.push_back(recordX);
+                                found = true;
                                 break;
                             }
+                        }
+                        if (found)
+                        {
+                            break;
                         }
                     }
                 }
@@ -85,8 +87,8 @@ void SuchThatSelection::select(map<string, vector<vector<string>>>& tables, cons
                 {
                     for (const auto& modify : modifiesTable)
                     {
-                        if (tableX == table1 && modify[1] == ref2 && modify[0] == recordX[0] ||
-                            tableX == table2 && modify[1] == recordX[0] && modify[0] == ref1)
+                        if (tableX == table1 && (ref2 == "_" || modify[1] == ref2) && modify[0] == recordX[0] ||
+                            tableX == table2 && modify[1] == recordX[0] && (ref1 == "_" || modify[0] == ref1))
                         {
                             selected.push_back(recordX);
                             break;
@@ -101,10 +103,37 @@ void SuchThatSelection::select(map<string, vector<vector<string>>>& tables, cons
             {
                 for (const auto& recordY : *tableY)
                 {
+                    bool found = false;
                     for (const auto& modify : modifiesTable)
                     {
-                        if (tableY == table1 && modify[1] == ref2 && modify[0] == recordY[0] ||
-                            tableY == table2 && modify[1] == recordY[0] && modify[0] == ref1)
+                        if (tableY == table1 && (ref2 == "_" || modify[1] == ref2) && modify[0] == recordY[0] ||
+                            tableY == table2 && modify[1] == recordY[0] && (ref1 == "_" || modify[0] == ref1))
+                        {
+                            selected.push_back(record);
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (found)
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+        else
+        {
+            if (ref1 == "_" && selection_synonym.get_type() == "assign")
+            {
+                for (auto& record : table)
+                {
+                    for (const auto& modify : modifiesTable)
+                    {
+                        if (record[0] != modify[0])
+                        {
+                            continue;
+                        }
+                        if (ref2 == "_" || modify[1] == ref2)
                         {
                             selected.push_back(record);
                             break;
@@ -112,17 +141,17 @@ void SuchThatSelection::select(map<string, vector<vector<string>>>& tables, cons
                     }
                 }
             }
-        }
-        else
-        {
-            for (auto& record : table)
+            else
             {
-                for (const auto& modify : modifiesTable)
+                for (auto& record : table)
                 {
-                    if (modify[0] == ref1 && modify[1] == ref2)
+                    for (const auto& modify : modifiesTable)
                     {
-                        selected.push_back(record);
-                        break;
+                        if ((ref1 == "_" || modify[0] == ref1) && (ref2 == "_" || modify[1] == ref2))
+                        {
+                            selected.push_back(record);
+                            break;
+                        }
                     }
                 }
             }
@@ -140,14 +169,20 @@ void SuchThatSelection::select(map<string, vector<vector<string>>>& tables, cons
                 {
                     for (const auto& recordY : *tableY)
                     {
+                        bool found = false;
                         for (const auto& statement : statementsTable)
                         {
                             if (tableX == table1 && statement[0] == recordY[0] && statement[1] == recordX[0] ||
                                 tableY == table1 && statement[0] == recordX[0] && statement[1] == recordY[0])
                             {
                                 selected.push_back(recordX);
+                                found = true;
                                 break;
                             }
+                        }
+                        if (found)
+                        {
+                            break;
                         }
                     }
                 }
@@ -174,14 +209,20 @@ void SuchThatSelection::select(map<string, vector<vector<string>>>& tables, cons
             {
                 for (const auto& recordY : *tableY)
                 {
+                    bool found = false;
                     for (const auto& statement : statementsTable)
                     {
                         if (tableY == table1 && statement[0] == ref2 && statement[1] == recordY[0] ||
                             tableY == table2 && statement[0] == recordY[0] && statement[1] == ref1)
                         {
                             selected.push_back(record);
+                            found = true;
                             break;
                         }
+                    }
+                    if (found)
+                    {
+                        break;
                     }
                 }
             }
@@ -213,6 +254,7 @@ void SuchThatSelection::select(map<string, vector<vector<string>>>& tables, cons
                 {
                     for (const auto& recordY : *tableY)
                     {
+                        bool _found = false;
                         string child = tableX == table2 ? recordX[0] : recordY[0];
                         bool end = false;
                         while (!end)
@@ -226,6 +268,7 @@ void SuchThatSelection::select(map<string, vector<vector<string>>>& tables, cons
                                     if (statement[1] == (tableX == table1 ? recordX[0] : recordY[0]))
                                     {
                                         selected.push_back(recordX);
+                                        _found = true;
                                         end = true;
                                     }
                                     else
@@ -240,6 +283,11 @@ void SuchThatSelection::select(map<string, vector<vector<string>>>& tables, cons
                             {
                                 break;
                             }
+                        }
+
+                        if (_found)
+                        {
+                            break;
                         }
                     }
                 }
@@ -285,6 +333,7 @@ void SuchThatSelection::select(map<string, vector<vector<string>>>& tables, cons
             {
                 for (const auto& recordY : *tableY)
                 {
+                    bool _found = false;
                     string child = tableY == table2 ? recordY[0] : ref2;
                     bool end = false;
                     while (!end)
@@ -298,6 +347,7 @@ void SuchThatSelection::select(map<string, vector<vector<string>>>& tables, cons
                                 if (statement[1] == (tableY == table1 ? recordY[0] : ref1))
                                 {
                                     selected.push_back(record);
+                                    _found = true;
                                     end = true;
                                 }
                                 else
@@ -312,6 +362,10 @@ void SuchThatSelection::select(map<string, vector<vector<string>>>& tables, cons
                         {
                             break;
                         }
+                    }
+                    if (_found)
+                    {
+                        break;
                     }
                 }
             }

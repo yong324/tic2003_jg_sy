@@ -2,4 +2,5 @@
   TestDatabase.cpp
   TestTokenizer.cpp
   Generating Code...
-LINK : fatal error LNK1104: cannot open file 'C:\Users\User\Desktop\NUS\TIC2003\A0211346R\Code_A0211346R\Debug\SPA.lib'
+     Creating library C:\Users\User\Desktop\NUS\TIC2003\A0211346R\Code_A0211346R\Debug\UnitTesting.lib and object C:\Users\User\Desktop\NUS\TIC2003\A0211346R\Code_A0211346R\Debug\UnitTesting.exp
+  UnitTesting.vcxproj -> C:\Users\User\Desktop\NUS\TIC2003\A0211346R\Code_A0211346R\Debug\UnitTesting.dll
