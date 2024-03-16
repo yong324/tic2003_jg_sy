@@ -1,13 +1,2 @@
 ﻿  QueryProcessor.cpp
-  SourceProcessor.cpp
-  Database.cpp
-  SourceTokenizer.cpp
-  Tokenizer.cpp
-  PatternSelection.cpp
-  SelectionStructure.cpp
-  SuchThatSelection.cpp
-  Synonym.cpp
-  Query.cpp
-  Generating Code...
-  sqlite3.c
   SPA.vcxproj -> C:\Users\User\Desktop\NUS\TIC2003\A0211346R\Code_A0211346R\Debug\SPA.lib

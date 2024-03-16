@@ -81,9 +81,14 @@ void SuchThatSelection::processModifies(const vector<vector<string>>& modifiesTa
         filterDataWithBothTables(modifiesTable);
     }
     else if (tableX != nullptr) {
+        /*This will handle query such as:
+        SELECT WHILE THAT HAS A CHILD IN LINE 5
+        while w;
+        Select w such that Parent (w,7)*/
         filterDataWithSingleTable(modifiesTable, table, true);
     }
     else if (tableY != nullptr) {
+
         filterDataWithSingleTable(modifiesTable, table, false);
     }
     else {
@@ -194,10 +199,18 @@ void SuchThatSelection::processParent(const vector<vector<string>>& statementsTa
             filterParentWithBothTables(statementsTable);
         }
         else {
+            /*This will handle query such as:
+            SELECT WHILE THAT HAS A CHILD IN LINE 5
+            while w;
+            Select w such that Parent (w,7)*/
             filterParentWithSingleTable(statementsTable, table, true);
         }
     }
     else if (tableY != nullptr) {
+        /*This will handle query such as:
+        SELECT VARIABLES IF LINE 5 IS PARENT OF 6
+        variable v;
+        Select v such that Parent(5, 6)*/
         filterParentWithSingleTable(statementsTable, table, false);
     }
     else {

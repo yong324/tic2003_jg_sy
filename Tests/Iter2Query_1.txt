@@ -108,3 +108,78 @@ assign a; if i;
 Select i such that Parent (i,a) pattern a ("z","y")
 12
 5000
+23 - SELECT ASSIGNMENTS THAT ARE CHILD OF LINE 5
+assign a;
+Select a such that Parent (5,a)
+6, 7
+5000
+24 - SELECT ASSIGNMENTS THAT ARE CHILD OF LINE 5
+assign a;
+Select a such that Parent* (5,a)
+6,7,9,10
+5000
+25 - SELECT VARIABLE THAT IS MODIFIED IN LINE 5
+variable v;
+Select v such that Modifies(4,v)
+x
+5000
+26 - SELECT VARIABLES THAT ARE CHILD OF LINE 5
+variable v;
+Select v such that Parent (5,v)
+y,x,z
+5000
+27 - SELECT WHILE THAT HAS A CHILD IN LINE 5
+while w;
+Select w such that Parent (w,7)
+5
+5000
+28 - SELECT ALL VARIABLE
+variable v;
+Select v
+y,z,x
+5000
+29 - SELECT ALL ASSIGNMENT
+assign a;
+Select a
+2,3,4,6,7,9,10,13,14
+5000
+30 - SELECT ALL IFS
+if i;
+Select i
+8,12
+5000
+31 - SELECT ALL PRINTS
+print p;
+Select p
+11,15
+5000 
+32 - SELECT ALL PROCEDURES
+procedure p;
+Select p
+main
+5000 
+33 - SELECT ALL READ
+read r;
+Select r
+1
+5000 
+34 - SELECT ALL WHILES
+while w;
+Select w
+5
+5000 
+35 - SELECT PROCEDURES THAT MODIFIES
+procedure p; variable v;
+Select p such that Modifies(2, v)
+main
+5000
+36 - SELECT VARIABLES IF LINE 6 IS PARENT OF 5
+variable v;
+Select v such that Parent(6, 5)
+
+5000
+37 - SELECT VARIABLES IF LINE 5 IS PARENT OF 6
+variable v;
+Select v such that Parent(5, 6)
+y,z,x
+5000
