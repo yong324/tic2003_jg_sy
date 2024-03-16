@@ -1,2 +1,5 @@
-﻿  SuchThatSelection.cpp
+﻿  PatternSelection.cpp
+  Query.cpp
+  QueryProcessor.cpp
+  Generating Code...
   SPA.vcxproj -> C:\Users\User\Desktop\NUS\TIC2003\A0211346R\Code_A0211346R\Debug\SPA.lib

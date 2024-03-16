@@ -159,7 +159,6 @@ void QueryProcessor::evaluateQuery(const Query& query, vector<string>& output)
 {
     // Clear the output vector
     output.clear();
-
     // evaluate query
     query.evaluate(output);
 }
