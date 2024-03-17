@@ -38,17 +38,17 @@ variable v;
 Select v such that Modifies (10,v)
 row
 5000
-9 - SELECT ASSIGNMENTS WITH "row" IN RHS
+9 - SELECT ASSIGNMENTS WITH row IN RHS
 assign a;
 Select a pattern a( _ , _"row"_)
 10,13,16
 5000
-10 - SELECT ALL STATEMENTS THAT MODIFIES "col"
+10 - SELECT ALL STATEMENTS THAT MODIFIES col
 assign a;
 Select a such that Modifies (_,"col")
 2,9,14
 5000
-11 - SELECT ASSIGNMENTS WHERE LHS = "eig"
+11 - SELECT ASSIGNMENTS WHERE LHS = eig
 assign a;
 Select a pattern a( "eig" , _ )
 16
@@ -58,22 +58,22 @@ assign a; if i;
 Select i such that Parent (i,a) pattern a ("middle","middle+5")
 6
 5000
-13 - SELECT ALL WHILE LOOPS THAT HAS AN ASSIGNMENT WITH "middle" IN RHS
+13 - SELECT ALL WHILE LOOPS THAT HAS AN ASSIGNMENT WITH middle IN RHS
 assign a; while w;
 Select w such that Parent (w,a) pattern a ( _ , _"middle"_)
 12
 5000
-14 - SELECT ASSIGNMENTS IN IF LOOPS THAT HAS "row" IN LHS AND "row" IN RHS
+14 - SELECT ASSIGNMENTS IN IF LOOPS THAT HAS row IN LHS AND row IN RHS
 assign a; if i;
 Select i such that Parent* (i,a) pattern a ( "row" , _"row"_)
 
 5000
-15 - SELECT IF LOOPS THAT HAS AN ASSIGNMENT WITH LHS = "row" AND RHS HAS "col"
+15 - SELECT IF LOOPS THAT HAS AN ASSIGNMENT WITH LHS = row AND RHS HAS col
 assign a; if i;
 Select i such that Parent(i,a) pattern a ("row",_"col"_)
 
 5000
-16 - SELECT VARIABLES THAT ARE MODIFIED THAT HAS "col" IN RHS EXPRESSION
+16 - SELECT VARIABLES THAT ARE MODIFIED THAT HAS col IN RHS EXPRESSION
 variable v; assign a;
 Select v such that Modifies (a,v) pattern a (_,_"col"_) 
 col, eig
@@ -83,22 +83,22 @@ assign a; variable v;
 Select v such that Modifies (a,v) pattern a ("col", _)
 col
 5000
-18 - SELECT ASSIGNMENTS WHERE LHS = "middle" and rhs = "row"
+18 - SELECT ASSIGNMENTS WHERE LHS = middle and rhs = row
 assign a;
 Select a pattern a( "middle", "row" )
 
 5000
-20 - SELECT ASSIGNMENTS THAT MODIFIES "row" AND HAS "row" IN RHS EXPRESSION
+20 - SELECT ASSIGNMENTS THAT MODIFIES row AND HAS row IN RHS EXPRESSION
 variable v; assign a;
 Select a such that Modifies (a,"row") pattern a (_,_"row"_)
 10,13
 5000
-21 - SELECT ASSIGNMENTS IN WHILE LOOP THAT HAS "middle" IN RHS
+21 - SELECT ASSIGNMENTS IN WHILE LOOP THAT HAS middle IN RHS
 assign a; while w;
 Select a such that Parent* (w,a) pattern a ( _ , _"middle"_)
 7,8,15
 5000
-22 -  SELECT ALL ASSIGNMENTS THAT HAS AN ASSIGNMENT WITH "middle" IN LHS THAT ARE IN IF LOOPS 
+22 -  SELECT ALL ASSIGNMENTS THAT HAS AN ASSIGNMENT WITH middle IN LHS THAT ARE IN IF LOOPS 
 assign a; if i;
 Select a such that Parent (i,a) pattern a ("middle", _)
 7,8

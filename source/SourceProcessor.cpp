@@ -73,7 +73,8 @@ void SourceProcessor::processStatementList(SourceTokenizer& sourceTokenizer, Tok
 void SourceProcessor::processProcStatementList(SourceTokenizer& sourceTokenizer, Token& tk, int parent) {
 	tk = sourceTokenizer.getNextToken();
 	string procedureName = tk.value;
-	Database::insertProcedure(procedureName);
+	Database::insertProcedure(procedureName); // one more to skip procedure name
+	tk = sourceTokenizer.getNextToken();
 
 	processStatementList(sourceTokenizer, tk, parent);
 	return;
@@ -111,6 +112,8 @@ void SourceProcessor::processIfStatementList(SourceTokenizer& sourceTokenizer, T
 	};
 
 	Database::insertIf(lineIdx, relExpr);
+	tk = sourceTokenizer.getNextToken(); // once more to skip closing parenthesis
+	tk = sourceTokenizer.getNextToken(); // once more to skip the opening then keyword
 
 	lineIdx++;
 	processStatementList(sourceTokenizer, tk, parent);
