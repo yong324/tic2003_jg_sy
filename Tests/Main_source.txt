@@ -1,0 +1,79 @@
+procedure pRoc3 {
+    read b;
+    b1 = 20;
+    print b2;
+
+    while (b3 < 30) {
+        b3 = b1 + b2;
+        while (b3 < 10) {
+            b4 = b4 + 1;
+            read b5;
+            print b6;
+        }
+        if (b10 > 10) then {
+            if (b < 30) then {
+                b6 = b7;
+            } else {
+                b7 = b7 + 1;
+            }
+        } else {
+            while (b2 < 10) {
+                print b3;
+            }
+            b3 = b3 + b4;
+            call Proc2;
+        }
+    }
+
+    b10 = b9 * b8 * b7;
+    print b6;
+    if (b12 < 0) then {
+        print b22;
+    } else {
+        print b23;
+    }
+}
+
+procedure Proc2 {
+    read a1;
+    a1 =  a2 + a3 + a4 + a5;
+    print a2;
+
+    while (10 < a9) {
+        read a2;
+        a3 = 1 + (a1 - a3) * (a4 % a9);
+        print a10;
+    }
+
+    if (10 > a2) then {
+        print a11;
+        a = 1 + a6 + a7;
+        read a1;
+        call proc1;
+    } else {
+        print a22;
+        a = 1 + a18 + 15;
+        read a11;
+    }
+
+    while (a2 > a3) {
+        read a11;
+        print a10;
+        a4 = (a2 / 30 % 2);
+        read a9;
+        print a10;
+    }
+}
+
+procedure proc1 {
+	c = 5;
+	c1 = 2;
+	c2 = c2 + 1 + c1 * 3/(5-7);
+	c3= c3 - 1;
+	read c1;
+	c5 = 0;
+    c2 = c - 1;
+	read c10;
+	print c7;
+	c8 = 3;
+}

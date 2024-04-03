@@ -1,0 +1,31 @@
+procedure main {
+	read x;
+	y = 10;
+	z = 20;
+	x = x + 1;
+	call main2;
+	while (x < 20) {
+		y = y + 2;
+		x = x + 1;
+		if (y > 20) then {
+			z = z - 20;
+		} else {
+			z = x;
+		}
+		print x;
+	}
+	if (y < x) then {
+		y = x;
+	} else {
+		z = y;
+	}
+	print z;
+	
+}
+
+procedure main2 {
+	A = 5;
+	B = 10;
+	C = A + B;
+	print C;
+}

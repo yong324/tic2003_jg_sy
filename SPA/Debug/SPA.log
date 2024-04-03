@@ -1,0 +1,20 @@
+﻿  AssignmentExtractor.cpp
+  ConstantExtractor.cpp
+  GrammarExtractor.cpp
+  PrintExtractor.cpp
+  ProcedureExtractor.cpp
+  QueryProcessor.cpp
+  ReadExtractor.cpp
+  SourceProcessor.cpp
+  Database.cpp
+  SourceTokenizer.cpp
+  StatementExtractor.cpp
+  Synonym.cpp
+  Tokenizer.cpp
+  PatternSelection.cpp
+  SuchThatSelection.cpp
+  Query.cpp
+  VariableExtractor.cpp
+  Generating Code...
+  sqlite3.c
+  SPA.vcxproj -> C:\Users\User\Desktop\NUS\TIC2003\A0211346R\Code_A0211346R_6\Debug\SPA.lib

@@ -1,0 +1,90 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis",
+          "version": "14.29.30153.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "commandLine": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX86\\x86\\c1xx.dll\" -ACf{1F7B090C-16DB-4822-966A-A93D26ED4681} -ACpmspft140.dll -Alint -D_PREFAST_ -D_AST_FE_ -Analyze -zm0x00B2D1C0 -il C:\\Users\\yong3\\AppData\\Local\\Temp\\_CL_2d6c6f6dast -typedil -f ..\\source\\SourceProcessor.cpp -Ze -D_MSC_EXTENSIONS -Zp8 -Gs -pc \\:/ -D_MSC_VER=1929 -D_MSC_FULL_VER=192930153 -D_MSC_BUILD=0 -D_WIN32 -D_M_IX86=600 -D_M_IX86_FP=2 -GR -D_CPPRTTI -nologo -W 3 -diagnostics:column -Ot -DCODE_ANALYSIS -D_MBCS -EHs -D_CPPUNWIND -EHc -D__MSVC_RUNTIME_CHECKS -RTCs -RTCu -MDd -D_DEBUG -D_MT -D_DLL -GS -D_M_FP_PRECISE -Zc:wchar_t -Zc:forScope -FoDebug\\SourceProcessor.obj -FdC:\\Users\\yong3\\Documents\\Yong\\techy\\tic2003\\WIN_StartupSPASolution\\A0227504L\\Code_A0227504L\\Debug\\SPA.pdb -external:W 3 -Gd -analyze:projectdirectory C:\\Users\\yong3\\Documents\\Yong\\techy\\tic2003\\WIN_StartupSPASolution\\A0227504L\\Code_A0227504L\\SPA -analyze:rulesetdirectory ;C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\Team Tools\\Static Analysis Tools\\\\Rule Sets; -analyze:ruleset C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\Team Tools\\Static Analysis Tools\\Rule Sets\\NativeRecommendedRules.ruleset -analyze:quiet -analyze:plugin C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX86\\x86\\EspXEngine.dll -FC -errorreport:prompt -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\atlmfc\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\VS\\include -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\ucrt -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\VS\\UnitTest\\include -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\um -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\shared -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\winrt -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\cppwinrt -I C:\\Users\\yong3\\Documents\\Yong\\techy\\tic2003\\WIN_StartupSPASolution\\A0227504L\\Code_A0227504L\\SPA\\Include\\um -external:I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\include -external:I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\atlmfc\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\atlmfc\\include -external:I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\VS\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\VS\\include -external:I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\ucrt -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\ucrt -external:I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\VS\\UnitTest\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\VS\\UnitTest\\include -external:I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\um -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\um -external:I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\shared -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\shared -external:I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\winrt -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\winrt -external:I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\cppwinrt -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\cppwinrt -external:I C:\\Users\\yong3\\Documents\\Yong\\techy\\tic2003\\WIN_StartupSPASolution\\A0227504L\\Code_A0227504L\\SPA\\Include\\um -I C:\\Users\\yong3\\Documents\\Yong\\techy\\tic2003\\WIN_StartupSPASolution\\A0227504L\\Code_A0227504L\\SPA\\Include\\um",
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/users/yong3/documents/yong/techy/tic2003/win_startupspasolution/a0227504l/code_a0227504l/source/tokenizer.cpp"
+          },
+          "roles": [
+            "analysisTarget"
+          ],
+          "hashes": {
+            "md5": "9148908b680d0fb09dc79c1fc31a201b"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/yong3/documents/yong/techy/tic2003/win_startupspasolution/a0227504l/code_a0227504l/source/tokenizer.h"
+          },
+          "hashes": {
+            "md5": "2c20d57e64aec2604fc827c5783f20ce"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/yong3/documents/yong/techy/tic2003/win_startupspasolution/a0227504l/code_a0227504l/source/database.cpp"
+          },
+          "roles": [
+            "analysisTarget"
+          ],
+          "hashes": {
+            "md5": "e87d16f0935cbe9486e49648e186baaf"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/yong3/documents/yong/techy/tic2003/win_startupspasolution/a0227504l/code_a0227504l/source/database.h"
+          },
+          "hashes": {
+            "md5": "618218c280796e18ab51125773a5aad7"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/yong3/documents/yong/techy/tic2003/win_startupspasolution/a0227504l/code_a0227504l/source/sqlite3.h"
+          },
+          "hashes": {
+            "md5": "75118b315deac20c7dd1f8b2442f3710"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/yong3/documents/yong/techy/tic2003/win_startupspasolution/a0227504l/code_a0227504l/source/sourceprocessor.cpp"
+          },
+          "roles": [
+            "analysisTarget"
+          ],
+          "hashes": {
+            "md5": "b47dff5805ba3871874593a36d1d132d"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/yong3/documents/yong/techy/tic2003/win_startupspasolution/a0227504l/code_a0227504l/source/sourceprocessor.h"
+          },
+          "hashes": {
+            "md5": "60c4a11a8190c987566b51a32db14c53"
+          }
+        }
+      ]
+    }
+  ]
+}

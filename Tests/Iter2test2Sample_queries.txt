@@ -1,0 +1,55 @@
+1 - Find print within a loop
+assign a; while w;
+Select a such that Parent*(w,a)
+14,26,32
+5000
+2 - Find reads within a loop
+read r; while w;
+Select r such that Parent*(w,r)
+12,24,30
+5000
+3 - Find reads directly inside a loop
+read r; while w;
+Select r such that Parent(w,r)
+12,24
+5000
+4 - Find assignments in loop
+assign a; while w;
+Select a such that Parent*(w,a)
+13,25
+5000
+5 - Find all assigns within if statement
+assign a; if f;
+Select a such that Parent*(f, a)
+25,31,6,9
+5000
+6 - Find all variables that are modified by 24
+variable v;
+Select v such that Modifies(24,v)
+e
+5000
+7 - Find all assignments which modifies the variable c
+assign a;
+Select a such that Modifies(a,"c")
+9
+5000
+8 - pattern 1
+assign a;
+Select a pattern a("d",_)
+13
+5000
+9 - pattern 2
+assign a;
+Select a pattern a("h", _"69"_)
+31
+5000
+10 - pattern 3
+assign a;
+Select a pattern a(_,_"3*a"_)
+31
+5000
+11 - pattern with parent
+assign a; while w;
+Select a such that Parent*(w,a) pattern a(_,_"69"_)
+31
+5000

@@ -1,0 +1,65 @@
+1 - Test 1 procedure
+procedure c1; variable v; assign a; if if1, if2;
+Select c1 such that Modifies(c1, v) pattern a (v,_"1"_) such that Parent(if1, a) such that Parent(if2, if1)
+pRoc3
+5000
+2 - Test 2 assign
+assign a; while w; variable v;
+Select a such that Parent(w, a) such that Uses(a, v) pattern a (_, _"a1 - a3"_) pattern a("a3",_)
+28
+5000
+3 - Test 3 statements
+stmt s; assign a; if f;
+Select s pattern a(_, _"1"_) such that Parent(s, a) such that Parent(f, s)
+11
+5000
+4 - Test 4 assign
+assign s; if w1, w2;
+Select s such that Parent(w1, w2) such that Parent(w2,s) pattern s (_,_"b7+1"_)
+13
+5000
+5 - variable
+variable a; call c; assign c1;
+Select a such that Uses(c, a) such that Modifies (c1, a) pattern c1 (_, _"c1 * 3/(5-7)"_)
+c2
+5000
+6 - procedure and variable
+procedure p; variable v; assign a;
+Select <p,v> such that Modifies(p, v) Modifies(a,v) pattern a (v, _"1"_)
+Proc2 a, Proc2 a3, Proc2 c2, Proc2 c3, pRoc3 a, pRoc3 a3, pRoc3 b4, pRoc3 b7, pRoc3 c2, pRoc3 c3, proc1 c2, proc1 c3
+5000
+7 - procedure and while
+procedure p1, p2, p3;
+Select <p1, p2> such that Calls(p1, p2) such that Calls(p2, p3)
+pRoc3 Proc2
+5000
+8 - while and if and if
+while w1; if f1, f2;
+Select <w1, f1, f2> such that Parent(w1, f1) such that Parent(f1, f2)
+4 10 11
+5000
+9 - while and while and if
+while w1, w2; if f1;
+Select <w1, f1, w2> such that Parent(w1, f1) such that Parent(f1, w2)
+4 10 14
+5000
+10 - variable
+variable v1; assign a;
+Select v1 such that Modifies("pRoc3", v1) such that Uses("pRoc3", v1) pattern a (v1, _"1"_)
+b4, b7
+5000
+11 - assign
+assign a;
+Select a such that Modifies(a, _) such that Uses(a, _) pattern a (_,_"a2 / 30"_)
+41
+5000
+12 - variable
+variable v1, v2; assign a;
+Select <v1, v2> such that Modifies(a, v1) such that Uses(a, v2) pattern a (v1, _)
+b3 b1, b3 b2, b3 b3, b3 b4, b4 b4, b6 b7, b10 b7, b7 b7, b10 b9, b10 b8, a3 a1, a1 a2, a4 a2, a1 a3, a3 a3, a1 a4, a3 a4, a1 a5, a3 a9, a a6, a a7, a a18, c2 c, c2 c1, c2 c2, c3 c3
+5000
+13 - assign
+assign a; while w;
+Select <w, a> pattern a (_,_"1"_) such that Uses(w, _) such that Parent* (w, a)
+4 7, 6 7, 4 13, 26 28
+5000

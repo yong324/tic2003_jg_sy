@@ -1,0 +1,185 @@
+1 - SELECT ASSIGNMENTS IN WHILE LOOP
+assign a; while w;
+Select a such that Parent (w,a)
+6,7
+5000
+2 - SELECT ASSIGNMENTS THAT HAVE LINEIDX 5 AS PARENTS
+assign a; 
+Select a such that Parent (5,a)
+6,7
+5000
+3 - SELECT WHILE LOOPS THAT HAS PRINTS
+print p; while w;
+Select p such that Parent (w,p)
+11
+5000
+4 - SELECT ASSIGNMENTS IN WHILE LOOP
+assign a; while w;
+Select a such that Parent* (w,a)
+6,7,9,10
+5000
+5 - SELECT IF LOOPS THAT HAS ASSIGNMENTS
+assign a; if i;
+Select i such that Parent* (i,a)
+8,12
+5000
+6 - SELECT WHILE LOOPS THAT HAS PRINTS
+print p; while w;
+Select p such that Parent* (w,p)
+11
+5000
+7 - SELECT ALL READ VARIABLES
+read r; variable v;
+Select v such that Modifies (r,v)
+x
+5000
+8 - SELECT ALL STATEMENTS THAT MODIFIES "x"
+assign a;
+Select a such that Modifies (_,"x")
+4,7
+5000
+9 - SELECT VARIABLES MODIFIED IN LINE 7
+variable v;
+Select v such that Modifies (7,v)
+x
+5000
+10 - SELECT ASSIGNMENTS WITH "x" IN RHS
+assign a;
+Select a pattern a( _ , _"x"_)
+4,7,10,13
+5000
+11 - SELECT ASSIGNMENTS WHERE LHS = "y"
+assign a;
+Select a pattern a( "y" , _ )
+2,6,13
+5000
+12 - SELECT ASSIGNMENTS WHERE LHS = "y" and rhs = "x"
+assign a;
+Select a pattern a( "y" , "x" )
+13
+5000
+13 - SELECT ALL WHILE LOOPS THAT HAS AN ASSIGNMENT WITH "x" IN RHS
+assign a; while w;
+Select w such that Parent (w,a) pattern a ( _ , _"x"_)
+5   
+5000
+14 -  SELECT ALL ASSIGNMENTS THAT HAS AN ASSIGNMENT WITH "y" IN LHS THAT ARE IN IF LOOPS 
+assign a; if i;
+Select a such that Parent (i,a) pattern a ("y", _)
+13
+5000
+15 - SELECT IF LOOPS THAT HAS AN ASSIGNMENT WITH LHS = "y" AND RHS HAS "X"
+assign a; if i;
+Select i such that Parent(i,a) pattern a ("y",_"x"_)
+12
+5000
+16 - SELECT VARIABLES THAT ARE MODIFIED THAT HAS "x" IN RHS EXPRESSION
+variable v; assign a;
+Select v such that Modifies (a,v) pattern a (_,_"x"_) 
+x,y,z
+5000
+17 - SELECT ASSIGNMENTS THAT MODIFIES "x" AND HAS "z" IN RHS EXPRESSION
+variable v; assign a;
+Select a such that Modifies (a,"x") pattern a (_,_"z"_)
+
+5000
+18 - SELECT 
+assign a; variable v;
+Select v such that Modifies (a,v) pattern a ("y", _)
+y
+5000
+19 - SELECT PROCEDURES WITH THE ASSIGNMENT STATEMENT x = y+1
+procedure p; assign a;
+Select p such that Modifies (p,a) pattern a ( "x","y+1")
+
+5000
+20 - SELECT ASSIGNMENTS IN WHILE LOOP THAT HAS "z" IN RHS
+assign a; while w;
+Select w such that Parent* (w,a) pattern a ( _ , _"z"_)
+5
+5000
+21 - SELECT ASSIGNMENTS IN IF LOOPS THAT HAS "z" IN RHS
+assign a; if i;
+Select i such that Parent* (i,a) pattern a ( _ , _"z"_)
+8
+5000
+22 - SELECT IF LOOPS THAT HAS ASSIGNMENT z = y
+assign a; if i;
+Select i such that Parent (i,a) pattern a ("z","y")
+12
+5000
+23 - SELECT ASSIGNMENTS THAT ARE CHILD OF LINE 5
+assign a;
+Select a such that Parent (5,a)
+6, 7
+5000
+24 - SELECT ASSIGNMENTS THAT ARE CHILD OF LINE 5
+assign a;
+Select a such that Parent* (5,a)
+6,7,9,10
+5000
+25 - SELECT VARIABLE THAT IS MODIFIED IN LINE 5
+variable v;
+Select v such that Modifies(4,v)
+x
+5000
+26 - SELECT VARIABLES THAT ARE CHILD OF LINE 5
+variable v;
+Select v such that Parent (5,v)
+y,x,z
+5000
+27 - SELECT WHILE THAT HAS A CHILD IN LINE 5
+while w;
+Select w such that Parent (w,7)
+5
+5000
+28 - SELECT ALL VARIABLE
+variable v;
+Select v
+y,z,x
+5000
+29 - SELECT ALL ASSIGNMENT
+assign a;
+Select a
+2,3,4,6,7,9,10,13,14
+5000
+30 - SELECT ALL IFS
+if i;
+Select i
+8,12
+5000
+31 - SELECT ALL PRINTS
+print p;
+Select p
+11,15
+5000 
+32 - SELECT ALL PROCEDURES
+procedure p;
+Select p
+main
+5000 
+33 - SELECT ALL READ
+read r;
+Select r
+1
+5000 
+34 - SELECT ALL WHILES
+while w;
+Select w
+5
+5000 
+35 - SELECT PROCEDURES THAT MODIFIES
+procedure p; variable v;
+Select p such that Modifies(2, v)
+main
+5000
+36 - SELECT VARIABLES IF LINE 6 IS PARENT OF 5
+variable v;
+Select v such that Parent(6, 5)
+
+5000
+37 - SELECT VARIABLES IF LINE 5 IS PARENT OF 6
+variable v;
+Select v such that Parent(5, 6)
+y,z,x
+5000
