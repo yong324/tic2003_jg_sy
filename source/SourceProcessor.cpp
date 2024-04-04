@@ -141,6 +141,7 @@ void SourceProcessor::processAssignStatement(SourceTokenizer& sourceTokenizer, T
 		if (tk.type == CONSTANT) processConstants(sourceTokenizer, tk.value);
 		if (tk.type == VARIABLE) {
 			Database::insertUses(lineIdx, tk.value, "ASSIGN");
+			Database::insertVariable(tk.value);
 		}
 		rhs_expression.append(tk.value);
 		tk = sourceTokenizer.getNextToken();

@@ -17,7 +17,7 @@ SourceTokenizer::~SourceTokenizer() {}
 Token SourceTokenizer::getNextToken() {
 	if (sourceCode.size() == 0) return { ENDOFPROGRAM,"" };
 
-	regex lexemeRegex(R"((read|print|if|else|while|call|[+\-*/();=\}><]|\(([^)]*)\)|\d+|[a-zA-Z][a-zA-Z0-9]*))");
+	regex lexemeRegex(R"((read|print|if|else|while|call|[+\-*/();=\}><%]|\(([^)]*)\)|\d+|[a-zA-Z][a-zA-Z0-9]*))");
 	smatch match;
 	size_t pos = 0;
 	string lexeme = "";
@@ -50,8 +50,9 @@ Token SourceTokenizer::getTokenType(string& lexeme) {
 	if (lexeme == "-") return{ MINUS,"-" };
 	if (lexeme == "*") return{ MULTIPLY,"*" };
 	if (lexeme == "/") return{ DIVIDE,"/" };
-	if (lexeme == ">") return{ DIVIDE,">" };
-	if (lexeme == "<") return{ DIVIDE,"<" };
+	if (lexeme == ">") return{ MORETHAN,">" };
+	if (lexeme == "<") return{ LESSTHAN,"<" };
+	if (lexeme == "%") return{ MODULO,"%" };
 	if (regex_match(lexeme, regex(R"(\(([^)]*)\))"))) return{ RELEXPR, lexeme };
 	if (regex_match(lexeme, regex(R"(\d+)"))) return{ CONSTANT,lexeme };
 	return {VARIABLE,lexeme};
