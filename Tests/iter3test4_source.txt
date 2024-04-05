@@ -1,0 +1,48 @@
+procedure readValues{
+   read days;
+   read cost;
+   read rent;
+   read gst;
+}
+
+procedure printProfitMargin{
+   print profitMargin;
+}
+
+procedure printBag{
+   print Bag;
+}
+
+procedure printValues{
+   call printProfitMargin;
+   call printBag;
+}
+
+procedure calculatePrice{
+   call readValues;
+
+   profitMargin = 0;
+
+   while (days > 0) {
+     if (days < 30) then {
+       profitMargin = 888;
+       while (days > 0){
+   	    days = days - 1;
+       }
+     } else {
+       profitMargin = days;
+       days = days - 1;
+     }        
+   }
+
+   if (gst < 2) then {
+     bag = (cost + rent / 30) - 50 + profitMargin;
+   } else {
+      bag = cost + rent / 30 + gst;
+      profitMargin = profitMargin % 10 * 2 + 6;
+      bag = bag + profitMargin;
+   }
+
+   call printValues;
+   print end;
+}

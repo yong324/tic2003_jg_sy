@@ -1,0 +1,73 @@
+procedure one {
+    while (a < 10) {
+        if(a > 10) then {
+            while (b < 10 ) {
+                a1 = a1 + 1;
+                a2 = (v1+v2) * v3 * v4;
+                read a3;
+                print a1;
+            }
+            call two;
+        } else {
+            while (b < 20) {
+                if(c < 10) then {
+                    a5 = a5 + 1;
+                    a5 = v1 + v2 * v3 * v4;
+                } else {
+                    read a7;
+                    read a8;
+                }
+                call three;
+            }
+        }
+    }
+}
+
+procedure two {
+    if(a < 10) then {
+        while (b < 10) {
+            while (c < 10) {
+                if (d < 10 ) then {
+                    b1 = b1 + 1;
+                    b2 = v2 * v3 + v1 * v4;
+                    read b3;
+                    print b4;
+                } else {
+                    b3 = b3 + 1;
+                    b5 = v1 + v2 + v3 + v4;
+                }
+            }
+        }
+    } else {
+        if(b < 10) then {
+            while (c < 20) {
+                while (d < 20) {
+                    b6 = b6 + 1;
+                    b7 = v2 + v3 + v4;
+                    print b8;
+                    read b7;
+                }
+            }
+        } else {
+            while (c < 10) {
+                print b10;
+                read b6;
+            }
+        }
+    }
+    call three;
+}
+
+procedure three {
+    while (c < 20) {
+        if(d < 10) then {
+            read c1;
+            print c2;
+            c1 = c1 + 1;
+            c2 = v4 + v3 + v2 + v1;
+        } else {
+            print c5;
+            read c6;
+        }
+    }
+}

@@ -1,0 +1,35 @@
+1 - while
+while w1, w2; if f;
+Select <w1, w2> such that Parent*(w1,w2) such that Parent(f, w1)
+17 18, 27 28
+5000
+2 - procedure
+procedure two; variable a; assign b;
+Select <two, a> such that Calls("two", two) such that Modifies(two, a) pattern b (a, _"v4 + v3"_)
+three c2
+5000
+3 - procedure 2
+procedure two; variable a; assign b;
+Select <two, a> such that Calls*("one", two) such that Modifies(two, a) pattern b (a, _"1"_)
+two b1, two b3, two b6, two c1, three c1
+5000
+4 - if
+if if1, if2; while w;
+Select <if1, if2> such that Parent* (if1, if2) such that Parent (w, if2) such that Parent (if1, w)
+2 10
+5000
+5 - get print within while within if
+print p; if f; while w;
+Select <p,f,w> such that Parent(w,f) such that Parent(f,p)
+23 19 18, 40 38 37, 43 38 37
+5000
+6 - get read var name and line no within if within while within if
+variable v; read r; if f1, f2; while w;
+Select <v,r> such that Parent(f1,w) such that Parent(w,f2) such that Parent(f2,r) such that Modifies(r,v)
+a7 13, a8 14
+5000
+7 - get procedures that get called
+procedure p1,p2; call c;
+Select p2 such that Calls(p1,p2)
+two, three
+5000

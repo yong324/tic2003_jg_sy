@@ -1,79 +1,79 @@
 procedure pRoc3 {
-    read b;
-    b1 = 20;
-    print b2;
+1    read b;
+2    b1 = 20;
+3    print b2;
 
-    while (b3 < 30) {
-        b3 = b1 + b2;
-        while (b3 < 10) {
-            b4 = b4 + 1;
-            read b5;
-            print b6;
+4    while (b3 < 30) {
+5        b3 = b1 + b2;
+6        while (b3 < 10) {
+7            b4 = b4 + 1;
+8            read b5;
+9            print b6;
         }
-        if (b10 > 10) then {
-            if (b < 30) then {
-                b6 = b7;
+10        if (b10 > 10) then {
+11            if (b < 30) then {
+12                b6 = b7;
             } else {
-                b7 = b7 + 1;
+13                b7 = b7 + 1;
             }
         } else {
-            while (b2 < 10) {
-                print b3;
+14            while (b2 < 10) {
+15                print b3;
             }
-            b3 = b3 + b4;
-            call Proc2;
+16            b3 = b3 + b4;
+17            call Proc2;
         }
     }
 
-    b10 = b9 * b8 * b7;
-    print b6;
-    if (b12 < 0) then {
-        print b22;
+18    b10 = b9 * b8 * b7;
+19    print b6;
+20    if (b12 < 0) then {
+21        print b22;
     } else {
-        print b23;
+22        print b23;
     }
 }
 
 procedure Proc2 {
-    read a1;
-    a1 =  a2 + a3 + a4 + a5;
-    print a2;
+23    read a1;
+24    a1 =  a2 + a3 + a4 + a5;
+25    print a2;
 
-    while (10 < a9) {
-        read a2;
-        a3 = 1 + (a1 - a3) * (a4 % a9);
-        print a10;
+26    while (10 < a9) {
+27        read a2;
+28        a3 = 1 + (a1 - a3) * (a4 % a9);
+29        print a10;
     }
 
-    if (10 > a2) then {
-        print a11;
-        a = 1 + a6 + a7;
-        read a1;
-        call proc1;
+30    if (10 > a2) then {
+31        print a11;
+32        a = 1 + a6 + a7;
+33        read a1;
+34        call proc1;
     } else {
-        print a22;
-        a = 1 + a18 + 15;
-        read a11;
+35        print a22;
+36        a = 1 + a18 + 15;
+37        read a11;
     }
 
-    while (a2 > a3) {
-        read a11;
-        print a10;
-        a4 = (a2 / 30 % 2);
-        read a09;
-        print a10;
+38    while (a2 > a3) {
+39        read a11;
+40        print a10;
+41        a4 = (a2 / 30 % 2);
+42        read a09;
+43        print a10;
     }
 }
 
 procedure proc1 {
-	c = 5;
-	c1 = 2;
-	c2 = c2 + 1 + c1 * 3/(5-7);
-	c3= c3 - 1;
-	read c1;
-	c5 = 0;
-    c2 = c - 1;
-	read c10;
-	print c7;
-	c8 = 3;
+44	c = 5;
+45	c1 = 2;
+46	c2 = c2 + 1 + c1 * 3/(5-7);
+47	c3= c3 - 1;
+48	read c1;
+49	c5 = 0;
+50    c2 = c - 1;
+51	read c10;
+52	print c7;
+53	c8 = 3;
 }

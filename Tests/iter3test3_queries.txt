@@ -1,0 +1,475 @@
+1 - Procedure
+procedure p;
+Select p
+computeCentroid, main, readPoint, printResults
+5000
+2 - line 1 modifies x [false]
+procedure p;
+Select p such that Modifies(1,"x")
+
+5000
+3 - line 7 modifies cenX [true]
+procedure p;
+Select p such that Modifies(7,"cenX")
+computeCentroid, main, readPoint, printResults
+5000
+4 - line 9 modifies x [true]
+procedure p;
+Select p such that Modifies(9,"x")
+computeCentroid, main, readPoint, printResults
+5000
+5 - line 10 modifies flag [true]
+procedure p;
+Select p such that Modifies(10,"flag")
+computeCentroid, main, readPoint, printResults
+5000
+6 - line 5 modifies flag [false]
+procedure p;
+Select p such that Modifies(5,"flag")
+
+5000
+7 - procedure main modifies y [true]
+procedure p;
+Select p such that Modifies("main","y")
+computeCentroid, main, readPoint, printResults
+5000
+8 - list procedures that modify the variable cenX
+procedure p;
+Select p such that Modifies(p,"cenX")
+computeCentroid, main
+5000
+9 - list variables that are modified in statement 5
+variable v;
+Select v such that Modifies(5, v)
+count, cenX, cenY
+5000
+10 - list variables that are modified in statement 10
+variable v;
+Select v such that Modifies(10, v)
+flag, cenX, cenY
+5000
+11 - list all variables modified within a while loop
+variable a; while w;
+Select a such that Modifies(w,a)
+count, cenX, cenY
+5000
+12 - list all variables modified within an if statement
+variable a; if f;
+Select a such that Modifies(f,a)
+flag, cenX, cenY
+5000
+13 - list all variables modified within readPoint
+variable a;
+Select a such that Modifies("readPoint", a)
+x, y
+5000
+14 - list all variables modified within main
+variable a;
+Select a such that Modifies("main", a)
+flag, count, cenX, cenY, x, y, normSq
+5000
+15 - list all procedures that modify the variable count
+procedure p;
+Select p such that Modifies(p, "count")
+main, computeCentroid
+5000
+16 - list all variables that are modified within if stmt and modified within while loop
+variable a; while w; if f;
+Select a such that Modifies(w, a) Modifies(f, a)
+cenX, cenY
+5000
+17 - line 2 is parent of line 3 [false]
+procedure p;
+Select p such that Parent(2,3)
+
+5000
+18 - line 4 is parent of line 7 [false]
+procedure p;
+Select p such that Parent(4,7)
+
+5000
+19 - line 5 is parent of line 7
+procedure p;
+Select p such that Parent(5,7)
+computeCentroid, main, readPoint, printResults
+5000
+20 - line 9 is parent of line 5 [false]
+procedure p;
+Select p such that Parent(9,5)
+
+5000
+21 - line 5 is parent* of line 7
+procedure p;
+Select p such that Parent*(5,7)
+computeCentroid, main, readPoint, printResults
+5000
+22 - line 10 is parent* of line 13
+procedure p;
+Select p such that Parent*(10,13)
+computeCentroid, main, readPoint, printResults
+5000
+23 - line 10 is parent* of line 14 [false]
+procedure p;
+Select p such that Parent*(10,14)
+
+5000
+24 - list the while statement that is the parent of line 6
+while p;
+Select p such that Parent(p, 6)
+5
+5000
+25 - list the if statement that is the parent of line 9 [false]
+if i;
+Select i such that Parent(i, 9)
+
+5000
+26 - list the if statement that is the parent of line 11
+if i;
+Select i such that Parent(i, 11)
+10
+5000
+27 - list the if statement that is the parent of line 13 and is in else
+if i;
+Select i such that Parent(i, 13)
+10
+5000
+28 - list the if statement that is the parent of line 14 [false
+if i;
+Select i such that Parent(i, 14)
+
+5000
+29 - list the while statements that are parents of assign statements
+assign a; while w;
+Select a such that Parent(w, a)
+6,7,8
+5000
+30 - list the assign statement lines who have if as their parent
+assign a; if f;
+Select a such that Parent(f, a)
+11,12,13
+5000
+31 - list the assign statements whose parents are line 3 [false]
+assign a;
+Select a such that Parent(3, a)
+
+5000
+32 - list the parents* of line 13 that are if statements
+if f;
+Select f such that Parent*(f, 13)
+10
+5000
+33 - nonsense statement [true]
+assign a; while w;
+Select a such that Parent(5,6)
+1,2,3,6,7,8,11,12,13,14,15
+5000
+34 - nonsense statement [false]
+assign a; while w;
+Select a such that Parent(4,6)
+
+5000
+35 - long nonsense statement [true]
+if f; while w; assign a; assign b;
+Select a such that Parent(5,6) such that Parent(5,6) such that Parent(5,6)
+1,2,3,6,7,8,11,12,13,14,15
+5000
+36 - long nonsense statement [false]
+if f; while w; assign a; assign b;
+Select a such that Parent(4,6) such that Parent(f,9)
+
+5000
+37 - Procedure
+procedure p;
+Select p
+computeCentroid, main, readPoint, printResults
+5000
+38 - line 3 uses count [false]
+procedure p;
+Select p such that Uses(3,"count")
+
+5000
+39 - line 7 uses x
+procedure p;
+Select p such that Uses(7,"x")
+computeCentroid, main, readPoint, printResults
+5000
+40 - line 9 uses y
+procedure p;
+Select p such that Uses(7,"x")
+computeCentroid, main, readPoint, printResults
+5000
+41 - line 10 uses flag [false]
+procedure p;
+Select p such that Uses(10,"flag")
+
+5000
+42 - line 10 uses count
+procedure p;
+Select p such that Uses(10,"count")
+computeCentroid, main, readPoint, printResults
+5000
+43 - procedure main uses flag
+procedure p;
+Select p such that Uses("main","flag")
+computeCentroid, main, readPoint, printResults
+5000
+44 - list procedures that use variable cenX
+procedure p;
+Select p such that Uses(p,"cenX")
+computeCentroid, main, printResults
+5000
+45 - list variables that are used in line 5
+variable v;
+Select v such that Uses(5,v)
+x, y, count, cenX, cenY
+5000
+46 - list variables that are used by a while loop
+variable a; while w;
+Select a such that Uses(w,a)
+count, cenX, cenY, x, y
+5000
+47 - list variables that are used within an if statement
+variable a; if f;
+Select a such that Uses(f,a)
+count, cenX, cenY
+5000
+48 - list constants that are used within a while loop
+constant c; while w;
+Select c such that Uses(w,c)
+1, 0
+5000
+49 - list constants that are used within an if statement
+constant c; if f;
+Select c such that Uses(f,c)
+1, 2, 3, 5, 100
+5000
+50 - list variables that are used within main function
+variable a;
+Select a such that Uses(main, a)
+count, cenX, cenY, x, y, flag, normSq
+5000
+51 - list procedures that use variable count
+procedure p;
+Select p such that Uses(p, "count")
+main, computeCentroid
+5000
+52 - list variables that are used by both while and if statements
+variable a; while w; if f;
+Select a such that Uses(w, a) Uses(f, a)
+cenX, cenY, count
+5000
+53 - pattern 1
+assign a;
+Select a pattern a(_,_"x"_)
+7
+5000
+54 - pattern 2
+assign a;
+Select a pattern a("cenX",_)
+2,7,12
+5000
+55 - pattern 3
+assign a;
+Select a pattern a(_,_"cenY"_)
+8,13,14
+5000
+56 - get all assign lines with cenY in RHS and within while loop
+assign a; while w;
+Select a such that Parent(w,a) pattern a(_,_"cenY"_)
+8
+5000
+57 - List variable for filter by Uses then Pattern
+variable v; assign a;
+Select v such that Uses(a, v) pattern a (v, _)
+count, cenX, cenY
+5000
+58 - List variable for filter by Pattern then Uses
+variable v; assign a;
+Select v pattern a (v, _) such that Uses(a, v)
+count, cenX, cenY
+5000
+59 - List assign for filter by Uses then Pattern
+variable v; assign a;
+Select a  such that Uses(a, v) pattern a (v, _)
+6, 7, 8, 12, 13
+5000
+60 - List assign for filter by Pattern then Uses
+variable v; assign a;
+Select a pattern a (v, _) such that Uses(a, v)
+6, 7, 8, 12, 13
+5000
+61 - List variable for filter by Modifies then Pattern
+variable v; assign a;
+Select v such that Modifies(a, v) pattern a (_, _"x"_)
+cenX
+5000
+62 - List variable for filter by Pattern then Modifies
+variable v; assign a;
+Select v pattern a (_, _"x"_) such that Modifies(a, v)
+cenX
+5000
+63 - List assign for filter by Modifies then Pattern
+variable v; assign a;
+Select a  such that Modifies(a, v) pattern a (v, _"x"_)
+7
+5000
+64 - List variable for filter by Parent then Pattern
+variable v; assign a;
+Select v such that Parent(5, a) pattern a (v, _)
+count, cenX, cenY
+5000
+65 - List variable for filter by Pattern then Parent
+variable v; assign a;
+Select v  pattern a (v, _) such that Parent(5, a)
+count, cenX, cenY
+5000
+66 - List assign for filter by Parent then Pattern
+variable v; assign a;
+Select a  such that Parent(5, a) pattern a (v, _"x"_)
+7
+5000
+67 - list variables modified by call in stmtt 9
+variable v;
+Select v such that Modifies(9, v)
+x,y
+5000
+68 - get all variables modified by procedure computeCentroid
+variable v;
+Select v such that Modifies(computeCentroid, v)
+count, cenX, cenY, flag, normSq, x, y
+5000
+69 - get all variables modified by proc call computeCentroid
+variable v;
+Select v such that Modifies(16, v)
+count, cenX, cenY, flag, normSq, x, y
+5000
+70 - get all variables modified by readPoint
+variable v;
+Select v such that Modifies(readPoint, v)
+x,y
+5000
+71 - get all variables modified by readpoint call
+variable v;
+Select v such that Modifies(4, v)
+x,y
+5000
+72 - get all variables used by computeCentroid
+variable v;
+Select v such that Uses(computeCentroid, v)
+x,y,count,cenX,cenY
+5000
+73 - get all variables used by computeCentroid proc call
+variable v;
+Select v such that Uses(16, v)
+x,y,count,cenX,cenY
+5000
+74 - get all variables used by printResults proc call
+variable v;
+Select v such that Uses(17, v)
+flag, cenX, cenY, normSq
+5000
+75 - get all variables used by main
+variable v;
+Select v such that Uses(main, v)
+cenX,cenY,count,flag,normSq,x,y
+5000
+76 - get all variables used by main and modified by readPoint
+variable v;
+Select v such that Uses(main, v) such that Modifies(readPoint, v)
+x,y
+5000
+77 - get all assign statements
+assign a;
+Select a
+1,2,3,6,7,8,11,12,13,14,15
+5000
+78 - get all assign statements that have any pattern
+assign a;
+Select a pattern a(_,_)
+1,2,3,6,7,8,11,12,13,14,15
+5000
+79 - get all assign statements that have cenX in LHS
+assign a;
+Select a pattern a("cenX",_)
+2, 7, 12
+5000
+80 - get all assign statements that have x in RHS
+assign a;
+Select a pattern a(_,_"x"_)
+7
+5000
+81 - get all assign statements with 0 in RHS
+assign a;
+Select a pattern a(_,_"0"_)
+1,2,3,15
+5000
+82 - get all assign statements with 0 in RHS exact match
+assign a;
+Select a pattern a(_,"0")
+1,2,3
+5000
+83 - get all pattern with cenx*cenx in rhs
+assign a;
+Select a pattern a(_,_"cenX*cenX"_)
+14
+5000
+84 - get pattern with exact match
+assign a;
+Select a pattern a(_,"cenX*cenX+cenY*cenY")
+14
+5000
+85 - get pattern with exact match
+assign a;
+Select a pattern a("normSq","cenX*cenX+cenY*cenY")
+14
+5000
+86 - get pattern with cenY * cenY in RHS
+assign a;
+Select a pattern a("normSq",_"cenY*cenY"_)
+14
+5000
+87 - get pattern with cenX + cenY in RHS
+assign a;
+Select a pattern a("normSq",_"cenX+cenY"_)
+
+5000
+88 - get pattern with cenX + X in RHS
+assign a;
+Select a pattern a("normSq",_"cenX+x"_)
+
+5000
+89 - get pattern with cenX + X in RHS
+assign a;
+Select a pattern a("cenX",_"cenX+x"_)
+7
+5000
+90 - get pattern with 3*5/100 in RHS
+assign a;
+Select a pattern a(_,_"3*5/100"_)
+11
+5000
+91 - parent lhs wildcard
+assign a;
+Select a such that Parent(_,a)
+6,7,8,11,12,13
+5000
+92 - parent rhs wildcard
+while w;
+Select w such that Parent(w,_)
+5
+5000
+93 - parent rhs wildcard
+if f;
+Select f such that Parent(f,_)
+10
+5000
+94 - parent* lhs wildcard
+assign a;
+Select a such that Parent*(_,a)
+6,7,8,11,12,13
+5000
+95 - parent* RHS wildcard
+while w;
+Select w such that Parent*(w,_)
+5
+5000

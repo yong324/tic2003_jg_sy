@@ -46,7 +46,7 @@ Select <w1, f1, w2> such that Parent(w1, f1) such that Parent(f1, w2)
 10 - variable
 variable v1; assign a;
 Select v1 such that Modifies("pRoc3", v1) such that Uses("pRoc3", v1) pattern a (v1, _"1"_)
-b4, b7
+b4, b7, a3, c2, c3
 5000
 11 - assign
 assign a;
