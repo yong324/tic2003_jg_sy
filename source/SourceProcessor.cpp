@@ -174,6 +174,7 @@ void SourceProcessor::processReadStatement(SourceTokenizer& sourceTokenizer, Tok
 	tk = sourceTokenizer.getNextToken();
 	Database::insertRead(lineIdx,tk.value);
 	Database::insertModify(lineIdx, tk.value, "READ");
+	Database::insertVariable(tk.value);
 	return;
 }
 

@@ -3,6 +3,7 @@ procedure main {
 	y = 10;
 	z = 20;
 	x = x + 1;
+	call main2;
 	while (x < 20) {
 		y = y + 2;
 		x = x + 1;
@@ -19,6 +20,7 @@ procedure main {
 		z = y;
 	}
 	print z;
+	
 }
 
 procedure main2 {
@@ -26,4 +28,33 @@ procedure main2 {
 	B = 10;
 	C = A + B;
 	print C;
+	
+	D = 5 * A;
+	while () {
+		E = 1;
+		if (C < 10) then {
+			C = D + E;
+		} else {
+			call main;
+		}
+		print ;
+	}
+	
+	print ;
+}
+
+procedure main3 {
+	call main2;
+	read abc;
+	read xyz;
+	
+	def = abc * xyz + 123;
+	abc = def / xyz;
+	print def;
+	print abc;
+}
+
+procedure main4 {
+	call main3;
+	call main1;
 }

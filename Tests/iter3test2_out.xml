@@ -1,65 +1,53 @@
 <?xml-stylesheet type="text/xsl" href="analysis.xsl"?>
 <test_results>
 <info>
-<name>AutoTester</name><parsing_time_taken>2369.000000</parsing_time_taken>
+<name>AutoTester</name><parsing_time_taken>1123.000000</parsing_time_taken>
 </info>
 <queries>
 <query>
 <id ReturnTuple="1" Parent="1" Parentstar="1" SuchThat="2" CondNum="5" RelNum="2" comment="while">1</id><querystr><![CDATA[while w1, w2; if f; Select <w1, w2> such that Parent*(w1,w2) such that Parent(f, w1)]]></querystr>
 <stuans>17 18,27 28</stuans>
 <correct>17 18,27 28</correct>
-<time_taken>51.000000</time_taken>
+<time_taken>110.000000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" Calls="1" Modifies="1" UnnamedVar="2" Pattern="1" SuchThat="2" CondNum="8" RelNum="2" comment="procedure">2</id><querystr><![CDATA[procedure two; variable a; assign b; Select <two, a> such that Calls("two", two) such that Modifies(two, a) pattern b (a, _"v4 + v3"_)]]></querystr>
 <stuans>three c2</stuans>
 <correct>three c2</correct>
-<time_taken>24.000000</time_taken>
+<time_taken>66.000000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" Callsstar="1" Modifies="1" UnnamedVar="1" Pattern="1" SuchThat="2" CondNum="7" RelNum="2" comment="procedure 2">3</id><querystr><![CDATA[procedure two; variable a; assign b; Select <two, a> such that Calls*("one", two) such that Modifies(two, a) pattern b (a, _"1"_)]]></querystr>
 <stuans>two b1,two b3,two b6,two c1,three c1</stuans>
 <correct>two b1,two b3,two b6,two c1,three c1</correct>
-<time_taken>44.000000</time_taken>
+<time_taken>107.000000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" Parent="2" Parentstar="1" SuchThat="3" CondNum="7" RelNum="3" comment="if">4</id><querystr><![CDATA[if if1, if2; while w; Select <if1, if2> such that Parent* (if1, if2) such that Parent (w, if2) such that Parent (if1, w)]]></querystr>
 <stuans>2 10</stuans>
 <correct>2 10</correct>
-<time_taken>36.000000</time_taken>
+<time_taken>82.000000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" Parent="2" SuchThat="2" CondNum="5" RelNum="2" comment="get print within while within if">5</id><querystr><![CDATA[print p; if f; while w; Select <p,f,w> such that Parent(w,f) such that Parent(f,p)]]></querystr>
 <stuans>23 19 18,40 38 37,43 38 37</stuans>
 <correct>23 19 18,40 38 37,43 38 37</correct>
-<time_taken>26.000000</time_taken>
+<time_taken>64.000000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" Modifies="1" Parent="3" SuchThat="4" CondNum="9" RelNum="4" comment="get read var name and line no within if within while within if">6</id><querystr><![CDATA[variable v; read r; if f1, f2; while w; Select <v,r> such that Parent(f1,w) such that Parent(w,f2) such that Parent(f2,r) such that Modifies(r,v)]]></querystr>
-<stuans></stuans>
-<correct>a7 13,a8 14</correct>
-<time_taken>3290.000000</time_taken>
-<failed>
-<missing>a7 13,a8 14</missing>
-<additional></additional>
-<summary>
-<expected>2</expected>
-<matched>0</matched>
-<missing>2</missing>
-<additional>0</additional>
-</summary>
-</failed>
+<timeout/>
 </query>
 <query>
 <id ReturnTuple="1" Calls="1" SuchThat="1" CondNum="3" RelNum="1" comment="get procedures that get called">7</id><querystr><![CDATA[procedure p1,p2; call c; Select p2 such that Calls(p1,p2)]]></querystr>
 <stuans>two,three</stuans>
 <correct>two,three</correct>
-<time_taken>7.000000</time_taken>
+<time_taken>16.000000</time_taken>
 <passed/>
 </query>
 </queries>

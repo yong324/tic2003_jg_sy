@@ -28,4 +28,34 @@ procedure main2 {
 	B = 10;
 	C = A + B;
 	print C;
+	
+	D = 5 * A;
+	while () {
+		E = 1;
+		if (C < 10) then {
+			C = D + E (9%A);
+		} else {
+			call main;
+			D = B % 20;
+		}
+		print D;
+	}
+	
+	print C;
+}
+
+procedure main3 {
+	call main2;
+	read abc;
+	read xyz;
+	
+	def = abc * (xyz + 123);
+	abc = def / xyz;
+	print def;
+	print abc;
+}
+
+procedure main4 {
+	call main3;
+	call main1;
 }

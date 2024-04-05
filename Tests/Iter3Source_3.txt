@@ -1,0 +1,15 @@
+procedure wind {
+
+}
+
+procedure speed {
+
+}
+
+procedure temperature {
+
+}
+
+procedure humidity {
+
+}

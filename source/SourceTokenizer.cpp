@@ -17,7 +17,7 @@ SourceTokenizer::~SourceTokenizer() {}
 Token SourceTokenizer::getNextToken() {
 	if (sourceCode.size() == 0) return { ENDOFPROGRAM,"" };
 
-	regex lexemeRegex(R"((read|print|if|else|while|call|[+\-*/();=\}><%]|\(([^)]*)\)|\d+|[a-zA-Z][a-zA-Z0-9]*))");
+	regex lexemeRegex(R"((\bread\b|\bprint\b|\bif\b|\belse\b|\bwhile\b|\bcall\b|[+\-*/();=\}><%]|\(([^)]*)\)|\d+|[a-zA-Z][a-zA-Z0-9]*))");
 	smatch match;
 	size_t pos = 0;
 	string lexeme = "";
