@@ -12,7 +12,7 @@ QueryProcessor::~QueryProcessor() = default;
 
 // Parses the given query string and constructs a Query object.
 // It tokenizes the query, identifies relRef, selection variables, and conditions.
-Query* QueryProcessor::parseQuery(const string& query)
+Query* QueryProcessor::parseQuery(const string & query)
 {
     // Tokenize the query
     Tokenizer tk;
@@ -24,7 +24,7 @@ Query* QueryProcessor::parseQuery(const string& query)
     size_t tIndex = 0;
     // Parsing relRef and their types
     parseSynonyms(tokens, synonyms, tIndex);
-    
+
     tIndex += 1;
     // Parsing the selection variables
     vector<string> selectionVars{};
@@ -34,8 +34,7 @@ Query* QueryProcessor::parseQuery(const string& query)
         do
         {
             selectionVars.push_back(tokens[tIndex++]);
-        }
-        while (tokens[tIndex++] != ">");
+        } while (tokens[tIndex++] != ">");
     }
     else
     {
@@ -50,11 +49,11 @@ Query* QueryProcessor::parseQuery(const string& query)
         parseSelectionStructures(tokens, selection_structures, tIndex);
     }
 
-    return new Query{synonyms, selectionVars, selection_structures};
+    return new Query{ synonyms, selectionVars, selection_structures };
 }
 
 // Evaluates the given Query object to produce the output results.
-void QueryProcessor::evaluateQuery(const Query& query, vector<string>& output)
+void QueryProcessor::evaluateQuery(const Query & query, vector<string>&output)
 {
     // Clear the output vector
     output.clear();
@@ -63,7 +62,7 @@ void QueryProcessor::evaluateQuery(const Query& query, vector<string>& output)
 }
 
 // Combines parsing and evaluation of a query to produce the output results.
-void QueryProcessor::evaluate(const string& query, vector<string>& output)
+void QueryProcessor::evaluate(const string & query, vector<string>&output)
 {
     // Parse the query
     const Query* query_obj = parseQuery(query);
@@ -74,7 +73,7 @@ void QueryProcessor::evaluate(const string& query, vector<string>& output)
     delete query_obj;
 }
 
-void QueryProcessor::parseSynonyms(vector<string>& tokens, map<string, string>& synonyms, size_t& tIndex)
+void QueryProcessor::parseSynonyms(vector<string>&tokens, map<string, string>&synonyms, size_t & tIndex)
 {
     // example: procedure c1; variable v; assign a; if if1, if2;
     do
@@ -95,12 +94,11 @@ void QueryProcessor::parseSynonyms(vector<string>& tokens, map<string, string>& 
 
         synonyms.insert_or_assign(var, type);
         tIndex++;
-    }
-    while (tokens[tIndex] != "Select");
+    } while (tokens[tIndex] != "Select");
 }
 
-void QueryProcessor::parseSelectionStructures(vector<string>& tokens, list<SelectionStructure*>& selection_structures,
-                                              size_t& tIndex)
+void QueryProcessor::parseSelectionStructures(vector<string>&tokens, list<SelectionStructure*>&selection_structures,
+    size_t & tIndex)
 {
     while (tIndex < tokens.size())
     {
@@ -119,7 +117,7 @@ void QueryProcessor::parseSelectionStructures(vector<string>& tokens, list<Selec
     }
 }
 
-SuchThatSelection* QueryProcessor::parseSuchThat(vector<string>& tokens, size_t& tIndex)
+SuchThatSelection* QueryProcessor::parseSuchThat(vector<string>&tokens, size_t & tIndex)
 {
     tIndex += 2; // Assuming "such that" are two separate tokens and we move past "that"
     int relRef;
@@ -201,7 +199,7 @@ SuchThatSelection* QueryProcessor::parseSuchThat(vector<string>& tokens, size_t&
     return new SuchThatSelection(relRef, ref1_type, ref1, ref2_type, ref2);
 }
 
-PatternSelection* QueryProcessor::parsePattern(vector<string>& tokens, size_t& tIndex)
+PatternSelection* QueryProcessor::parsePattern(vector<string>&tokens, size_t & tIndex)
 {
     string entRef;
     int entRef_type;

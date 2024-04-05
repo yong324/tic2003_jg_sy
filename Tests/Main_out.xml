@@ -1,107 +1,65 @@
 <?xml-stylesheet type="text/xsl" href="analysis.xsl"?>
 <test_results>
 <info>
-<name>AutoTester</name><parsing_time_taken>2443.000000</parsing_time_taken>
+<name>AutoTester</name><parsing_time_taken>2369.000000</parsing_time_taken>
 </info>
 <queries>
 <query>
-<id ReturnTuple="1" Modifies="1" Parent="2" UnnamedVar="1" Pattern="1" SuchThat="3" CondNum="9" RelNum="3" comment="Test 1 procedure">1</id><querystr><![CDATA[procedure c1; variable v; assign a; if if1, if2; Select c1 such that Modifies(c1, v) pattern a (v,_"1"_) such that Parent(if1, a) such that Parent(if2, if1)]]></querystr>
-<stuans>pRoc3</stuans>
-<correct>pRoc3</correct>
-<time_taken>4915.000000</time_taken>
-<passed/>
-</query>
-<query>
-<id ReturnTuple="1" Parent="1" UnnamedVar="4" Uses="1" Pattern="2" SuchThat="2" CondNum="11" RelNum="2" comment="Test 2 assign">2</id><querystr><![CDATA[assign a; while w; variable v; Select a such that Parent(w, a) such that Uses(a, v) pattern a (_, _"a1 - a3"_) pattern a("a3",_)]]></querystr>
-<stuans>28</stuans>
-<correct>28</correct>
-<time_taken>341.000000</time_taken>
-<passed/>
-</query>
-<query>
-<id ReturnTuple="1" Parent="2" UnnamedVar="2" Pattern="1" SuchThat="2" CondNum="8" RelNum="2" comment="Test 3 statements">3</id><querystr><![CDATA[stmt s; assign a; if f; Select s pattern a(_, _"1"_) such that Parent(s, a) such that Parent(f, s)]]></querystr>
-<stuans>11</stuans>
-<correct>11</correct>
-<time_taken>831.000000</time_taken>
-<passed/>
-</query>
-<query>
-<id ReturnTuple="1" Parent="2" UnnamedVar="1" Pattern="1" SuchThat="2" CondNum="7" RelNum="2" comment="Test 4 assign">4</id><querystr><![CDATA[assign s; if w1, w2; Select s such that Parent(w1, w2) such that Parent(w2,s) pattern s (_,_"b7+1"_)]]></querystr>
-<stuans>13</stuans>
-<correct>13</correct>
+<id ReturnTuple="1" Parent="1" Parentstar="1" SuchThat="2" CondNum="5" RelNum="2" comment="while">1</id><querystr><![CDATA[while w1, w2; if f; Select <w1, w2> such that Parent*(w1,w2) such that Parent(f, w1)]]></querystr>
+<stuans>17 18,27 28</stuans>
+<correct>17 18,27 28</correct>
 <time_taken>51.000000</time_taken>
 <passed/>
 </query>
 <query>
-<id ReturnTuple="1" Modifies="1" UnnamedVar="3" Uses="1" Pattern="1" SuchThat="2" CondNum="9" RelNum="2" comment="variable">5</id><querystr><![CDATA[variable a; call c; assign c1; Select a such that Uses(c, a) such that Modifies (c1, a) pattern c1 (_, _"c1 * 3/(5-7)"_)]]></querystr>
-<stuans>c2</stuans>
-<correct>c2</correct>
-<time_taken>189.000000</time_taken>
+<id ReturnTuple="1" Calls="1" Modifies="1" UnnamedVar="2" Pattern="1" SuchThat="2" CondNum="8" RelNum="2" comment="procedure">2</id><querystr><![CDATA[procedure two; variable a; assign b; Select <two, a> such that Calls("two", two) such that Modifies(two, a) pattern b (a, _"v4 + v3"_)]]></querystr>
+<stuans>three c2</stuans>
+<correct>three c2</correct>
+<time_taken>24.000000</time_taken>
 <passed/>
 </query>
 <query>
-<id ReturnTuple="1" Modifies="2" UnnamedVar="1" Pattern="1" SuchThat="1" CondNum="6" RelNum="2" comment="procedure and variable">6</id><querystr><![CDATA[procedure p; variable v; assign a; Select <p,v> such that Modifies(p, v) Modifies(a,v) pattern a (v, _"1"_)]]></querystr>
-<stuans>pRoc3 b4,pRoc3 b7,pRoc3 a3,Proc2 a3,pRoc3 a,Proc2 a,pRoc3 c2,Proc2 c2,proc1 c2,pRoc3 c3,Proc2 c3,proc1 c3</stuans>
-<correct>Proc2 a,Proc2 a3,Proc2 c2,Proc2 c3,pRoc3 a,pRoc3 a3,pRoc3 b4,pRoc3 b7,pRoc3 c2,pRoc3 c3,proc1 c2,proc1 c3</correct>
-<time_taken>216.000000</time_taken>
+<id ReturnTuple="1" Callsstar="1" Modifies="1" UnnamedVar="1" Pattern="1" SuchThat="2" CondNum="7" RelNum="2" comment="procedure 2">3</id><querystr><![CDATA[procedure two; variable a; assign b; Select <two, a> such that Calls*("one", two) such that Modifies(two, a) pattern b (a, _"1"_)]]></querystr>
+<stuans>two b1,two b3,two b6,two c1,three c1</stuans>
+<correct>two b1,two b3,two b6,two c1,three c1</correct>
+<time_taken>44.000000</time_taken>
 <passed/>
 </query>
 <query>
-<id ReturnTuple="1" Calls="2" SuchThat="2" CondNum="5" RelNum="2" comment="procedure and while">7</id><querystr><![CDATA[procedure p1, p2, p3; Select <p1, p2> such that Calls(p1, p2) such that Calls(p2, p3)]]></querystr>
-<stuans>pRoc3 Proc2</stuans>
-<correct>pRoc3 Proc2</correct>
-<time_taken>10.000000</time_taken>
+<id ReturnTuple="1" Parent="2" Parentstar="1" SuchThat="3" CondNum="7" RelNum="3" comment="if">4</id><querystr><![CDATA[if if1, if2; while w; Select <if1, if2> such that Parent* (if1, if2) such that Parent (w, if2) such that Parent (if1, w)]]></querystr>
+<stuans>2 10</stuans>
+<correct>2 10</correct>
+<time_taken>36.000000</time_taken>
 <passed/>
 </query>
 <query>
-<id ReturnTuple="1" Parent="2" SuchThat="2" CondNum="5" RelNum="2" comment="while and if and if">8</id><querystr><![CDATA[while w1; if f1, f2; Select <w1, f1, f2> such that Parent(w1, f1) such that Parent(f1, f2)]]></querystr>
-<stuans>4 10 11</stuans>
-<correct>4 10 11</correct>
-<time_taken>18.000000</time_taken>
+<id ReturnTuple="1" Parent="2" SuchThat="2" CondNum="5" RelNum="2" comment="get print within while within if">5</id><querystr><![CDATA[print p; if f; while w; Select <p,f,w> such that Parent(w,f) such that Parent(f,p)]]></querystr>
+<stuans>23 19 18,40 38 37,43 38 37</stuans>
+<correct>23 19 18,40 38 37,43 38 37</correct>
+<time_taken>26.000000</time_taken>
 <passed/>
 </query>
 <query>
-<id ReturnTuple="1" Parent="2" SuchThat="2" CondNum="5" RelNum="2" comment="while and while and if">9</id><querystr><![CDATA[while w1, w2; if f1; Select <w1, f1, w2> such that Parent(w1, f1) such that Parent(f1, w2)]]></querystr>
-<stuans>4 10 14</stuans>
-<correct>4 10 14</correct>
-<time_taken>23.000000</time_taken>
-<passed/>
-</query>
-<query>
-<id ReturnTuple="1" Modifies="1" UnnamedVar="1" Uses="1" Pattern="1" SuchThat="2" CondNum="7" RelNum="2" comment="variable">10</id><querystr><![CDATA[variable v1; assign a; Select v1 such that Modifies("pRoc3", v1) such that Uses("pRoc3", v1) pattern a (v1, _"1"_)]]></querystr>
-<stuans>b4,b7,a3,c2,c3</stuans>
-<correct>b4,b7,a3,c2,c3</correct>
-<time_taken>78.000000</time_taken>
-<passed/>
-</query>
-<query>
-<id ReturnTuple="1" Modifies="1" UnnamedVar="4" Uses="1" Pattern="1" SuchThat="2" CondNum="10" RelNum="2" comment="assign">11</id><querystr><![CDATA[assign a; Select a such that Modifies(a, _) such that Uses(a, _) pattern a (_,_"a2 / 302"_)]]></querystr>
+<id ReturnTuple="1" Modifies="1" Parent="3" SuchThat="4" CondNum="9" RelNum="4" comment="get read var name and line no within if within while within if">6</id><querystr><![CDATA[variable v; read r; if f1, f2; while w; Select <v,r> such that Parent(f1,w) such that Parent(w,f2) such that Parent(f2,r) such that Modifies(r,v)]]></querystr>
 <stuans></stuans>
-<correct>41</correct>
-<time_taken>8.000000</time_taken>
+<correct>a7 13,a8 14</correct>
+<time_taken>3290.000000</time_taken>
 <failed>
-<missing>41</missing>
+<missing>a7 13,a8 14</missing>
 <additional></additional>
 <summary>
-<expected>1</expected>
+<expected>2</expected>
 <matched>0</matched>
-<missing>1</missing>
+<missing>2</missing>
 <additional>0</additional>
 </summary>
 </failed>
 </query>
 <query>
-<id ReturnTuple="1" Modifies="1" UnnamedVar="1" Uses="1" Pattern="1" SuchThat="2" CondNum="7" RelNum="2" comment="variable">12</id><querystr><![CDATA[variable v1, v2; assign a; Select <v1, v2> such that Modifies(a, v1) such that Uses(a, v2) pattern a (v1, _)]]></querystr>
-<stuans>b3 b1,b3 b3,b3 b2,b3 b4,b4 b4,b6 b7,b7 b7,b10 b7,b10 b9,b10 b8,a3 a1,a1 a2,a4 a2,a1 a3,a3 a3,a1 a4,a3 a4,a1 a5,a3 a9,a a6,a a7,a a18,c2 c,c2 c1,c2 c2,c3 c3</stuans>
-<correct>b3 b1,b3 b2,b3 b3,b3 b4,b4 b4,b6 b7,b10 b7,b7 b7,b10 b9,b10 b8,a3 a1,a1 a2,a4 a2,a1 a3,a3 a3,a1 a4,a3 a4,a1 a5,a3 a9,a a6,a a7,a a18,c2 c,c2 c1,c2 c2,c3 c3</correct>
-<time_taken>1397.000000</time_taken>
-<passed/>
-</query>
-<query>
-<id ReturnTuple="1" Parentstar="1" UnnamedVar="2" Uses="1" Pattern="1" SuchThat="2" CondNum="8" RelNum="2" comment="assign">13</id><querystr><![CDATA[assign a; while w; Select <w, a> pattern a (_,_"1"_) such that Uses(w, _) such that Parent* (w, a)]]></querystr>
-<stuans>4 7,4 13,6 7,26 28</stuans>
-<correct>4 7,6 7,4 13,26 28</correct>
-<time_taken>52.000000</time_taken>
+<id ReturnTuple="1" Calls="1" SuchThat="1" CondNum="3" RelNum="1" comment="get procedures that get called">7</id><querystr><![CDATA[procedure p1,p2; call c; Select p2 such that Calls(p1,p2)]]></querystr>
+<stuans>two,three</stuans>
+<correct>two,three</correct>
+<time_taken>7.000000</time_taken>
 <passed/>
 </query>
 </queries>

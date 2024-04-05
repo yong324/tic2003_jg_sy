@@ -7,7 +7,7 @@
 
 // Constructor for PatternSelection, initializing the object with pattern details.
 PatternSelection::PatternSelection(string syn_assign, int ent_ref_type, string ent_ref, int spec_type,
-                                   string expression_spec) :
+    string expression_spec) :
     syn_assign(std::move(syn_assign)),
     entRef_type(ent_ref_type),
     entRef(std::move(ent_ref)),
@@ -29,12 +29,12 @@ void PatternSelection::select(vector<map<string, vector<string>>>& cartesian_tab
                 entRef_type == ANY ||
                 entRef_type == IDENT && entRef == assign_record[1] ||
                 entRef_type == SYNONYM && record.at(entRef)[0] == assign_record[1]
-            ) && (
-                spec_type == ANY ||
-                spec_type == EXACT && expression_spec == assign_record[2] ||
-                spec_type == PARTIAL && partialMatch(assign_record[2])
+                ) && (
+                    spec_type == ANY ||
+                    spec_type == EXACT && expression_spec == assign_record[2] ||
+                    spec_type == PARTIAL && partialMatch(assign_record[2])
+                    )
             )
-        )
         {
             new_cartesian_table.push_back(record);
         }
@@ -46,14 +46,23 @@ void PatternSelection::select(vector<map<string, vector<string>>>& cartesian_tab
 // The partialMatch method checks if the expression_spec is a substring of the assign_record.
 bool PatternSelection::partialMatch(const string& expression) const
 {
-    const size_t index = expression.find(expression_spec);
-    return
-        index != string::npos &&
-        (
-            index == 0 ||
-            !isalnum(expression[index - 1])
-        ) && (
-            index + expression_spec.size() == expression.size() ||
-            !isalnum(expression[index + expression_spec.size()])
-        );
+    size_t index = -1;
+    do
+    {
+        index = expression.find(expression_spec, index + 1);
+
+        if (index == string::npos)
+            return false;
+
+        if (
+            (
+                index == 0 ||
+                !isalnum(expression[index - 1])
+                ) && (
+                    index + expression_spec.size() == expression.size() ||
+                    !isalnum(expression[index + expression_spec.size()])
+                    )
+            )
+            return true;
+    } while (true);
 }

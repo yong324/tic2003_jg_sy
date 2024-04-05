@@ -23,7 +23,7 @@ map<string, string> Query::tableNameMap = {
 
 // Constructor for the Query class that initializes the Query object with provided details.
 Query::Query(const map<string, string>& synonyms, const vector<string>& selectionVars,
-             list<SelectionStructure*> structures) :
+    list<SelectionStructure*> structures) :
     synonyms(synonyms),
     selectionVars(selectionVars),
     structures(std::move(structures))
@@ -40,40 +40,29 @@ Query::~Query()
 // The evaluate method processes the Query object to fetch and filter data as per the query's definition.
 void Query::evaluate(vector<string>& output) const
 {
+    // Map to store all tables fetched from the database.
     map<string, vector<vector<string>>> all_tables{};
 
     // Populate tables with data from the database for each synonym.
+    map<string, size_t> indexes{};
+    size_t cartesian_size = 1;
     for (const auto& pair : synonyms)
     {
         all_tables.insert_or_assign(pair.first, vector<vector<string>>());
         Database::getData(tableNameMap.at(pair.second), all_tables.at(pair.first));
+        indexes.insert_or_assign(pair.first, 0);
+        cartesian_size *= all_tables.at(pair.first).size();
     }
 
     // Create a table with the cartesian product of the selected tables.
-    vector<map<string, vector<string>>> cartesian_table{};
-    for (const auto& pair : all_tables)
+    vector<map<string, vector<string>>> cartesian_table{ cartesian_size };
+    for (size_t i = 0; i < cartesian_size; ++i)
     {
-        // Create a new selection table with the current synonym.
-        vector<map<string, vector<string>>> new_selection_table{};
-        for (const auto& next_record : pair.second)
-        {
-            if (cartesian_table.empty())
-            {
-                new_selection_table.push_back(map<string, vector<string>>{{pair.first, next_record}});
-            }
-            else
-            {
-                for (const auto& record : cartesian_table)
-                {
-                    map<string, vector<string>> new_record = record;
-                    new_record.insert_or_assign(pair.first, next_record);
-                    new_selection_table.push_back(new_record);
-                }
-            }
-        }
-
-        cartesian_table.clear();
-        cartesian_table = new_selection_table;
+        for (const auto& pair : all_tables)
+            cartesian_table[i].insert_or_assign(pair.first, pair.second[indexes.at(pair.first)]);
+        for (auto& pair : indexes)
+            if ((pair.second = (pair.second + 1) % all_tables.at(pair.first).size()) != 0)
+                break;
     }
 
     // Apply selection structures to filter the results.
@@ -90,16 +79,13 @@ void Query::evaluate(vector<string>& output) const
         {
             result += record.at(selectionVar)[0];
             if (i < selectionVars.size() - 1)
-            {
                 result += " ";
-            }
+
             i++;
         }
 
         // Add the result to the output if it is unique.
         if (find(output.begin(), output.end(), result) == output.end())
-        {
             output.push_back(result);
-        }
     }
 }

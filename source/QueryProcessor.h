@@ -18,7 +18,7 @@ public:
     // Method for evaluating a query
     void evaluate(const string& query, vector<string>& results);
 
-    
+
 
 private:
     // Helper method for parsing the query

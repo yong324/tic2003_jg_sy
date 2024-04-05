@@ -1,7 +1,2 @@
 ﻿  TestWrapper.cpp
-  LINK : C:\Users\User\Source\Repos\tic2003_jg_sy\Debug\AutoTester.exe not found or not built by the last incremental link; performing full link
-AutoTester_debug.lib(AutoTester.obj) : warning LNK4099: PDB 'autotester.pdb' was not found with 'AutoTester_debug.lib(AutoTester.obj)' or at 'C:\Users\User\Source\Repos\tic2003_jg_sy\Debug\autotester.pdb'; linking object as if no debug info
-AutoTester_debug.lib(Query.obj) : warning LNK4099: PDB 'autotester.pdb' was not found with 'AutoTester_debug.lib(Query.obj)' or at 'C:\Users\User\Source\Repos\tic2003_jg_sy\Debug\autotester.pdb'; linking object as if no debug info
-AutoTester_debug.lib(QueryManager.obj) : warning LNK4099: PDB 'autotester.pdb' was not found with 'AutoTester_debug.lib(QueryManager.obj)' or at 'C:\Users\User\Source\Repos\tic2003_jg_sy\Debug\autotester.pdb'; linking object as if no debug info
-AutoTester_debug.lib(Tokenizer.obj) : warning LNK4099: PDB 'autotester.pdb' was not found with 'AutoTester_debug.lib(Tokenizer.obj)' or at 'C:\Users\User\Source\Repos\tic2003_jg_sy\Debug\autotester.pdb'; linking object as if no debug info
   AutoTester.vcxproj -> C:\Users\User\Source\Repos\tic2003_jg_sy\Debug\AutoTester.exe

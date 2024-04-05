@@ -12,7 +12,7 @@ class SuchThatSelection : public SelectionStructure
 
 public:
     SuchThatSelection(int relRef, int ref1_type, string ref1, int ref2_type,
-                      string ref2);
+        string ref2);
 
     void select(vector<map<string, vector<string>>>& cartesian_table, const map<string, string>& synonyms) override;
 
@@ -33,11 +33,11 @@ private:
     static bool ifCallIndexGetProcedure(string& lineIndex);
     static bool doesCall(const string& caller, const string& callee);
     static bool doesCallStar(const string& caller, const string& callee);
-    
+
 
     static vector<string> getChildren(const string& parent);
     static string getParent(const string& child);
     static vector<string> getCallers(const string& callee);
     static vector<string> getCallees(const string& caller);
-    static string getProcedure(const string &statement);
+    static string getProcedure(const string& statement);
 };
