@@ -46,23 +46,34 @@ void PatternSelection::select(vector<map<string, vector<string>>>& cartesian_tab
 // The partialMatch method checks if the expression_spec is a substring of the assign_record.
 bool PatternSelection::partialMatch(const string& expression) const
 {
+    const bool plus_minus =
+        expression_spec.find('+') != string::npos ||
+        expression_spec.find('-') != string::npos;
+
     size_t index = -1;
-    do
+    while ((index = expression.find(expression_spec, index + 1)) != string::npos)
     {
-        index = expression.find(expression_spec, index + 1);
-
-        if (index == string::npos)
-            return false;
-
         if (
             (
                 index == 0 ||
-                !isalnum(expression[index - 1])
+                !isalnum(expression[index - 1]) &&
+                (
+                    !plus_minus ||
+                    expression[index - 1] != '*' &&
+                    expression[index - 1] != '/'
+                    )
                 ) && (
                     index + expression_spec.size() == expression.size() ||
-                    !isalnum(expression[index + expression_spec.size()])
+                    !isalnum(expression[index + expression_spec.size()]) &&
+                    (
+                        !plus_minus ||
+                        expression[index + expression_spec.size()] != '*' &&
+                        expression[index + expression_spec.size()] != '/'
+                        )
                     )
             )
             return true;
-    } while (true);
+    }
+
+    return false;
 }

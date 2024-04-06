@@ -75,7 +75,7 @@ main, computeCentroid
 5000
 16 - list all variables that are modified within if stmt and modified within while loop
 variable a; while w; if f;
-Select a such that Modifies(w, a) Modifies(f, a)
+Select a such that Modifies(w, a) such that Modifies(f, a)
 cenX, cenY
 5000
 17 - line 2 is parent of line 3 [false]
@@ -245,7 +245,7 @@ Select c such that Uses(f,c)
 5000
 50 - list variables that are used within main function
 variable a;
-Select a such that Uses(main, a)
+Select a such that Uses("main", a)
 count, cenX, cenY, x, y, flag, normSq
 5000
 51 - list procedures that use variable count
@@ -255,7 +255,7 @@ main, computeCentroid
 5000
 52 - list variables that are used by both while and if statements
 variable a; while w; if f;
-Select a such that Uses(w, a) Uses(f, a)
+Select a such that Uses(w, a) such that Uses(f, a)
 cenX, cenY, count
 5000
 53 - pattern 1
@@ -335,7 +335,7 @@ x,y
 5000
 68 - get all variables modified by procedure computeCentroid
 variable v;
-Select v such that Modifies(computeCentroid, v)
+Select v such that Modifies("computeCentroid", v)
 count, cenX, cenY, flag, normSq, x, y
 5000
 69 - get all variables modified by proc call computeCentroid
@@ -345,7 +345,7 @@ count, cenX, cenY, flag, normSq, x, y
 5000
 70 - get all variables modified by readPoint
 variable v;
-Select v such that Modifies(readPoint, v)
+Select v such that Modifies("readPoint", v)
 x,y
 5000
 71 - get all variables modified by readpoint call
@@ -355,7 +355,7 @@ x,y
 5000
 72 - get all variables used by computeCentroid
 variable v;
-Select v such that Uses(computeCentroid, v)
+Select v such that Uses("computeCentroid", v)
 x,y,count,cenX,cenY
 5000
 73 - get all variables used by computeCentroid proc call
@@ -370,12 +370,12 @@ flag, cenX, cenY, normSq
 5000
 75 - get all variables used by main
 variable v;
-Select v such that Uses(main, v)
+Select v such that Uses("main", v)
 cenX,cenY,count,flag,normSq,x,y
 5000
 76 - get all variables used by main and modified by readPoint
 variable v;
-Select v such that Uses(main, v) such that Modifies(readPoint, v)
+Select v such that Uses("main", v) such that Modifies("readPoint", v)
 x,y
 5000
 77 - get all assign statements

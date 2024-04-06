@@ -1,35 +1,315 @@
-1 - while
-while w1, w2; if f;
-Select <w1, w2> such that Parent*(w1,w2) such that Parent(f, w1)
-17 18, 27 28
+1 - Modifies (does the statement modify the variable days? yes)
+stmt s;
+select s such that Modifies ( 1 , days )
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24
 5000
-2 - procedure
-procedure two; variable a; assign b;
-Select <two, a> such that Calls("two", two) such that Modifies(two, a) pattern b (a, _"v4 + v3"_)
-three c2
+2 - Modifies (does the statement modify the variable days? no)
+stmt s;
+select s such that Modifies ( 2 , days )
+
 5000
-3 - procedure 2
-procedure two; variable a; assign b;
-Select <two, a> such that Calls*("one", two) such that Modifies(two, a) pattern b (a, _"1"_)
-two b1, two b3, two b6, two c1, three c1
+3 - Modifies (does the statement modify the variable profitMargin? no)
+stmt s;
+select s such that Modifies ( 6 , profitMargin )
+
 5000
-4 - if
-if if1, if2; while w;
-Select <if1, if2> such that Parent* (if1, if2) such that Parent (w, if2) such that Parent (if1, w)
-2 10
+4 - Modifies (does the statement modify the variable profitMargin? no)
+stmt s;
+select s such that Modifies ( 7 , profitMargin )
+
 5000
-5 - get print within while within if
-print p; if f; while w;
-Select <p,f,w> such that Parent(w,f) such that Parent(f,p)
-23 19 18, 40 38 37, 43 38 37
+5 - Modifies (does the statement modify the variable days? yes)
+stmt s;
+select s such that Modifies ( 9 , days )
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24
 5000
-6 - get read var name and line no within if within while within if
-variable v; read r; if f1, f2; while w;
-Select <v,r> such that Parent(f1,w) such that Parent(w,f2) such that Parent(f2,r) such that Modifies(r,v)
-a7 13, a8 14
+6 - Modifies (get all variables that this statement modifies)
+stmt s; variable v;
+select v such that Modifies ( 9 , v )
+days, cost, rent, gst
 5000
-7 - get procedures that get called
-procedure p1,p2; call c;
-Select p2 such that Calls(p1,p2)
-two, three
+7 - Modifies (does the statement modify the variable bag? yes)
+stmt s;
+select s such that Modifies ( 19 , bag )
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24
+5000
+8 - Modifies (does the read statement at line 3 modify the variable rent? yes)
+read rd;
+select rd such that Modifies ( 3 , rent )
+1, 2, 3, 4
+5000
+9 - Modifies (does the read statement at line 4 modify the variable bag? no)
+read rd;
+select rd such that Modifies ( 4 , bag )
+
+5000
+10 - Modifies (does the read statement at line 6 modify the variable profitMargin? no, there is no read statement on line 6)
+read rd;
+select rd such that Modifies ( 6 , profitMargin )
+
+5000
+11 - Modifies (does the read statement at line 16 modify the variable profitMargin? no, there is no read statement)
+read rd;
+select rd such that Modifies ( 16 , profitMargin )
+1, 2, 3, 4
+5000
+12 - Modifies (does the assignment statement modify the variable profitMargin? Yes)
+assign a;
+select a such that Modifies ( 13 , profitMargin )
+10, 13, 15, 16, 17, 19, 20, 21, 22
+5000
+13 - Modifies (does the assignment statement modify the variable bag? no)
+assign a;
+select a such that Modifies ( 13 , bag )
+
+5000
+14 - Modifies (does the assignment statement modify the variable bag? Yes)
+assign a;
+select a such that Modifies ( 15 , bag )
+
+5000
+15 - Modifies (does the assignment statement modify the variable bag? no)
+assign a;
+select a such that Modifies ( 21 , bag )
+
+5000
+16 - Modifies (does the while statement modify the variable days? yes, at line 15 and 17)
+while w;
+select w such that Modifies ( 11 , days )
+11, 14
+5000
+17 - Modifies (does the if statement modify the variable days? yes, at line 15 and 27)
+if i;
+select i such that Modifies ( 12 , days )
+12, 18
+5000
+18 - Modifies (does the while statement modify the variable days? yes, ONLY at line 15)
+while w;
+select w such that Modifies ( 14 , days )
+11, 14
+5000
+19 - Modifies (does the while statement modify the variable bag? no)
+while w;
+select w such that Modifies ( 14 , bag )
+
+5000
+20 - Modifies (does the while statement modify the variable days? yes)
+while w;
+select w such that Modifies ( 15 , days )
+11, 14
+5000
+21 - Modifies (does the while statement modify the variable bag? no)
+while w;
+select w such that Modifies ( 15 , bag )
+
+5000
+22 - Modifies (does the if statement modify the variable days? no)
+if i;
+select i such that Modifies ( 18 , days )
+
+5000
+23 - ModifiesP 
+procedure p;
+select p such that Modifies ( p , days )
+readValues, calculatePrice
+5000
+24 - Parent (Is 1 the parent of 2? No)
+stmt s;
+select s such that Parent(1, 2)
+
+5000
+25 - Parent (Is 11 the parent of 12? Yes)
+stmt s;
+select s such that Parent(11, 12)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24
+5000
+26 - Parent* (Is 11 the parent of 12? Yes)
+stmt s;
+select s such that Parent*(11, 12)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24
+5000
+27 - Parent (Is 11 the parent of 13? No)
+stmt s;
+select s such that Parent(11, 13)
+
+5000
+28 - Parent* (Is 11 the parent of 13? Yes)
+stmt s;
+select s such that Parent*(11, 13)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24
+5000
+29 - Parent* (Is 11 the parent of 14? Yes)
+stmt s;
+select s such that Parent*(11, 14)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24
+5000
+30 - Parent* (Is 11 the parent of 15? Yes)
+stmt s;
+select s such that Parent*(11, 15)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24
+5000
+31 - Parent* (Is 11 the parent of 16? Yes)
+stmt s;
+select s such that Parent*(11, 16)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24
+5000
+32 - Statement (Is 11 the parent of 18? No)
+stmt s;
+select s such that Parent*(11, 18)
+
+5000
+33 - Parent (Is 12 the parent of 13? Yes)
+stmt s;
+select s such that Parent(12, 13)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24
+5000
+34 - Parent* (Is 12 the parent of 14? Yes)
+stmt s;
+select s such that Parent*(12, 14)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24
+5000
+35 - Parent* (Is 12 the parent of 15? Yes)
+stmt s;
+select s such that Parent*(12, 15)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24
+5000
+36 - Parent* (Is 12 the parent of 16? Yes)
+stmt s;
+select s such that Parent*(12, 16)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24
+5000
+37 - Parent* (Is 12 the parent of 18? No)
+stmt s;
+select s such that Parent*(16, 22)
+
+5000
+38 - Parent (Is 14 the parent of 16? No)
+stmt s;
+select s such that Parent(14, 16)
+
+5000
+39 - Parent* (Is 14 the parent of 15? Yes)
+stmt s;
+select s such that Parent*(14, 15)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24
+5000
+40 - Parent* (Is 18 the parent of 22? Yes)
+stmt s;
+select s such that Parent*(18, 22)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24
+5000
+41 - Parent* (Is 18 the parent of 23? No)
+stmt s;
+select s such that Parent*(18, 23)
+
+5000
+42 - Parent (Find statements within a loop)
+stmt s; while w;
+select s such that Parent* (w, s)
+12, 13, 14, 15, 16, 17
+5000
+43 - Parent* (Find statements within a loop)
+stmt s; while w;
+select s such that Parent* (w, s) such that Parent* (14, s)
+15
+5000
+44 - Parent* (Find a specific statement within a loop)
+stmt s; while w;
+select s such that Parent* (w, s) such that Parent* (11, s)
+12, 13, 14, 15, 16, 17
+5000
+45 - Parent* (optional test case. Find the parent of every while loop)
+stmt s; while w;
+select s such that Parent* (s, w)
+11, 12
+5000
+46 - Uses (does the statement use the variable days? no)
+stmt s;
+select s such that Uses ( 1 , days)
+
+5000
+47 - Uses (does the statement use the variable profitMargin? yes)
+stmt s;
+select s such that Uses ( 5 , profitMargin)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24
+5000
+48 - Uses (does the assignment statement use the variable bag? no)
+assign a;
+select a such that Uses ( 10 , bag)
+
+5000
+49 - Uses (does the assignment statement use the variable bag? yes)
+assign a;
+select a such that Uses ( 22 , bag)
+10, 13, 15, 16, 17, 19, 20, 21, 22
+5000
+50 - Uses (does the print statements use the variable end? yes)
+print pr;
+select pr such that Uses ( 24 , end)
+5, 6, 24
+5000
+51 - Uses (does the print statements use the variable end? No)
+print pr;
+select pr such that Uses ( 5 , end)
+
+5000
+52 - Pattern (Find assignment statements where variable days appears on the LHS)
+assign a;
+select a pattern a ( days , _ )
+15, 17
+5000
+53 - Pattern (Find assignment statements where variable profitMargin appears on the LHS)
+assign a;
+select a pattern a ( profitMargin , _ )
+10, 13, 16, 21 
+5000
+54 - Pattern (Find assignment statements where variable rentIncrease appears on the LHS)
+assign a;
+select a pattern a ( rentIncrease , _ )
+
+5000
+55 - Pattern 
+assign a;
+select a pattern a ( profitMargin , _"0"_ )
+10
+5000
+56 - Pattern 
+assign a;
+select a pattern a ( profitMargin , profitMargin)
+
+5000
+57 - Pattern 
+assign a;
+select a pattern a ( bag , _"30"_ )
+19, 20
+5000
+58 - Calls
+procedure p;
+select p such that Calls( printValues , printProfitMargin )
+calculatePrice, printValues, readValues, printProfitMargin, printBag
+5000
+59 - Calls
+procedure p;
+select p such that Calls( "printValues" , "rentIncrease" )
+
+5000
+60 - Calls
+procedure p;
+select p such that Calls( "calculatePrice" , "readValues" )
+readValues, printProfitMargin, printBag, printValues, calculatePrice
+5000
+61 - Calls
+procedure p;
+select p such that Calls( "calculatePrice" , "rentIncrease" )
+
+5000
+62 - Calls
+procedure p;
+select p such that Calls( "calculatePrice" , "printValues" )
+readValues, printProfitMargin, printBag, printValues, calculatePrice
+5000
+63 - Calls
+procedure p;
+select p such that Calls( "calculatePrice" , "printBag" )
+
 5000
