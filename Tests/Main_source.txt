@@ -1,48 +1,37 @@
-procedure readValues{
-   read days;
-   read cost;
-   read rent;
-   read gst;
+procedure computeCentroid {
+	count = 0;
+	cenX = 0;
+	cenY = 0;
+	call readPoint;
+	while ((x * x + y * y) > 0) {
+		count = count + 1;
+		cenX = cenX + x;
+		cenY = cenY + y;
+		call readPoint;
+	}
+	if (count < 1) then {
+		flag = 2 + 3 * 5 / 100; 11
+	} else {
+		cenX = cenX / count;
+		cenY = cenY / count;
+	}
+	normSq = cenX * cenX + cenY * cenY;
 }
 
-procedure printProfitMargin{
-   print profitMargin;
+procedure main {
+	flag = 0*5;
+	call computeCentroid;
+	call printResults;
 }
 
-procedure printBag{
-   print Bag;
-}
+procedure readPoint{
+	read x;
+	read y;
+} 
 
-procedure printValues{
-   call printProfitMargin;
-   call printBag;
-}
-
-procedure calculatePrice{
-   call readValues;
-
-   profitMargin = 0;
-
-   while (days > 0) {
-     if (days < 30) then {
-       profitMargin = 888;
-       while (days > 0){
-   	    days = days - 1;
-       }
-     } else {
-       profitMargin = days;
-       days = days - 1;
-     }        
-   }
-
-   if (gst < 2) then {
-     bag = (cost + rent / 30) - 50 + profitMargin;
-   } else {
-      bag = cost + rent / 30 + gst;
-      profitMargin = profitMargin % 10 * 2 + 6;
-      bag = bag + profitMargin;
-   }
-
-   call printValues;
-   print end;
+procedure printResults{
+	print flag;
+	print cenX;
+	print cenY;
+	print normSq;
 }

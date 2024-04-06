@@ -102,7 +102,7 @@ void SuchThatSelection::select(vector<map<string, vector<string>>>& cartesian_ta
                         [&](const pair<string, string>& pair)
                         {
                             if (ref2_type == SYNONYM && pair.first == ref2)
-                                return true;
+                                return getParent(record.at(ref2)[0]) != "0";
                             return isParent(record.at(pair.first)[0], child);
                         }
                     );
@@ -150,7 +150,7 @@ void SuchThatSelection::select(vector<map<string, vector<string>>>& cartesian_ta
                         [&](const pair<string, string>& pair)
                         {
                             if (ref2_type == SYNONYM && pair.first == ref2)
-                                return true;
+                                return getParent(record.at(ref2)[0]) != "0";
                             return isParentStar(record.at(pair.first)[0], child);
                         }
                     );
