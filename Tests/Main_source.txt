@@ -1,74 +1,58 @@
-procedure north {
-	n1 = 10 + 30 * 51;
-	n2 = n1 / 56;
-	n3 = n1 * 30 + 10;
-	read n4;
+procedure wind {
+	w1 = 5;
+	read w2;
+	w3 = 200;
 	
-	if (n4 < 100) then {
-		n4 = n3 - n1;
-	} else {
-		while (n4 > 99) {
-			call south;
-			n4 = n2 / n1;
-		}
-	}
-	
-	while (n3 < n2) {
-		print n3;
-		n1 = n2 + n3;
-		n3 = n2 - n4;
-	}
-	
-	print n4;
-	
-}
-
-procedure south {
-	read s1; 
-	read s2; 
-	print s1;
-	
-	s3 = s2 - s1;
-	s4 = 1;
-	
-	while (s3 < 5) {
-		s4 = 1;
-		if (s4 < 100) then {
-			s3 = s3 + s4;
-		} else {
-			s3 = s3 + s2;
-		}
-		s2 = s1 + s4;
-	}
-	s1 = s2 * 9 + 10;
-	s4 = s3 * s2;
-}
-
-procedure east {
-	e1 = 1;
-	e2 = 2;
-	e3 = 3;
-	e4 = 4;
-	
-	while (e4 < 10) {
-		e1 = e1 + 1;
-		while (e3 < 15) {
-			if (e2 > 10) then {
-				e2 = e4 - e3;
+	if (w2 < 50) then {
+		if (w3 < 10) then {
+			if (w1 < 50) then {
+				call speed;
 			} else {
-				e2 = e4 + e3;
+				call temperature;
 			}
+		} else {
+			if (w1 > 50) then {
+                w2 = w1 - 100;
+			} else {
+                w3 = w1 - w2 % 50;
+			}
+            w1 = w1 - 100;
 		}
-		e2 = e2 + 2;
-		call south;
+	} else {
+        print w2;
+        w2 = w1 + w3;
 	}
-	print e1;
+	w3 = w1 + w2;
+	w2 = w1 / w3 + w2;
+	print w3;
 }
 
-procedure west {
-	e5 = 10;
-	call north;
-	call east;
-	print e5;
+procedure speed {
+    call wind;
+    speed = 10;
+    distance = 100;
+    travelled = speed * distance;
+    if (speed > 100) then {
+        while (distance > 10000) {
+            distance = distance + speed * 2;
+        }
+    } else {
+        distance = distance - speed * 10;
+        call wind;
+    }
+    print speed;
 }
 
+procedure humidity {
+    read h1;
+    read h2;
+    read h3;
+    h4 = h1 % h2 * h3;
+    print h4;
+}
+
+procedure temperature {
+    call wind;
+    read temp;
+    print temp;
+}

@@ -1,38 +1,38 @@
 <?xml-stylesheet type="text/xsl" href="analysis.xsl"?>
 <test_results>
 <info>
-<name>AutoTester</name><parsing_time_taken>2180.000000</parsing_time_taken>
+<name>AutoTester</name><parsing_time_taken>565.000000</parsing_time_taken>
 </info>
 <queries>
 <query>
 <id ReturnTuple="1" Parent="1" Uses="1" SuchThat="2" CondNum="5" RelNum="2" comment="Variable in RHS of assignments that are in if loops">1</id><querystr><![CDATA[variable v; if i; assign a; Select v such that Uses(a, v) such that Parent(i, a)]]></querystr>
-<stuans>n1,n3,s2,s3,s4,e3,e4</stuans>
+<stuans>w1,w2,w3,speed,distance</stuans>
 <correct></correct>
-<time_taken>157.000000</time_taken>
+<time_taken>1184.000000</time_taken>
 <failed>
 <missing></missing>
-<additional>e3,e4,n1,n3,s2,s3,s4</additional>
+<additional>distance,speed,w1,w2,w3</additional>
 <summary>
 <expected>0</expected>
 <matched>0</matched>
 <missing>0</missing>
-<additional>7</additional>
+<additional>5</additional>
 </summary>
 </failed>
 </query>
 <query>
 <id ReturnTuple="1" Modifies="1" Parentstar="1" SuchThat="2" CondNum="5" RelNum="2" comment="variables in LHS of assignments that are in while loops">2</id><querystr><![CDATA[assign a; while w; variable v;  Select v such that Modifies(a, v) such that Parent*(w, a)]]></querystr>
-<stuans>n4,n1,n3,s2,s3,s4,e1,e2</stuans>
+<stuans>distance</stuans>
 <correct></correct>
-<time_taken>219.000000</time_taken>
+<time_taken>24.000000</time_taken>
 <failed>
 <missing></missing>
-<additional>e1,e2,n1,n3,n4,s2,s3,s4</additional>
+<additional>distance</additional>
 <summary>
 <expected>0</expected>
 <matched>0</matched>
 <missing>0</missing>
-<additional>8</additional>
+<additional>1</additional>
 </summary>
 </failed>
 </query>
@@ -40,7 +40,7 @@
 <id ReturnTuple="1" Modifies="1" Parent="1" UnnamedVar="2" Pattern="1" SuchThat="2" CondNum="8" RelNum="2" comment="assignments that are in if loops and are directly in a if loop with "z" in RHS">3</id><querystr><![CDATA[assign a; if i;  Select a such that Modifies(i, a) such that Parent(i, a) pattern a(_, _"z"_)]]></querystr>
 <stuans></stuans>
 <correct></correct>
-<time_taken>8.000000</time_taken>
+<time_taken>11.000000</time_taken>
 <passed/>
 </query>
 </queries>

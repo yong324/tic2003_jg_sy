@@ -1,5 +1,5 @@
 procedure wind {
-	w1 = 5
+	w1 = 5;
 	read w2;
 	w3 = 200;
 	
@@ -8,7 +8,7 @@ procedure wind {
 			if (w1 < 50) then {
 				call speed;
 			} else {
-				call temperature
+				call temperature;
 			}
 		} else {
 			if (w1 > 50) then {
