@@ -1,37 +1,74 @@
-procedure computeCentroid {
-	count = 0;
-	cenX = 0;
-	cenY = 0;
-	call readPoint;
-	while ((x * x + y * y) > 0) {
-		count = count + 1;
-		cenX = cenX + x;
-		cenY = cenY + y;
-		call readPoint;
-	}
-	if (count < 1) then {
-		flag = 2 + 3 * 5 / 100; 11
+procedure north {
+	n1 = 10 + 30 * 51;
+	n2 = n1 / 56;
+	n3 = n1 * 30 + 10;
+	read n4;
+	
+	if (n4 < 100) then {
+		n4 = n3 - n1;
 	} else {
-		cenX = cenX / count;
-		cenY = cenY / count;
+		while (n4 > 99) {
+			call south;
+			n4 = n2 / n1;
+		}
 	}
-	normSq = cenX * cenX + cenY * cenY;
+	
+	while (n3 < n2) {
+		print n3;
+		n1 = n2 + n3;
+		n3 = n2 - n4;
+	}
+	
+	print n4;
+	
 }
 
-procedure main {
-	flag = 0*5;
-	call computeCentroid;
-	call printResults;
+procedure south {
+	read s1; 
+	read s2; 
+	print s1;
+	
+	s3 = s2 - s1;
+	s4 = 1;
+	
+	while (s3 < 5) {
+		s4 = 1;
+		if (s4 < 100) then {
+			s3 = s3 + s4;
+		} else {
+			s3 = s3 + s2;
+		}
+		s2 = s1 + s4;
+	}
+	s1 = s2 * 9 + 10;
+	s4 = s3 * s2;
 }
 
-procedure readPoint{
-	read x;
-	read y;
-} 
-
-procedure printResults{
-	print flag;
-	print cenX;
-	print cenY;
-	print normSq;
+procedure east {
+	e1 = 1;
+	e2 = 2;
+	e3 = 3;
+	e4 = 4;
+	
+	while (e4 < 10) {
+		e1 = e1 + 1;
+		while (e3 < 15) {
+			if (e2 > 10) then {
+				e2 = e4 - e3;
+			} else {
+				e2 = e4 + e3;
+			}
+		}
+		e2 = e2 + 2;
+		call south;
+	}
+	print e1;
 }
+
+procedure west {
+	e5 = 10;
+	call north;
+	call east;
+	print e5;
+}
+
