@@ -1,26 +1,25 @@
 procedure north {
-	n1 = 
-	n2 = 
-	n3 = 
-	read;
+	n1 = 10 + 30 * 51;
+	n2 = n1 / 56;
+	n3 = n1 * 30 + 10;
+	read n4;
 	
-	if () then {
-	
+	if (n4 < 100) then {
+		n4 = n3 - n1;
 	} else {
-		while () {
-		
+		while (n4 > 99) {
+			call south;
+			n4 = n2 / n1;
 		}
 	}
 	
-	while () {
-	
+	while (n3 < n2) {
+		print n3;
+		n1 = n2 + n3;
+		n3 = n2 - n4
 	}
 	
-	=
-	=
-	=
-	
-	print;
+	print n4;
 	
 }
 
@@ -29,20 +28,20 @@ procedure south {
 	read s2; 
 	print s1;
 	
-	s3 = 
+	s3 = s2 - s1;
 	s4 = 1;
 	
-	while () {
+	while (s3 < 5) {
 		s4 = 1;
-		if () then {
-		
+		if (s4 < 100) then {
+			s3 = s3 + s4;
 		} else {
-			call ;
+			s3 = s3 + s2
 		}
-		=
+		s2 = s1 + s4;
 	}
-	= 
-	= 
+	s1 = s2 * 9 + 10;
+	s4 = s3 * s2;
 }
 
 procedure east {
@@ -51,47 +50,25 @@ procedure east {
 	e3 = 3;
 	e4 = 4;
 	
-	while () {
+	while (e4 < 10) {
 		e1 = e1 + 1;
-		while () {
-			if () then {
-			
+		while (e3 < 15) {
+			if (e2 > 10) then {
+				e2 = e4 - e3;
 			} else {
-			
+				e2 = e4 + e3
 			}
 		}
 		e2 = e2 + 2;
-		call ;
+		call south;
 	}
-	=
-	=
-	print ;
+	print e1;
 }
 
 procedure west {
-	w1 = 
-	read w2;
-	w3 = 
-	
-	if () then {
-		if () then {
-			if () then {
-				call 
-			} else {
-				call 
-			}
-		} else {
-			if () then {
-			
-			} else {
-			
-			}		
-		}
-	} else {
-	
-	}
-	=
-	= 
-	print;
+	e5 = 10;
+	call north;
+	call east;
+	print e5;
 }
 

@@ -30,12 +30,11 @@ procedure main2 {
 	print C;
 	
 	D = 5 * A;
-	while () {
+	while (D < 10) {
 		E = 1;
 		if (C < 10) then {
 			C = D + E (9%A);
 		} else {
-			call main;
 			D = B % 20;
 		}
 		print D;
