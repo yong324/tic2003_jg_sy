@@ -1,8 +1,0 @@
-procedure main {
-	age = 21;
-	name = john;
-	read school;
-	print school;
-	print age;
-	print name;
-}

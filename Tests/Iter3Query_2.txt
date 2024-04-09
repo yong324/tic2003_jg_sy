@@ -1,180 +1,65 @@
-1 - SELECT ASSIGNMENTS IN WHILE LOOP
-assign a; while w;
-Select a such that Parent (w,a)
-6,7
+1 - returns variable that is modified in a while loop with RHS pattern _s1+s4_
+variable v; assign a; while w;
+Select v such that Modifies(a,v) such that Parent(w,a) pattern a (_, _"s1+s4"_)
+s2
 5000
-2 - SELECT ASSIGNMENTS THAT HAVE LINEIDX 5 AS PARENTS
-assign a; 
-Select a such that Parent (5,a)
-6,7
-5000
-3 - SELECT WHILE LOOPS THAT HAS PRINTS
-print p; while w;
-Select p such that Parent (w,p)
-11
-5000
-4 - SELECT ASSIGNMENTS IN WHILE LOOP
-assign a; while w;
-Select a such that Parent* (w,a)
-6,7,9,10
-5000
-5 - SELECT IF LOOPS THAT HAS ASSIGNMENTS
-assign a; if i;
-Select i such that Parent* (i,a)
-8,12
-5000
-6 - SELECT WHILE LOOPS THAT HAS PRINTS
-print p; while w;
-Select p such that Parent* (w,p)
-11
-5000
-7 - SELECT ALL READ VARIABLES
-read r; variable v;
-Select v such that Modifies (r,v)
-x
-5000
-8 - SELECT ALL STATEMENTS THAT MODIFIES x
-assign a;
-Select a such that Modifies (_,"x")
-4,7
-5000
-9 - SELECT VARIABLES MODIFIED IN LINE 7
-variable v;
-Select v such that Modifies (7,v)
-x
-5000
-10 - SELECT ASSIGNMENTS WITH x IN RHS
-assign a;
-Select a pattern a( _ , _"x"_)
-4,7,10,13
-5000
-11 - SELECT ASSIGNMENTS WHERE LHS = y
-assign a;
-Select a pattern a( "y" , _ )
-2,6,13
-5000
-12 - SELECT ASSIGNMENTS WHERE LHS = y and rhs = x
-assign a;
-Select a pattern a( "y" , "x" )
-13
-5000
-13 - SELECT ALL WHILE LOOPS THAT HAS AN ASSIGNMENT WITH x IN RHS
-assign a; while w;
-Select w such that Parent (w,a) pattern a ( _ , _"x"_)
-5   
-5000
-14 -  SELECT ALL ASSIGNMENTS THAT HAS AN ASSIGNMENT WITH y IN LHS THAT ARE IN IF LOOPS 
-assign a; if i;
-Select a such that Parent (i,a) pattern a ("y", _)
-13
-5000
-15 - SELECT IF LOOPS THAT HAS AN ASSIGNMENT WITH LHS = y AND RHS HAS X
-assign a; if i;
-Select i such that Parent(i,a) pattern a ("y",_"x"_)
-12
-5000
-16 - SELECT VARIABLES THAT ARE MODIFIED THAT HAS x IN RHS EXPRESSION
-variable v; assign a;
-Select v such that Modifies (a,v) pattern a (_,_"x"_) 
-x,y,z
-5000
-17 - SELECT ASSIGNMENTS THAT MODIFIES x AND HAS z IN RHS EXPRESSION
-variable v; assign a;
-Select a such that Modifies (a,"x") pattern a (_,_"z"_)
+2 - assignments that are in while loops and modifies a variable with z in RHS
+assign a; while w; variable v;
+Select a such that Modifies(a, "e3") such that Parent*(w, a) pattern a(_, _"e4"_)
 
 5000
-18 - SELECT Y IF IT IS MODIFIED
-assign a; variable v;
-Select v such that Modifies (a,v) pattern a ("y", _)
-y
+3 - returns while and assignments that are in while loops, which modifies a variable with pattern xyz + 123 in RHS
+while w; assign a; variable v;
+Select <w,a> such that Parent*(w,a) such that Modifies(a,v) pattern a (_, _"s3+s4"_)
+20 23
 5000
-19 - SELECT PROCEDURES WITH THE ASSIGNMENT STATEMENT x = y+1
+4 - variables in LHS of assignments that are in while loops
+assign a; while w; variable v; 
+Select v such that Modifies(a, v) such that Parent*(w, a)
+n4,n1,n3,s4,s3,s2,e1,e2
+5000
+5 - procedures that have an assignment in a while loop that has x in LHS
+procedure p; assign a; while w; print pr; variable v;
+Select p such that Calls(p,"north") such that Uses(pr,v) pattern a ( "e5" , _)
+west
+5000
+6 - return variables that are read in procedures that calls south
+procedure p; assign a; variable v; read r;
+Select v such that Calls*(p, "south") such that Modifies(r,v) such that Uses (p,v)
+n4,s1,s2
+5000
+7 - returns while loops with an assignment with 1 in RHS that is in a while loop
+assign a; while w; variable v;
+Select w pattern a (_,_"s3"_) such that Uses(w, "s1") such that Parent* (w, a)
+20
+5000
+8 - returns an assignment in a procedure in if loops that calls south uses the variable e4 
 procedure p; assign a;
-Select p such that Modifies (p,a) pattern a ( "x","y+1")
-
+Select p such that Calls(p, "north") such that Uses(p, "e5")
+west
 5000
-20 - SELECT ASSIGNMENTS IN WHILE LOOP THAT HAS z IN RHS
-assign a; while w;
-Select w such that Parent* (w,a) pattern a ( _ , _"z"_)
-5
+9 - while loops which modifies s3 with an rhs with s3+s2
+assign a; variable v; while w;
+Select w such that Parent*(w, a) such that Modifies(w,"s3") pattern a (_,_"s3+s2"_)
+20
 5000
-21 - SELECT ASSIGNMENTS IN IF LOOPS THAT HAS z IN RHS
-assign a; if i;
-Select i such that Parent* (i,a) pattern a ( _ , _"z"_)
-8
+10 - Variable in RHS of assignments that are in if loops
+variable v; if i; assign a;
+Select v such that Uses(a, v) such that Parent(i, a) 
+n1,n3,s2,s3,s4,e3,e4
 5000
-22 - SELECT IF LOOPS THAT HAS ASSIGNMENT z = y
-assign a; if i;
-Select i such that Parent (i,a) pattern a ("z","y")
+11 - return while loops that have assignments and modifies variables with n2 + n3 at rhs
+assign a; while w; variable v;
+Select a such that Parent*(w,a) such that Modifies(w,v) pattern a (_,_"n2 + n3"_)
 12
 5000
-23 - SELECT ASSIGNMENTS THAT ARE CHILD OF LINE 5
-assign a;
-Select a such that Parent (5,a)
-6, 7
+12 - return assignments and values that are in while loops with E in LHS
+variable v; assign a; while w;
+Select <a,v> such that Modifies(a, v) such that Parent*(w, a) pattern a ("n4",_)
+9 n4
 5000
-24 - SELECT ASSIGNMENTS THAT ARE CHILD OF LINE 5
-assign a;
-Select a such that Parent* (5,a)
-6,7,9,10
-5000
-25 - SELECT VARIABLE THAT IS MODIFIED IN LINE 5
-variable v;
-Select v such that Modifies(4,v)
-x
-5000
-26 - SELECT WHILE THAT HAS A CHILD IN LINE 5
-while w;
-Select w such that Parent (w,7)
-5
-5000
-27 - SELECT ALL VARIABLE
-variable v;
-Select v
-y,z,x
-5000
-28 - SELECT ALL ASSIGNMENT
-assign a;
-Select a
-2,3,4,6,7,9,10,13,14
-5000
-29 - SELECT ALL IFS
-if i;
-Select i
-8,12
-5000
-30 - SELECT ALL PRINTS
-print p;
-Select p
-11,15
-5000 
-31 - SELECT ALL PROCEDURES
-procedure p;
-Select p
-main
-5000 
-32 - SELECT ALL READ
-read r;
-Select r
-1
-5000 
-33 - SELECT ALL WHILES
-while w;
-Select w
-5
-5000 
-34 - SELECT PROCEDURES THAT MODIFIES
-procedure p; variable v;
-Select p such that Modifies(2, v)
-main
-5000
-35 - SELECT VARIABLES IF LINE 6 IS PARENT OF 5
-variable v;
-Select v such that Parent(6, 5)
-
-5000
-36 - SELECT VARIABLES IF LINE 5 IS PARENT OF 6
-variable v;
-Select v such that Parent(5, 6)
-y,z,x
+13 - returns procedures and variable 
+procedure p; while w; assign a; variable v; if i;
+Select <w,a> such that Parent*(w, a) such that Uses(w,"e1") pattern a ("e2",_)
+32 36,32 37,32 38
 5000

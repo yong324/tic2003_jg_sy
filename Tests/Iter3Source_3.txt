@@ -8,7 +8,7 @@ procedure wind {
 			if (w1 < 50) then {
 				call speed;
 			} else {
-				call temperature;
+				call humidity;
 			}
 		} else {
 			if (w1 > 50) then {
