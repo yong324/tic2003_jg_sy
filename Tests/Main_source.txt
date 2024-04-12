@@ -1,58 +1,60 @@
-procedure wind {
-	w1 = 5;
-	read w2;
-	w3 = 200;
-	
-	if (w2 < 50) then {
-		if (w3 < 10) then {
-			if (w1 < 50) then {
-				call speed;
-			} else {
-				call temperature;
-			}
+procedure main {
+	read x;
+	y = 10;
+	z = 20;
+	x = x + 1;
+	call main2;
+	while (x < 20) {
+		y = y + 2;
+		x = x + 1;
+		if (y > 20) then {
+			z = z - 20;
 		} else {
-			if (w1 > 50) then {
-                w2 = w1 - 100;
-			} else {
-                w3 = w1 - w2 % 50;
-			}
-            w1 = w1 - 100;
+			z = x;
 		}
-	} else {
-        print w2;
-        w2 = w1 + w3;
+		print x;
 	}
-	w3 = w1 + w2;
-	w2 = w1 / w3 + w2;
-	print w3;
+	if (y < x) then {
+		y = x;
+	} else {
+		z = y;
+	}
+	print z;
+	
 }
 
-procedure speed {
-    call wind;
-    speed = 10;
-    distance = 100;
-    travelled = speed * distance;
-    if (speed > 100) then {
-        while (distance > 10000) {
-            distance = distance + speed * 2;
-        }
-    } else {
-        distance = distance - speed * 10;
-        call wind;
-    }
-    print speed;
+procedure main2 {
+	A = 5;
+	B = 10;
+	C = A + B;
+	print C;
+	
+	D = 5 * A;
+	while (D < 10) {
+		E = 1;
+		if (C < 10) then {
+			C = D + E (9%A);
+		} else {
+			D = B % 20;
+		}
+		print D;
+	}
+	
+	print C;
 }
 
-procedure humidity {
-    read h1;
-    read h2;
-    read h3;
-    h4 = h1 % h2 * h3;
-    print h4;
+procedure main3 {
+	call main2;
+	read abc;
+	read xyz;
+	
+	def = abc * (xyz + 123);
+	abc = def / xyz;
+	print def;
+	print abc;
 }
 
-procedure temperature {
-    call wind;
-    read temp;
-    print temp;
+procedure main4 {
+	call main3;
+	call main1;
 }

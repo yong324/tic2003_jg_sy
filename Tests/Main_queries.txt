@@ -1,15 +1,65 @@
 1 - Variable in RHS of assignments that are in if loops
 variable v; if i; assign a;
 Select v such that Uses(a, v) such that Parent(i, a)
-
+y,x,z,D,E,B,A
 5000
 2 - variables in LHS of assignments that are in while loops
 assign a; while w; variable v; 
 Select v such that Modifies(a, v) such that Parent*(w, a)
+x,y,z,E,C,D
+5000
+3 - assignments that are in if loops and are directly in a if loop with z in RHS
+assign a; while w; variable v;
+Select a such that Modifies(a, v) such that Parent*(w, a) pattern a(_, _"z"_)
+10
+5000
+4 - ifs that are in while loops, which has an assignment value with expression D+E
+assign a; variable v; while w;
+Select w such that Parent*(w, a) such that Modifies(w,v) pattern a (_,_"D+E"_)
+22
+5000
+5 - procedures that have an assignment in a while loop that has x in LHS
+procedure p; assign a; while w;
+Select p such that Calls(p,"main2") such that Parent(w,a) pattern a ( "x" , _)
+main
+5000
+6 - returns procedures and variable !!!
+procedure p; while w; assign a; variable v; if i;
+Select <w,a> such that Calls(p,"main2") such that Parent*(w, a) such that Uses(i,v) pattern a (_,"def/xyz")
+main2 33
+5000
+7 - return procedures that calls main2 and has abc in LHS of assignments
+procedure p; assign a;
+Select p such that Calls*(p, "main2") such that Modifies(p,a) pattern a ("abc",_)
+main3
+5000
+8 - returns an assignment in a procedure that calls main2 and uses variabble x that are in if loops
+procedure p; if i; assign a;
+Select a such that Calls(p, "main2") such that Uses(p,"z") such that Parent(i,a)
+10,11,14,15
+5000
+9 - returns while and assignments that are in while loops, which modifies a variable with pattern xyz + 123 in RHS
+while w; assign a; variable v;
+Select <w,a> such that Parent*(w,a) such that Modifies(a,v) pattern a (_, _"xyz + 123"_)
 
 5000
-3 - assignments that are in if loops and are directly in a if loop with "z" in RHS
-assign a; if i; 
-Select a such that Modifies(i, a) such that Parent(i, a) pattern a(_, _"z"_)
-
+10 - returns variable that is modified in a while loop with RHS pattern _x+1_
+variable v; assign a; while w;
+Select v such that Modifies(a,v) such that Parent(w,a) pattern a (_, _"x+1"_)
+x
+5000
+11 - return ifs that have an assignment value in a while loop with z-20 in RHS
+assign a; if i; while w;
+Select i such that Parent*(w,a) such that Uses(i,a) pattern a (_,_"z-20"_)
+9
+5000
+12 - return assignments and values that are in while loops with E in LHS
+variable v; assign a; while w;
+Select <a,v> such that Modifies(a, v) such that Parent*(w, a) pattern a ("E",_)
+23 E
+5000
+13 - returns while loops with an assignment with 1 in RHS that is in a while loop
+assign a; while w; variable v;
+Select w pattern a (_,_"1"_) such that Uses(w, v) such that Parent* (w, a)
+6,22
 5000

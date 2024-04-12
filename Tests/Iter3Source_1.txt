@@ -33,7 +33,7 @@ procedure main2 {
 	while (D < 10) {
 		E = 1;
 		if (C < 10) then {
-			C = D + E (9%A);
+			C = D + E * (9 % A);
 		} else {
 			D = B % 20;
 		}
@@ -56,5 +56,5 @@ procedure main3 {
 
 procedure main4 {
 	call main3;
-	call main1;
+	call main;
 }
