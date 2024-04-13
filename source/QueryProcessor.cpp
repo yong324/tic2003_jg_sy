@@ -33,11 +33,15 @@ Query* QueryProcessor::parseQuery(const string & query)
         tIndex++;
         do
         {
+            // Sample query : Select <p,v> such that Modifies(p, v)
+            // Push "p" and "v" from "<p,v>" in sample query
             selectionVars.push_back(tokens[tIndex++]);
         } while (tokens[tIndex++] != ">");
     }
     else
     {
+        // Sample query : Select c1 such that Modifies(c1, v) 
+        // Push "c1" from sample query
         selectionVars.push_back(tokens[tIndex++]);
     }
 
@@ -48,7 +52,6 @@ Query* QueryProcessor::parseQuery(const string & query)
         // Parsing additional structures like Such That and Pattern
         parseSelectionStructures(tokens, selection_structures, tIndex);
     }
-
     return new Query{ synonyms, selectionVars, selection_structures };
 }
 
@@ -73,6 +76,7 @@ void QueryProcessor::evaluate(const string & query, vector<string>&output)
     delete query_obj;
 }
 
+// Helper function to parse synonyms and their types from the query tokens.
 void QueryProcessor::parseSynonyms(vector<string>&tokens, map<string, string>&synonyms, size_t & tIndex)
 {
     // example: procedure c1; variable v; assign a; if if1, if2;
@@ -97,6 +101,7 @@ void QueryProcessor::parseSynonyms(vector<string>&tokens, map<string, string>&sy
     } while (tokens[tIndex] != "Select");
 }
 
+// Helper function to parse additional selection structures like Such That and Pattern.
 void QueryProcessor::parseSelectionStructures(vector<string>&tokens, list<SelectionStructure*>&selection_structures,
     size_t & tIndex)
 {
@@ -104,10 +109,14 @@ void QueryProcessor::parseSelectionStructures(vector<string>&tokens, list<Select
     {
         if (tokens[tIndex] == "such")
         {
+            // Sample query : Select c1 such that Modifies(c1, v) pattern a (v,_"1"_) such that Parent(if1, a) such that Parent(if2, if1)
+            // Push "Modifies(c1, v)" to back of selection_structures list with SelectionStructure in format of {relRef: 0, ref1_type: 7, ref1: "c1", ref2_type: 7, ref2: "v"}
             selection_structures.push_back(parseSuchThat(tokens, tIndex));
         }
         else if (tokens[tIndex] == "pattern")
         {
+            // Sample query : Select c1 such that Modifies(c1, v) pattern a (v,_"1"_) such that Parent(if1, a) such that Parent(if2, if1)
+            // Push "pattern a (v,_"1"_)" to front of selection_structures list with SelectionStructure in format of {syn_assign: "a", entRef_type: 7, entRef: "v", spec_type: 11, expression_spec: "1"}
             selection_structures.push_front(parsePattern(tokens, tIndex));
         }
         else
@@ -117,6 +126,7 @@ void QueryProcessor::parseSelectionStructures(vector<string>&tokens, list<Select
     }
 }
 
+// Helper function to parse Such That selection structures from query tokens.
 SuchThatSelection* QueryProcessor::parseSuchThat(vector<string>&tokens, size_t & tIndex)
 {
     tIndex += 2; // Assuming "such that" are two separate tokens and we move past "that"
@@ -199,6 +209,7 @@ SuchThatSelection* QueryProcessor::parseSuchThat(vector<string>&tokens, size_t &
     return new SuchThatSelection(relRef, ref1_type, ref1, ref2_type, ref2);
 }
 
+// Helper function to parse Pattern selection structures from query tokens.
 PatternSelection* QueryProcessor::parsePattern(vector<string>&tokens, size_t & tIndex)
 {
     string entRef;
