@@ -1,58 +1,58 @@
 <?xml-stylesheet type="text/xsl" href="analysis.xsl"?>
 <test_results>
 <info>
-<name>AutoTester</name><parsing_time_taken>993.000000</parsing_time_taken>
+<name>AutoTester</name><parsing_time_taken>885.000000</parsing_time_taken>
 </info>
 <queries>
 <query>
-<id ReturnTuple="1" Calls="1" Uses="1" SuchThat="2" CondNum="5" RelNum="2" comment="returns all variables in a procedure calls wind">1</id><querystr><![CDATA[procedure p; variable v; Select v such that Calls(p, "wind") such that Uses(p, v)]]></querystr>
-<stuans>w1,w2,w3,speed,distance,h1,h2,h3,h4,temp</stuans>
+<id ReturnTuple="1" Calls="1" Uses="1" SuchThat="2" CondNum="5" RelNum="2" comment="returns all variables in a procedure that calls wind">1</id><querystr><![CDATA[procedure p; variable v; Select p such that Calls(p, "wind") such that Uses(p, v)]]></querystr>
+<stuans>speed,temperature</stuans>
 <correct>speed,distance,temp,w1,w2,w3</correct>
-<time_taken>59.000000</time_taken>
+<time_taken>82.000000</time_taken>
 <failed>
-<missing></missing>
-<additional>h1,h2,h3,h4</additional>
+<missing>distance,temp,w1,w2,w3</missing>
+<additional>temperature</additional>
 <summary>
 <expected>6</expected>
-<matched>6</matched>
-<missing>0</missing>
-<additional>4</additional>
+<matched>1</matched>
+<missing>5</missing>
+<additional>1</additional>
 </summary>
 </failed>
 </query>
 <query>
-<id ReturnTuple="1" Modifies="1" Parentstar="1" UnnamedVar="2" Pattern="1" SuchThat="2" CondNum="8" RelNum="2" comment="returns while and assignments that are in while loops, which modifies a variable with pattern xyz + 123 in RHS">2</id><querystr><![CDATA[if i; assign a; variable v; Select <i,a> such that Parent*(i,a) such that Modifies(a,"w1") pattern a (_, _"w1-100"_)]]></querystr>
+<id ReturnTuple="1" Modifies="1" Parentstar="1" UnnamedVar="2" Pattern="1" SuchThat="2" CondNum="8" RelNum="2" comment="returns while and assignments that are in while loops, which modifies a variable with pattern w1-100 in RHS">2</id><querystr><![CDATA[if i; assign a; variable v; Select <i,a> such that Parent*(i,a) such that Modifies(a,"w1") pattern a (_, _"w1-100"_)]]></querystr>
 <stuans>4 12,5 12</stuans>
 <correct>4 12,5 12</correct>
-<time_taken>113.000000</time_taken>
+<time_taken>146.000000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" Parentstar="1" UnnamedVar="1" Uses="1" Pattern="1" SuchThat="2" CondNum="7" RelNum="2" comment="returns procedures and variable">3</id><querystr><![CDATA[procedure p; assign a; variable v; if i; Select <i,a> such that Parent*(i, a) such that Uses(i,"speed") pattern a ("distance",_)]]></querystr>
 <stuans>22 24,22 25</stuans>
 <correct>22 24,22 25</correct>
-<time_taken>734.000000</time_taken>
+<time_taken>598.000000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" Modifies="1" Parentstar="1" SuchThat="2" CondNum="5" RelNum="2" comment="variables in LHS of assignments that are in while loops">4</id><querystr><![CDATA[assign a; while w; variable v;  Select v such that Modifies(a, v) such that Parent*(w, a)]]></querystr>
 <stuans>distance</stuans>
 <correct>distance</correct>
-<time_taken>61.000000</time_taken>
+<time_taken>51.000000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" Parent="1" UnnamedVar="1" Uses="1" Pattern="1" SuchThat="2" CondNum="7" RelNum="2" comment="Variable in RHS of assignments that are in if loops">5</id><querystr><![CDATA[variable v; if i; assign a; Select v such that Uses(a, v) such that Parent(i, a) pattern a (_,_"w1"_)]]></querystr>
 <stuans>w1,w2,w3</stuans>
 <correct>w1,w2,w3</correct>
-<time_taken>222.000000</time_taken>
+<time_taken>229.000000</time_taken>
 <passed/>
 </query>
 <query>
-<id ReturnTuple="1" Callsstar="1" Modifies="1" Uses="1" SuchThat="3" CondNum="7" RelNum="3" comment="return variables that are read in procedures that calls south">6</id><querystr><![CDATA[procedure p; assign a; variable v; read r; Select v such that Calls*(p, "wind") such that Modifies(r,v) such that Uses (p,v)]]></querystr>
+<id ReturnTuple="1" Callsstar="1" Modifies="1" Uses="1" SuchThat="3" CondNum="7" RelNum="3" comment="return variables that are read in procedures that calls wind">6</id><querystr><![CDATA[procedure p; assign a; variable v; read r; Select v such that Calls*(p, "wind") such that Modifies(r,v) such that Uses (p,v)]]></querystr>
 <stuans>w2,h1,h2,h3,temp</stuans>
 <correct>temp,w2</correct>
-<time_taken>1789.000000</time_taken>
+<time_taken>1798.000000</time_taken>
 <failed>
 <missing></missing>
 <additional>h1,h2,h3</additional>
@@ -65,52 +65,52 @@
 </failed>
 </query>
 <query>
-<id ReturnTuple="1" Modifies="1" Parentstar="1" UnnamedVar="1" Pattern="1" SuchThat="2" CondNum="7" RelNum="2" comment="return assignments and values that are in while loops with E in LHS">7</id><querystr><![CDATA[variable v; assign a; if i; Select <a,v> such that Modifies(a, v) such that Parent*(i, a) pattern a ("w2",_)]]></querystr>
+<id ReturnTuple="1" Modifies="1" Parentstar="1" UnnamedVar="1" Pattern="1" SuchThat="2" CondNum="7" RelNum="2" comment="return assignments and values that are in while loops with w2 in LHS">7</id><querystr><![CDATA[variable v; assign a; if i; Select <a,v> such that Modifies(a, v) such that Parent*(i, a) pattern a ("w2",_)]]></querystr>
 <stuans>10 w2,14 w2</stuans>
 <correct>10 w2,14 w2</correct>
-<time_taken>130.000000</time_taken>
+<time_taken>112.000000</time_taken>
 <passed/>
 </query>
 <query>
-<id ReturnTuple="1" Parentstar="1" UnnamedVar="1" Uses="1" Pattern="1" SuchThat="2" CondNum="7" RelNum="2" comment="returns while loops with an assignment with 1 in RHS that is in a while loop">8</id><querystr><![CDATA[assign a; if i; variable v; Select i pattern a (_,_"w2"_) such that Uses(i, "w2") such that Parent* (i, a)]]></querystr>
+<id ReturnTuple="1" Parentstar="1" UnnamedVar="1" Uses="1" Pattern="1" SuchThat="2" CondNum="7" RelNum="2" comment="returns while loops with an assignment with w2 in RHS that is in a while loop">8</id><querystr><![CDATA[assign a; if i; variable v; Select i pattern a (_,_"w2"_) such that Uses(i, "w2") such that Parent* (i, a)]]></querystr>
 <stuans>4,5,9</stuans>
 <correct>4,5,9</correct>
-<time_taken>157.000000</time_taken>
+<time_taken>163.000000</time_taken>
 <passed/>
 </query>
 <query>
-<id ReturnTuple="1" Modifies="1" Parent="1" UnnamedVar="2" Pattern="1" SuchThat="2" CondNum="8" RelNum="2" comment="returns variable that is modified in a while loop with RHS pattern _s1+s4_">9</id><querystr><![CDATA[variable v; assign a; while w; Select v such that Modifies(a,v) such that Parent(w,a) pattern a (_, _"speed*2"_)]]></querystr>
+<id ReturnTuple="1" Modifies="1" Parent="1" UnnamedVar="2" Pattern="1" SuchThat="2" CondNum="8" RelNum="2" comment="returns variable that is modified in a while loop with RHS pattern speed*2">9</id><querystr><![CDATA[variable v; assign a; while w; Select v such that Modifies(a,v) such that Parent(w,a) pattern a (_, _"speed*2"_)]]></querystr>
 <stuans>distance</stuans>
 <correct>distance</correct>
-<time_taken>27.000000</time_taken>
+<time_taken>33.000000</time_taken>
 <passed/>
 </query>
 <query>
-<id ReturnTuple="1" Modifies="1" Parentstar="1" UnnamedVar="1" Pattern="1" SuchThat="2" CondNum="7" RelNum="2" comment="while loops which modifies s3 with an rhs with s3+s2">10</id><querystr><![CDATA[assign a; variable v; if i; Select i such that Parent*(i, a) such that Modifies(i,"w1") pattern a (_,_"w2"_)]]></querystr>
+<id ReturnTuple="1" Modifies="1" Parentstar="1" UnnamedVar="1" Pattern="1" SuchThat="2" CondNum="7" RelNum="2" comment="while loops which modifies s3 with an rhs with w2">10</id><querystr><![CDATA[assign a; variable v; if i; Select i such that Parent*(i, a) such that Modifies(i,"w1") pattern a (_,_"w2"_)]]></querystr>
 <stuans>4,5</stuans>
 <correct>4,5</correct>
-<time_taken>115.000000</time_taken>
+<time_taken>138.000000</time_taken>
 <passed/>
 </query>
 <query>
-<id ReturnTuple="1" Calls="1" Uses="2" SuchThat="3" CondNum="7" RelNum="3" comment="procedures that have an assignment in a while loop that has x in LHS">11</id><querystr><![CDATA[procedure p; assign a; while w; print pr; variable v; Select p such that Calls(p,"wind") such that Uses(pr,"temp") such that Uses(p,"temp")]]></querystr>
+<id ReturnTuple="1" Calls="1" Uses="2" SuchThat="3" CondNum="7" RelNum="3" comment="procedures that have an assignment in a while loop that has temp in LHS">11</id><querystr><![CDATA[procedure p; assign a; while w; print pr; variable v; Select p such that Calls(p,"wind") such that Uses(pr,"temp") such that Uses(p,"temp")]]></querystr>
 <stuans>temperature</stuans>
 <correct>temperature</correct>
-<time_taken>1268.000000</time_taken>
+<time_taken>1329.000000</time_taken>
 <passed/>
 </query>
 <query>
-<id ReturnTuple="1" Modifies="1" Parentstar="1" UnnamedVar="1" Pattern="1" SuchThat="2" CondNum="7" RelNum="2" comment="return while loops that have assignments and modifies variables with n2 + n3 at rhs">12</id><querystr><![CDATA[assign a; if i; variable v; Select a such that Parent*(i,a) such that Modifies(i,v) pattern a (_,_"w2%50"_)]]></querystr>
+<id ReturnTuple="1" Modifies="1" Parentstar="1" UnnamedVar="1" Pattern="1" SuchThat="2" CondNum="7" RelNum="2" comment="return while loops that have assignments and modifies variables with w2%50 at rhs">12</id><querystr><![CDATA[assign a; if i; variable v; Select a such that Parent*(i,a) such that Modifies(i,v) pattern a (_,_"w2%50"_)]]></querystr>
 <stuans>11</stuans>
 <correct>11</correct>
-<time_taken>88.000000</time_taken>
+<time_taken>84.000000</time_taken>
 <passed/>
 </query>
 <query>
-<id ReturnTuple="1" Modifies="1" Parentstar="1" UnnamedVar="2" Pattern="1" SuchThat="2" CondNum="8" RelNum="2" comment="assignments that are in if loops and modifies a variable with z in RHS">13</id><querystr><![CDATA[assign a; if i; variable v; Select a such that Modifies(a, "distance") such that Parent*(i, a) pattern a(_, _"speed"_)]]></querystr>
+<id ReturnTuple="1" Modifies="1" Parentstar="1" UnnamedVar="2" Pattern="1" SuchThat="2" CondNum="8" RelNum="2" comment="assignments that are in if loops and modifies a variable with speed in RHS">13</id><querystr><![CDATA[assign a; if i; variable v; Select a such that Modifies(a, "distance") such that Parent*(i, a) pattern a(_, _"speed"_)]]></querystr>
 <stuans>24,25</stuans>
 <correct>24,25</correct>
-<time_taken>158.000000</time_taken>
+<time_taken>147.000000</time_taken>
 <passed/>
 </query>
 </queries>

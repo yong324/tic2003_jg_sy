@@ -1,130 +1,85 @@
 <?xml-stylesheet type="text/xsl" href="analysis.xsl"?>
 <test_results>
 <info>
-<name>AutoTester</name><parsing_time_taken>836.000000</parsing_time_taken>
+<name>AutoTester</name><parsing_time_taken>861.000000</parsing_time_taken>
 </info>
 <queries>
 <query>
 <id ReturnTuple="1" Parent="1" Uses="1" SuchThat="2" CondNum="5" RelNum="2" comment="Variable in RHS of assignments that are in if loops">1</id><querystr><![CDATA[variable v; if i; assign a; Select v such that Uses(a, v) such that Parent(i, a)]]></querystr>
 <stuans>x,y,z,A,B,D,E</stuans>
 <correct>y,x,z,D,E,B,A</correct>
-<time_taken>217.000000</time_taken>
+<time_taken>204.000000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" Modifies="1" Parentstar="1" SuchThat="2" CondNum="5" RelNum="2" comment="variables in LHS of assignments that are in while loops">2</id><querystr><![CDATA[assign a; while w; variable v;  Select v such that Modifies(a, v) such that Parent*(w, a)]]></querystr>
 <stuans>x,y,z,C,D,E</stuans>
 <correct>x,y,z,E,C,D</correct>
-<time_taken>149.000000</time_taken>
+<time_taken>133.000000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" Modifies="1" Parentstar="1" UnnamedVar="2" Pattern="1" SuchThat="2" CondNum="8" RelNum="2" comment="assignments that are in if loops and are directly in a if loop with z in RHS">3</id><querystr><![CDATA[assign a; while w; variable v; Select a such that Modifies(a, v) such that Parent*(w, a) pattern a(_, _"z"_)]]></querystr>
 <stuans>10</stuans>
 <correct>10</correct>
-<time_taken>53.000000</time_taken>
+<time_taken>55.000000</time_taken>
 <passed/>
 </query>
 <query>
-<id ReturnTuple="1" Modifies="1" Parentstar="1" UnnamedVar="1" Pattern="1" SuchThat="2" CondNum="7" RelNum="2" comment="ifs that are in while loops, which has an assignment value with expression D+E">4</id><querystr><![CDATA[assign a; variable v; while w; Select w such that Parent*(w, a) such that Modifies(w,v) pattern a (_,_"D+E"_)]]></querystr>
+<id ReturnTuple="1" Modifies="1" Parentstar="1" UnnamedVar="1" Pattern="1" SuchThat="2" CondNum="7" RelNum="2" comment="ifs that are in while loops, which has an assignment value with expression D+E">4</id><querystr><![CDATA[assign a; variable v; while w; Select w such that Parent*(w, a) such that Modifies (w,v) pattern a (_,_"B%20"_)]]></querystr>
 <stuans>22</stuans>
 <correct>22</correct>
-<time_taken>59.000000</time_taken>
+<time_taken>58.000000</time_taken>
 <passed/>
 </query>
 <query>
-<id ReturnTuple="1" Calls="1" Parent="1" UnnamedVar="1" Pattern="1" SuchThat="2" CondNum="7" RelNum="2" comment="procedures that have an assignment in a while loop that has x in LHS">5</id><querystr><![CDATA[procedure p; assign a; while w; Select p such that Calls(p,"main2") such that Parent(w,a) pattern a ( "x" , _)]]></querystr>
-<stuans>main,main3</stuans>
+<id ReturnTuple="1" Calls="1" Modifies="1" SuchThat="2" CondNum="5" RelNum="2" comment="procedures that have an assignment in a while loop that has x in LHS">5</id><querystr><![CDATA[procedure p; assign a; Select p such that Calls(p,"main2") such that Modifies(p,"x")]]></querystr>
+<stuans>main</stuans>
 <correct>main</correct>
-<time_taken>35.000000</time_taken>
-<failed>
-<missing></missing>
-<additional>main3</additional>
-<summary>
-<expected>1</expected>
-<matched>1</matched>
-<missing>0</missing>
-<additional>1</additional>
-</summary>
-</failed>
+<time_taken>73.000000</time_taken>
+<passed/>
 </query>
 <query>
-<id ReturnTuple="1" Calls="1" Parentstar="1" UnnamedVar="1" Uses="1" Pattern="1" SuchThat="3" CondNum="9" RelNum="3" comment="returns procedures and variable !!!">6</id><querystr><![CDATA[procedure p; while w; assign a; variable v; if i; Select <p,a> such that Calls(p,"main2") such that Parent*(w, a) such that Uses(i,v) pattern a (_,"def/xyz")]]></querystr>
-<stuans></stuans>
-<correct>main2 33</correct>
-<time_taken>685.000000</time_taken>
-<failed>
-<missing>main2 33</missing>
-<additional></additional>
-<summary>
-<expected>1</expected>
-<matched>0</matched>
-<missing>1</missing>
-<additional>0</additional>
-</summary>
-</failed>
+<id ReturnTuple="1" Parentstar="1" Pattern="1" SuchThat="1" CondNum="4" RelNum="1" comment="returns procedures and variable">6</id><querystr><![CDATA[while w; assign a;  Select <w,a> such that Parent*(w, a) pattern a ("z","z-20")]]></querystr>
+<stuans>6 10</stuans>
+<correct>6 10</correct>
+<time_taken>14.000000</time_taken>
+<passed/>
 </query>
 <query>
-<id ReturnTuple="1" Callsstar="1" Modifies="1" UnnamedVar="1" Pattern="1" SuchThat="2" CondNum="7" RelNum="2" comment="return procedures that calls main2 and has abc in LHS of assignments">7</id><querystr><![CDATA[procedure p; assign a; Select p such that Calls*(p, "main2") such that Modifies(p,a) pattern a ("abc",_)]]></querystr>
-<stuans></stuans>
-<correct>main3</correct>
-<time_taken>19.000000</time_taken>
-<failed>
-<missing>main3</missing>
-<additional></additional>
-<summary>
-<expected>1</expected>
-<matched>0</matched>
-<missing>1</missing>
-<additional>0</additional>
-</summary>
-</failed>
+<id ReturnTuple="1" Callsstar="1" UnnamedVar="1" Uses="1" Pattern="1" SuchThat="2" CondNum="7" RelNum="2" comment="return procedures that calls main2 and has abc in LHS of assignments">7</id><querystr><![CDATA[procedure p; assign a; Select p such that Calls*(p, "main2") such that Uses(p,"xyz") pattern a ("abc",_)]]></querystr>
+<stuans>main3,main4</stuans>
+<correct>main3,main4</correct>
+<time_taken>27.000000</time_taken>
+<passed/>
 </query>
 <query>
-<id ReturnTuple="1" Calls="1" Parent="1" Uses="1" SuchThat="3" CondNum="7" RelNum="3" comment="returns an assignment in a procedure that calls main2 and uses variabble x that are in if loops">8</id><querystr><![CDATA[procedure p; if i; assign a; Select a such that Calls(p, "main2") such that Uses(p,"z") such that Parent(i,a)]]></querystr>
-<stuans>10,11,14,15,25,26</stuans>
-<correct>10,11,14,15</correct>
-<time_taken>302.000000</time_taken>
-<failed>
-<missing></missing>
-<additional>25,26</additional>
-<summary>
-<expected>4</expected>
-<matched>4</matched>
-<missing>0</missing>
-<additional>2</additional>
-</summary>
-</failed>
+<id ReturnTuple="1" Parent="1" Uses="1" SuchThat="2" CondNum="5" RelNum="2" comment="returns an assignment in a procedure that calls main2 and uses variabble x that are in if loops">8</id><querystr><![CDATA[procedure p; if i; assign a; Select a such that Parent(i,a) such that Uses(i,"z")]]></querystr>
+<stuans>10,11</stuans>
+<correct>10,11</correct>
+<time_taken>61.000000</time_taken>
+<passed/>
 </query>
 <query>
 <id ReturnTuple="1" Modifies="1" Parentstar="1" UnnamedVar="3" Pattern="1" SuchThat="2" CondNum="9" RelNum="2" comment="returns while and assignments that are in while loops, which modifies a variable with pattern xyz + 123 in RHS">9</id><querystr><![CDATA[while w; assign a; variable v; Select <w,a> such that Parent*(w,a) such that Modifies(a,v) pattern a (_, _"xyz + 123"_)]]></querystr>
 <stuans></stuans>
 <correct></correct>
-<time_taken>43.000000</time_taken>
+<time_taken>44.000000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" Modifies="1" Parent="1" UnnamedVar="2" Pattern="1" SuchThat="2" CondNum="8" RelNum="2" comment="returns variable that is modified in a while loop with RHS pattern _x+1_">10</id><querystr><![CDATA[variable v; assign a; while w; Select v such that Modifies(a,v) such that Parent(w,a) pattern a (_, _"x+1"_)]]></querystr>
 <stuans>x</stuans>
 <correct>x</correct>
-<time_taken>53.000000</time_taken>
+<time_taken>102.000000</time_taken>
 <passed/>
 </query>
 <query>
-<id ReturnTuple="1" Parentstar="1" UnnamedVar="1" Uses="1" Pattern="1" SuchThat="2" CondNum="7" RelNum="2" comment="return ifs that have an assignment value in a while loop with z-20 in RHS">11</id><querystr><![CDATA[assign a; if i; while w; Select i such that Parent*(w,a) such that Uses(i,a) pattern a (_,_"z-20"_)]]></querystr>
-<stuans></stuans>
-<correct>9</correct>
-<time_taken>32.000000</time_taken>
-<failed>
-<missing>9</missing>
-<additional></additional>
-<summary>
-<expected>1</expected>
-<matched>0</matched>
-<missing>1</missing>
-<additional>0</additional>
-</summary>
-</failed>
+<id ReturnTuple="1" Modifies="1" UnnamedVar="1" Uses="1" Pattern="1" SuchThat="2" CondNum="7" RelNum="2" comment="return ifs that have an assignment value in a while loop with z-20 in RHS">11</id><querystr><![CDATA[assign a; if i; while w; variable v; Select i such that Uses(i,"x") such that Modifies(i,"y") pattern a (_,_"x"_)]]></querystr>
+<stuans>13</stuans>
+<correct>13</correct>
+<time_taken>376.000000</time_taken>
+<passed/>
 </query>
 <query>
 <id ReturnTuple="1" Modifies="1" Parentstar="1" UnnamedVar="1" Pattern="1" SuchThat="2" CondNum="7" RelNum="2" comment="return assignments and values that are in while loops with E in LHS">12</id><querystr><![CDATA[variable v; assign a; while w; Select <a,v> such that Modifies(a, v) such that Parent*(w, a) pattern a ("E",_)]]></querystr>
@@ -137,7 +92,7 @@
 <id ReturnTuple="1" Parentstar="1" UnnamedVar="1" Uses="1" Pattern="1" SuchThat="2" CondNum="7" RelNum="2" comment="returns while loops with an assignment with 1 in RHS that is in a while loop">13</id><querystr><![CDATA[assign a; while w; variable v; Select w pattern a (_,_"1"_) such that Uses(w, v) such that Parent* (w, a)]]></querystr>
 <stuans>6,22</stuans>
 <correct>6,22</correct>
-<time_taken>70.000000</time_taken>
+<time_taken>80.000000</time_taken>
 <passed/>
 </query>
 </queries>

@@ -1,7 +1,7 @@
 1 - returns all variables in a procedure that calls wind
 procedure p; variable v;
-Select v such that Calls(p, "wind") such that Uses(p, v)
-speed,distance,temp,w1,w2,w3
+Select p such that Calls(p, "wind") such that Uses(p, v)
+speed,distance,temp,w1,w2,w3,h1,h2,h3
 5000
 2 - returns while and assignments that are in while loops, which modifies a variable with pattern w1-100 in RHS
 if i; assign a; variable v;
@@ -26,7 +26,7 @@ w1,w2,w3
 6 - return variables that are read in procedures that calls wind
 procedure p; assign a; variable v; read r;
 Select v such that Calls*(p, "wind") such that Modifies(r,v) such that Uses (p,v)
-temp,w2
+temp,w2,h1,h2,h3
 5000
 7 - return assignments and values that are in while loops with w2 in LHS
 variable v; assign a; if i;
